@@ -1,0 +1,16 @@
+[
+{
+  "modid": "dazzle",
+  "name": "Dazzle",
+  "description": "Some lights???",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["quaternary"],
+  "credits": "Your mom",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
