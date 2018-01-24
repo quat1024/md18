@@ -5,9 +5,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.*;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import quaternary.dazzle.Dazzle;
+
+import javax.annotation.Nullable;
 
 public class BlockInvisibleLightSource extends Block {
 	
@@ -79,11 +82,19 @@ public class BlockInvisibleLightSource extends Block {
 		return false;
 	}
 	
+	//Make it non collideable
 	public boolean canCollideCheck(IBlockState state, boolean hitIfLiquid)
 	{
 		return false;
 	}
 	
+	@Nullable
+	@Override
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+		return NULL_AABB;
+	}
+	
+	//Uhh
 	@Override
 	public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos)
 	{
