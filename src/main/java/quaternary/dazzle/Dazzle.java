@@ -28,7 +28,6 @@ public class Dazzle {
 	public static final List<BlockBase> BLOCKS = Lists.newArrayList(
 		new BlockInvisibleLightSource(),
 		new BlockLightPanel(),
-		new BlockAnalogLamp(),
 		new BlockStadiumLightBase(),
 		new BlockStadiumLightPole()
 	);
@@ -36,6 +35,16 @@ public class Dazzle {
 	static {
 		for(EnumDyeColor c : EnumDyeColor.values()) {
 			BLOCKS.add(new BlockDigitalLamp(c));
+		}
+		
+		for(EnumDyeColor c : EnumDyeColor.values()) {
+			BlockAnalogLamp normal = new BlockAnalogLamp(c, false);
+			BlockAnalogLamp inverse = new BlockAnalogLamp(c, true);
+			normal.setInverseBlockstate(inverse.getDefaultState());
+			inverse.setInverseBlockstate(normal.getDefaultState());
+			
+			BLOCKS.add(normal);
+			BLOCKS.add(inverse);
 		}
 	}
 	
