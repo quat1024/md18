@@ -5,6 +5,7 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.EnumFacing;
@@ -28,6 +29,7 @@ public class BlockBase extends Block {
 		setUnlocalizedName(Dazzle.MODID + "." + name);
 	}
 	
+	//item form management
 	Item itemForm;
 	
 	public boolean hasItemForm() {
@@ -41,8 +43,13 @@ public class BlockBase extends Block {
 		return itemForm;
 	}
 	
-	public boolean isCompletelyInvisible() {
+	//custom statemapper management
+	public boolean hasCustomStatemapper() {
 		return false;
+	}
+	
+	public IStateMapper getCustomStatemapper() {
+		return null;
 	}
 	
 	@Override

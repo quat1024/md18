@@ -24,22 +24,6 @@ public class BlockAnalogLamp extends BlockBase {
 		return state.getValue(LIGHT_LEVEL);
 	}
 	
-	//Blockstate boilerplate lol
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(LIGHT_LEVEL);
-	}
-	
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(LIGHT_LEVEL, meta);
-	}
-	
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, LIGHT_LEVEL);
-	}
-	
 	//Updating light level
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
 		if(!world.isRemote) updateLevel(world, pos, world.isBlockIndirectlyGettingPowered(pos));
@@ -53,5 +37,21 @@ public class BlockAnalogLamp extends BlockBase {
 	private void updateLevel(World world, BlockPos pos, int level) {
 		level = MathHelper.clamp(level, 0, 15); //sanity check
 		world.setBlockState(pos, getDefaultState().withProperty(LIGHT_LEVEL, level));
+	}
+	
+	//Blockstate boilerplate
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(LIGHT_LEVEL);
+	}
+	
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(LIGHT_LEVEL, meta);
+	}
+	
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, LIGHT_LEVEL);
 	}
 }

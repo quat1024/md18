@@ -1,7 +1,10 @@
 package quaternary.dazzle;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -14,7 +17,7 @@ import quaternary.dazzle.block.*;
 import quaternary.dazzle.block.stadium.BlockStadiumLightBase;
 import quaternary.dazzle.block.stadium.BlockStadiumLightPole;
 
-import java.util.Collections;
+import java.util.*;
 
 @Mod(modid = Dazzle.MODID, name = Dazzle.NAME, version = Dazzle.VERSION)
 public class Dazzle {
@@ -22,13 +25,19 @@ public class Dazzle {
 	public static final String NAME = "Dazzle";
 	public static final String VERSION = "0.0.0";
 	
-	public static final BlockBase[] BLOCKS = {
+	public static final List<BlockBase> BLOCKS = Lists.newArrayList(
 		new BlockInvisibleLightSource(),
 		new BlockLightPanel(),
 		new BlockAnalogLamp(),
 		new BlockStadiumLightBase(),
 		new BlockStadiumLightPole()
-	};
+	);
+	
+	static {
+		for(EnumDyeColor c : EnumDyeColor.values()) {
+			BLOCKS.add(new BlockDigitalLamp(c));
+		}
+	}
 	
 	@Mod.EventBusSubscriber(modid = MODID)
 	public static class CommonEvents {
@@ -36,7 +45,11 @@ public class Dazzle {
 		public static void blocks(RegistryEvent.Register<Block> e) {
 			IForgeRegistry<Block> reg = e.getRegistry();
 			
-			reg.registerAll(BLOCKS);
+			//No I can't do registerall because varargs doesn't work on lists
+			//Java is good
+			for(BlockBase b : BLOCKS) {
+				reg.register(b);
+			}
 		}
 		
 		@SubscribeEvent
@@ -62,9 +75,8 @@ public class Dazzle {
 					ModelLoader.setCustomModelResourceLocation(i, 0, mrl);
 				}
 				
-				if(b.isCompletelyInvisible()) {
-					//Suppress missing model JSON errors for this block
-					ModelLoader.setCustomStateMapper(b, block -> Collections.emptyMap());
+				if(b.hasCustomStatemapper()) {
+					ModelLoader.setCustomStateMapper(b, b.getCustomStatemapper());
 				}
 			}
 		}
