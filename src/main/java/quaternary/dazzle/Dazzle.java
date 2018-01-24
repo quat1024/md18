@@ -25,12 +25,7 @@ public class Dazzle {
 	public static final String NAME = "Dazzle";
 	public static final String VERSION = "0.0.0";
 	
-	public static final List<BlockBase> BLOCKS = Lists.newArrayList(
-		new BlockInvisibleLightSource(),
-		new BlockLightPanel(),
-		new BlockStadiumLightBase(),
-		new BlockStadiumLightPole()
-	);
+	public static final List<BlockBase> BLOCKS = new ArrayList<>();
 	
 	static {
 		for(EnumDyeColor c : EnumDyeColor.values()) {
@@ -46,6 +41,12 @@ public class Dazzle {
 			BLOCKS.add(normal);
 			BLOCKS.add(inverse);
 		}
+		
+		BLOCKS.add(new BlockLightPanel());
+		BLOCKS.add(new BlockStadiumLightBase());
+		BLOCKS.add(new BlockStadiumLightPole());
+		
+		BLOCKS.add(new BlockInvisibleLightSource());
 	}
 	
 	@Mod.EventBusSubscriber(modid = MODID)

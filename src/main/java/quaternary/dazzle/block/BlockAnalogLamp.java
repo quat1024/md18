@@ -43,6 +43,11 @@ public class BlockAnalogLamp extends BlockBase {
 		return false;
 	}
 	
+	@Override
+	public boolean hasItemForm() {
+		return !inverted;
+	}
+	
 	//Light level based on states
 	@Override
 	public int getLightValue(IBlockState state) {
