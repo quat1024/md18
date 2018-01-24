@@ -20,14 +20,10 @@ public class BlockInvisibleLightSource extends Block {
 		//The closest thing to Material.AIR that isn't.
 		super(Material.STRUCTURE_VOID);
 		
-		setDefaultState(getDefaultState().withProperty(LIGHT_LEVEL, 15));
-	}
-	
-	public BlockInvisibleLightSource setNames() {
 		setRegistryName(new ResourceLocation(Dazzle.MODID, "invisible_light_source"));
 		setUnlocalizedName(Dazzle.MODID + ".invisiblelightsource");
 		
-		return this;
+		setDefaultState(getDefaultState().withProperty(LIGHT_LEVEL, 15));
 	}
 	
 	//Light level based on states
