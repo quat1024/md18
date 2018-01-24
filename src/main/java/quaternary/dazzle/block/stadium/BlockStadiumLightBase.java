@@ -1,20 +1,15 @@
 package quaternary.dazzle.block.stadium;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import quaternary.dazzle.Dazzle;
+import quaternary.dazzle.block.BlockBase;
 
-public class BlockStadiumLightBase extends Block {
+public class BlockStadiumLightBase extends BlockBase {
 	public BlockStadiumLightBase() {
-		super(Material.IRON);
-		
-		setRegistryName(new ResourceLocation(Dazzle.MODID, "stadium_base"));
-		setUnlocalizedName(Dazzle.MODID + ".stadiumbase");
+		super("stadium_base", Material.IRON);
 	}
 	
 	@Override

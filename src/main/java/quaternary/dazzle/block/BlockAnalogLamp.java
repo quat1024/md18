@@ -7,20 +7,15 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import quaternary.dazzle.Dazzle;
 
-public class BlockAnalogLamp extends Block {
+public class BlockAnalogLamp extends BlockBase {
 	public static final PropertyInteger LIGHT_LEVEL = PropertyInteger.create("light_level", 0, 15);
 	
 	public BlockAnalogLamp() {
-		super(Material.REDSTONE_LIGHT);
-		
-		setRegistryName(new ResourceLocation(Dazzle.MODID, "analog_lamp"));
-		setUnlocalizedName(Dazzle.MODID + ".analoglamp");
+		super("analog_lamp", Material.REDSTONE_LIGHT);
 	}
 	
 	//Light level based on states

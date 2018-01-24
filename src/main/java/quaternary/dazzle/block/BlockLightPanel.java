@@ -9,19 +9,21 @@ import net.minecraft.block.state.*;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import quaternary.dazzle.Dazzle;
 
-public class BlockLightPanel extends Block {
+public class BlockLightPanel extends BlockBase {
 	public static final PropertyDirection FACING = BlockDirectional.FACING;
 	
+	@GameRegistry.ObjectHolder(Dazzle.MODID + ":invisible_light_source")
+	public static final Block INVISIBLE_LIGHT_SOURCE = Blocks.AIR;
+	
 	public BlockLightPanel() {
-		super(Material.IRON, MapColor.WHITE_STAINED_HARDENED_CLAY);
-		
-		setRegistryName(new ResourceLocation(Dazzle.MODID, "panel"));
-		setUnlocalizedName(Dazzle.MODID + ".panel");
+		super("panel", Material.IRON, MapColor.WHITE_STAINED_HARDENED_CLAY);
 		
 		setDefaultState(getDefaultState().withProperty(FACING, EnumFacing.UP));
 	}
@@ -81,7 +83,7 @@ public class BlockLightPanel extends Block {
 				if(power == 0) {
 					world.setBlockState(p, Blocks.AIR.getDefaultState());
 				} else {
-					world.setBlockState(p, Dazzle.INVISIBLE_LIGHT.getDefaultState().withProperty(BlockInvisibleLightSource.LIGHT_LEVEL, strength));
+					world.setBlockState(p, INVISIBLE_LIGHT_SOURCE.getDefaultState().withProperty(BlockInvisibleLightSource.LIGHT_LEVEL, strength));
 				}
 			} else {
 				strength = 0;

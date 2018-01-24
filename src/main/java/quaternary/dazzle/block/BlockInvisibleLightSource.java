@@ -1,29 +1,36 @@
 package quaternary.dazzle.block;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.*;
-import net.minecraft.util.*;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import quaternary.dazzle.Dazzle;
 
 import javax.annotation.Nullable;
 
-public class BlockInvisibleLightSource extends Block {
+public class BlockInvisibleLightSource extends BlockBase {
 	
 	public static final PropertyInteger LIGHT_LEVEL = PropertyInteger.create("light_level", 0, 15);
 	
 	public BlockInvisibleLightSource() {
-		//The closest thing to Material.AIR that isn't.
-		super(Material.STRUCTURE_VOID);
-		
-		setRegistryName(new ResourceLocation(Dazzle.MODID, "invisible_light_source"));
-		setUnlocalizedName(Dazzle.MODID + ".invisiblelightsource");
+		//                                vvv The closest thing to Material.AIR that isn't.
+		super("invisible_light_source", Material.STRUCTURE_VOID);
 		
 		setDefaultState(getDefaultState().withProperty(LIGHT_LEVEL, 15));
+	}
+	
+	//signals to BlockBase
+	@Override
+	public boolean hasItemForm() {
+		return false;
+	}
+	
+	@Override
+	public boolean isCompletelyInvisible() {
+		return true;
 	}
 	
 	//Light level based on states
@@ -97,11 +104,5 @@ public class BlockInvisibleLightSource extends Block {
 	public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos)
 	{
 		return true;
-	}
-	
-	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
-	{
-		return BlockFaceShape.UNDEFINED;
 	}
 }
