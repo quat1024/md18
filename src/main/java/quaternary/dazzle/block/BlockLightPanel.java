@@ -1,4 +1,4 @@
-package quaternary.dazzle.block.panel;
+package quaternary.dazzle.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
@@ -13,7 +13,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import quaternary.dazzle.Dazzle;
-import quaternary.dazzle.block.BlockInvisibleLightSource;
 
 public class BlockLightPanel extends Block {
 	public static final PropertyDirection FACING = BlockDirectional.FACING;

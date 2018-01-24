@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.IForgeRegistry;
 import quaternary.dazzle.block.BlockInvisibleLightSource;
-import quaternary.dazzle.block.panel.BlockLightPanel;
+import quaternary.dazzle.block.BlockLightPanel;
 
 import java.util.Collections;
 
