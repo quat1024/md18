@@ -21,8 +21,8 @@ public class BlockAnalogLamp extends BlockBase {
 	private boolean inverted;
 	private IBlockState inverseState;
 	
-	public BlockAnalogLamp(EnumDyeColor c, boolean inverted) {
-		super(c.getDyeColorName() + "_" + (inverted ? "inverted_" : "") + "analog_lamp", Material.REDSTONE_LIGHT);
+	public BlockAnalogLamp(EnumDyeColor c, String variant, boolean inverted) {
+		super((inverted ? "inverted_" : "") + c.getDyeColorName() + "_" + variant + "_analog_lamp", Material.REDSTONE_LIGHT);
 		
 		this.inverted = inverted;
 	}

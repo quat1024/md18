@@ -2,10 +2,15 @@ package quaternary.dazzle.block.stadium;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import quaternary.dazzle.block.BlockBase;
+
+import javax.annotation.Nullable;
 
 public class BlockStadiumLightBase extends BlockBase {
 	public BlockStadiumLightBase() {
@@ -34,13 +39,8 @@ public class BlockStadiumLightBase extends BlockBase {
 	
 	//remove the top of the pole
 	@Override
-	public void breakBlock(World world, BlockPos pos, IBlockState state) {
-		BlockPos p = pos.up();
-		while(world.getBlockState(p).getBlock() instanceof BlockStadiumLightPole) {
-			world.destroyBlock(p, true);
-			p = p.up();
-		}
-		
-		super.breakBlock(world, pos, state);
+	public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
+		StadiumLightUtils.breakPole(world, pos.up(), !player.capabilities.isCreativeMode);
+		super.harvestBlock(world, player, pos, state, te, stack);
 	}
 }

@@ -21,8 +21,8 @@ public class BlockDigitalLamp extends BlockBase {
 	public static final PropertyBool LIT = PropertyBool.create("lit");
 	public static final PropertyBool INVERTED = PropertyBool.create("inverted");
 	
-	public BlockDigitalLamp(EnumDyeColor color) {
-		super(color.getDyeColorName() + "_digital_lamp", Material.REDSTONE_LIGHT);
+	public BlockDigitalLamp(EnumDyeColor color, String variant) {
+		super(color.getDyeColorName() + "_" + variant + "_digital_lamp", Material.REDSTONE_LIGHT);
 		
 		setDefaultState(getDefaultState().withProperty(LIT, false).withProperty(INVERTED, false));
 	}

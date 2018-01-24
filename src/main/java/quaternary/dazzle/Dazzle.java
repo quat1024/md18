@@ -27,19 +27,25 @@ public class Dazzle {
 	
 	public static final List<BlockBase> BLOCKS = new ArrayList<>();
 	
+	private static final String[] LAMP_VARIANTS = new String[] {"classic", "solid"};
+	
 	static {
 		for(EnumDyeColor c : EnumDyeColor.values()) {
-			BLOCKS.add(new BlockDigitalLamp(c));
+			for(String variant : LAMP_VARIANTS) {
+				BLOCKS.add(new BlockDigitalLamp(c, variant));
+			}
 		}
 		
 		for(EnumDyeColor c : EnumDyeColor.values()) {
-			BlockAnalogLamp normal = new BlockAnalogLamp(c, false);
-			BlockAnalogLamp inverse = new BlockAnalogLamp(c, true);
-			normal.setInverseBlockstate(inverse.getDefaultState());
-			inverse.setInverseBlockstate(normal.getDefaultState());
-			
-			BLOCKS.add(normal);
-			BLOCKS.add(inverse);
+			for(String variant : LAMP_VARIANTS) {
+				BlockAnalogLamp normal = new BlockAnalogLamp(c, variant, false);
+				BlockAnalogLamp inverse = new BlockAnalogLamp(c, variant, true);
+				normal.setInverseBlockstate(inverse.getDefaultState());
+				inverse.setInverseBlockstate(normal.getDefaultState());
+				
+				BLOCKS.add(normal);
+				BLOCKS.add(inverse);
+			}
 		}
 		
 		BLOCKS.add(new BlockLightPanel());
