@@ -1,0 +1,14 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "dazzle:lamp",
+		"textures": {
+			"base": "dazzle:block/modern_lamp/base",
+			"overlay": "dazzle:block/modern_lamp/overlay"
+		}
+	},
+	"variants": {
+		"normal": [{}],
+		"inventory": [{}]
+	}
+}

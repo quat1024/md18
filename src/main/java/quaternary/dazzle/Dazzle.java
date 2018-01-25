@@ -26,18 +26,15 @@ public class Dazzle {
 	public static final String VERSION = "0.0.0";
 	
 	public static final List<BlockBase> BLOCKS = new ArrayList<>();
-	public static final List<BlockDigitalLamp> DIGITAL_LAMPS = new ArrayList<>();
 	
 	private static final String[] LAMP_VARIANTS = new String[] {"classic", "modern"};
 	
 	static {
 		for(EnumDyeColor c : EnumDyeColor.values()) {
 			for(String variant : LAMP_VARIANTS) {
-				DIGITAL_LAMPS.add(new BlockDigitalLamp(c, variant));
+				BLOCKS.add(new BlockDigitalLamp(c, variant));
 			}
 		}
-		
-		BLOCKS.addAll(DIGITAL_LAMPS);
 		
 		for(EnumDyeColor c : EnumDyeColor.values()) {
 			for(String variant : LAMP_VARIANTS) {
@@ -64,8 +61,6 @@ public class Dazzle {
 		public static void blocks(RegistryEvent.Register<Block> e) {
 			IForgeRegistry<Block> reg = e.getRegistry();
 			
-			//No I can't do registerall because varargs doesn't work on lists
-			//Java is good
 			for(BlockBase b : BLOCKS) {
 				reg.register(b);
 			}
@@ -109,26 +104,6 @@ public class Dazzle {
 					colors.registerBlockColorHandler(b.getBlockColors(), b);
 				}
 			}
-			
-			/*
-			for(BlockDigitalLamp dlamp : DIGITAL_LAMPS) {
-				colors.registerBlockColorHandler((state, worldIn, pos, tintIndex) -> {
-					int color = dlamp.dyeColor.getColorValue();
-					
-					int r = (color & 0xFF0000) >> 16;
-					int g = (color & 0x00FF00) >> 8;
-					int b = (color & 0x0000FF);
-					
-					if(!state.getValue(BlockDigitalLamp.LIT)) {
-						r /= 5;
-						g /= 5;
-						b /= 5;
-					}
-					
-					return (r << 16) | (g << 8) | b;
-				}, dlamp);
-			}
-			*/
 		}
 	}
 }

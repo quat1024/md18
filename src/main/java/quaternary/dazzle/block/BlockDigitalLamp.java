@@ -21,7 +21,7 @@ public class BlockDigitalLamp extends BlockBase {
 	public static final PropertyBool LIT = PropertyBool.create("lit");
 	public static final PropertyBool INVERTED = PropertyBool.create("inverted");
 	
-	public final EnumDyeColor dyeColor;
+	private final EnumDyeColor dyeColor;
 	
 	public BlockDigitalLamp(EnumDyeColor color, String variant) {
 		super(color.getDyeColorName() + "_" + variant + "_digital_lamp", Material.REDSTONE_LIGHT);
@@ -118,6 +118,6 @@ public class BlockDigitalLamp extends BlockBase {
 	
 	@Override
 	public IStateMapper getCustomStatemapper() {
-		return new StateMap.Builder().ignore(INVERTED).ignore(LIT).build();
+		return new StateMap.Builder().ignore(INVERTED, LIT).build();
 	}
 }
