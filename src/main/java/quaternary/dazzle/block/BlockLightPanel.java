@@ -11,7 +11,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import quaternary.dazzle.Dazzle;
@@ -22,16 +24,39 @@ public class BlockLightPanel extends BlockBase {
 	@GameRegistry.ObjectHolder(Dazzle.MODID + ":invisible_light_source")
 	public static final Block INVISIBLE_LIGHT_SOURCE = Blocks.AIR;
 	
+	private static final double THICKNESS = 2/16d;
+	
+	//Down, up, north, south, east, west.
+	private static final AxisAlignedBB[] AABBs = new AxisAlignedBB[] {
+		new AxisAlignedBB(0, 0, 0, 1, THICKNESS, 1),
+		new AxisAlignedBB(0, 1-THICKNESS, 0, 1, 1, 1),
+		new AxisAlignedBB(0, 0, 0, 1, 1, THICKNESS),
+		new AxisAlignedBB(0, 0, 1-THICKNESS, 1, 1, 1),
+		new AxisAlignedBB(0, 0, 0, THICKNESS, 1, 1),
+		new AxisAlignedBB(1-THICKNESS, 0, 0, 1, 1, 1)
+	};
+	
 	public BlockLightPanel() {
 		super("panel", Material.IRON, MapColor.WHITE_STAINED_HARDENED_CLAY);
 		
 		setDefaultState(getDefaultState().withProperty(FACING, EnumFacing.UP));
 	}
 	
+	//Solidity
+	@Override
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
+	
+	@Override
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
+	
 	//side placement
 	@Override
 	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
-		return getDefaultState().withProperty(FACING, facing);
+		return getDefaultState().withProperty(FACING, facing.getOpposite());
 	}
 	
 	@Override
@@ -106,5 +131,11 @@ public class BlockLightPanel extends BlockBase {
 	@Override
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, FACING);
+	}
+	
+	//Aabb
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		return AABBs[state.getValue(FACING).ordinal()];
 	}
 }
