@@ -3,6 +3,7 @@ package quaternary.dazzle;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.BlockColors;
+import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -102,6 +103,17 @@ public class Dazzle {
 			for(BlockBase b : BLOCKS) {
 				if(b.hasBlockColors()) {
 					colors.registerBlockColorHandler(b.getBlockColors(), b);
+				}
+			}
+		}
+		
+		@SubscribeEvent
+		public static void itemColors(ColorHandlerEvent.Item e) {
+			ItemColors colors = e.getItemColors();
+			
+			for(BlockBase b : BLOCKS) {
+				if(b.hasItemForm() && b.hasBlockColors()) {
+					colors.registerItemColorHandler(b.getItemColors(), b.getItemForm());
 				}
 			}
 		}

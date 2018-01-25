@@ -8,6 +8,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -59,6 +60,11 @@ public class BlockDigitalLamp extends BlockBase {
 			
 			return (r << 16) | (g << 8) | b;
 		};
+	}
+	
+	@Override
+	public IItemColor getItemColors() {
+		return (stack, tintIndex) -> dyeColor.getColorValue();
 	}
 	
 	//Inversion

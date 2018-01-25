@@ -7,6 +7,7 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.EnumFacing;
@@ -58,7 +59,12 @@ public class BlockBase extends Block {
 		return false;
 	}
 	
+	//Yaknow i should really make these abstract.
 	public IBlockColor getBlockColors() {
+		return null;
+	}
+	
+	public IItemColor getItemColors() {
 		return null;
 	}
 	
