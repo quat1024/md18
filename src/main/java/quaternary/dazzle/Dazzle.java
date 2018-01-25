@@ -31,14 +31,14 @@ public class Dazzle {
 	private static final String[] LAMP_VARIANTS = new String[] {"classic", "modern"};
 	
 	static {
-		for(EnumDyeColor c : EnumDyeColor.values()) {
-			for(String variant : LAMP_VARIANTS) {
+		for(String variant : LAMP_VARIANTS) {
+			for(EnumDyeColor c : EnumDyeColor.values()) {
 				BLOCKS.add(new BlockDigitalLamp(c, variant));
 			}
 		}
 		
-		for(EnumDyeColor c : EnumDyeColor.values()) {
-			for(String variant : LAMP_VARIANTS) {
+		for(String variant : LAMP_VARIANTS) {
+			for(EnumDyeColor c : EnumDyeColor.values()) {
 				BlockAnalogLamp normal = new BlockAnalogLamp(c, variant, false);
 				BlockAnalogLamp inverse = new BlockAnalogLamp(c, variant, true);
 				normal.setInverseBlockstate(inverse.getDefaultState());
