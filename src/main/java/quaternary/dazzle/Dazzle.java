@@ -1,11 +1,11 @@
 package quaternary.dazzle;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
+import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
@@ -26,15 +26,18 @@ public class Dazzle {
 	public static final String VERSION = "0.0.0";
 	
 	public static final List<BlockBase> BLOCKS = new ArrayList<>();
+	public static final List<BlockDigitalLamp> DIGITAL_LAMPS = new ArrayList<>();
 	
-	private static final String[] LAMP_VARIANTS = new String[] {"classic", "solid"};
+	private static final String[] LAMP_VARIANTS = new String[] {"classic", "modern"};
 	
 	static {
 		for(EnumDyeColor c : EnumDyeColor.values()) {
 			for(String variant : LAMP_VARIANTS) {
-				BLOCKS.add(new BlockDigitalLamp(c, variant));
+				DIGITAL_LAMPS.add(new BlockDigitalLamp(c, variant));
 			}
 		}
+		
+		BLOCKS.addAll(DIGITAL_LAMPS);
 		
 		for(EnumDyeColor c : EnumDyeColor.values()) {
 			for(String variant : LAMP_VARIANTS) {
@@ -95,6 +98,37 @@ public class Dazzle {
 					ModelLoader.setCustomStateMapper(b, b.getCustomStatemapper());
 				}
 			}
+		}
+		
+		@SubscribeEvent
+		public static void blockColors(ColorHandlerEvent.Block e) {
+			BlockColors colors = e.getBlockColors();
+			
+			for(BlockBase b : BLOCKS) {
+				if(b.hasBlockColors()) {
+					colors.registerBlockColorHandler(b.getBlockColors(), b);
+				}
+			}
+			
+			/*
+			for(BlockDigitalLamp dlamp : DIGITAL_LAMPS) {
+				colors.registerBlockColorHandler((state, worldIn, pos, tintIndex) -> {
+					int color = dlamp.dyeColor.getColorValue();
+					
+					int r = (color & 0xFF0000) >> 16;
+					int g = (color & 0x00FF00) >> 8;
+					int b = (color & 0x0000FF);
+					
+					if(!state.getValue(BlockDigitalLamp.LIT)) {
+						r /= 5;
+						g /= 5;
+						b /= 5;
+					}
+					
+					return (r << 16) | (g << 8) | b;
+				}, dlamp);
+			}
+			*/
 		}
 	}
 }

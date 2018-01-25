@@ -15,7 +15,7 @@ public class DazzleCreativeTab extends CreativeTabs {
 		super(Dazzle.MODID);
 	}
 	
-	@GameRegistry.ObjectHolder("dazzle:red_digital_lamp")
+	@GameRegistry.ObjectHolder("dazzle:red_modern_digital_lamp")
 	public static final Item tabIcon = Items.AIR;
 	
 	@Override

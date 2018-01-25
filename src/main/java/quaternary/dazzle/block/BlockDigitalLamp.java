@@ -7,12 +7,12 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.client.renderer.block.statemap.StateMap;
+import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -21,10 +21,44 @@ public class BlockDigitalLamp extends BlockBase {
 	public static final PropertyBool LIT = PropertyBool.create("lit");
 	public static final PropertyBool INVERTED = PropertyBool.create("inverted");
 	
+	public final EnumDyeColor dyeColor;
+	
 	public BlockDigitalLamp(EnumDyeColor color, String variant) {
 		super(color.getDyeColorName() + "_" + variant + "_digital_lamp", Material.REDSTONE_LIGHT);
+		this.dyeColor = color;
 		
 		setDefaultState(getDefaultState().withProperty(LIT, false).withProperty(INVERTED, false));
+	}
+	
+	//Allow for transparency in layers when this gets iblockcolored
+	@Override
+	public BlockRenderLayer getBlockLayer() {
+		return BlockRenderLayer.CUTOUT_MIPPED;
+	}
+	
+	//IBlockColor stuff
+	@Override
+	public boolean hasBlockColors() {
+		return true;
+	}
+	
+	@Override
+	public IBlockColor getBlockColors() {
+		return (state, worldIn, pos, tintIndex) -> {
+			int color = dyeColor.getColorValue();
+			
+			int r = (color & 0xFF0000) >> 16;
+			int g = (color & 0x00FF00) >> 8;
+			int b = (color & 0x0000FF);
+			
+			if(!isLit(state)) {
+				r /= 5;
+				g /= 5;
+				b /= 5;
+			}
+			
+			return (r << 16) | (g << 8) | b;
+		};
 	}
 	
 	//Inversion
@@ -37,9 +71,13 @@ public class BlockDigitalLamp extends BlockBase {
 		return false;
 	}
 	
+	public boolean isLit(IBlockState state) {
+		return state.getValue(LIT) ^ state.getValue(INVERTED);
+	}
+	
 	@Override
 	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
-		return (state.getValue(LIT) ^ state.getValue(INVERTED)) ? 15 : 0;
+		return isLit(state) ? 15 : 0;
 	}
 	
 	//Updating light level
@@ -80,6 +118,6 @@ public class BlockDigitalLamp extends BlockBase {
 	
 	@Override
 	public IStateMapper getCustomStatemapper() {
-		return new StateMap.Builder().ignore(INVERTED).build();
+		return new StateMap.Builder().ignore(INVERTED).ignore(LIT).build();
 	}
 }
