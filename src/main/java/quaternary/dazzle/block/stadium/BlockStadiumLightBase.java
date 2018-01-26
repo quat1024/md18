@@ -16,10 +16,37 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import quaternary.dazzle.block.BlockBase;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 
 public class BlockStadiumLightBase extends BlockBase {
 	public enum ComponentType {
 		BASE, POLE, TOP
+	}
+	
+	@SuppressWarnings("unchecked")
+	//JARBO.JPG
+	static ArrayList<BlockPos>[] CIRCLE_CACHE = (ArrayList<BlockPos>[]) new ArrayList[15];
+	
+	static {
+		System.out.println("[Dazzle] assembling circle cache...");
+		for(int i = 0; i < CIRCLE_CACHE.length; i++) {
+			int radius = i + 1; //arrays start at 0, but I want the 0th element to be a circle of size 1
+			CIRCLE_CACHE[i] = new ArrayList<>();
+			
+			int minX = -radius;
+			int maxX = radius;
+			int minZ = -radius;
+			int maxZ = radius;
+			
+			for(int x = minX; x <= maxX; x++) {
+				for(int z = minZ; z <= maxZ; z++) {
+					if((x * x) + (z * z) <= (radius * radius) + 1) {
+						CIRCLE_CACHE[i].add(new BlockPos(x, 0, z));
+					}
+				}
+			}
+		}
+		System.out.println("[Dazzle] done");
 	}
 	
 	public final ComponentType type;

@@ -68,6 +68,8 @@ public class BlockStadiumLightBottom extends BlockStadiumLightBase {
 		if(topBlock instanceof BlockStadiumLightTop) {
 			boolean shouldLight = ((BlockStadiumLightTop) topBlock).shouldLightFromBase(world, pos);
 			if(shouldLight != topState.getValue(BlockStadiumLightTop.LIT)) {
+				//todo signal strength
+				((BlockStadiumLightTop) topBlock).placeLightBlocks(world, poleTop, 15);
 				world.setBlockState(poleTop, topState.withProperty(BlockStadiumLightTop.LIT, shouldLight), 2); //do not cause a block update
 			}
 		}

@@ -6,11 +6,15 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+
+import java.util.List;
 
 public class BlockStadiumLightTop extends BlockStadiumLightBase {
 	public static final PropertyInteger ROTATION = PropertyInteger.create("rotation", 0, 3);
@@ -33,10 +37,47 @@ public class BlockStadiumLightTop extends BlockStadiumLightBase {
 	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
 		boolean shouldLight = shouldLight(world, pos);
 		if(shouldLight != world.getBlockState(pos).getValue(LIT)) {
+			placeLightBlocks(world, pos, 15);
 			world.setBlockState(pos, world.getBlockState(pos).withProperty(LIT, shouldLight));
 		}
 		
 		super.neighborChanged(state, world, pos, block, fromPos);
+	}
+	
+	//@GameRegistry.ObjectHolder("dazzle:invisible_light_source")
+	public static final Block LIGHT_SOURCE = Blocks.DIAMOND_BLOCK;
+	
+	//placing and removing light blocks
+	void placeLightBlocks(World w, BlockPos lampPos, int lightValue) {
+		//find the position on the ground that the lamp is "pointing at"
+		BlockPos chaser = lampPos.add(0,0,0);
+		Block thisBlock;
+		do {
+			//todo: hardcoded east right now
+			chaser = chaser.add(2, -1, 0);
+			thisBlock = w.getBlockState(chaser).getBlock();
+		} while (thisBlock.isReplaceable(w, chaser));
+		//might have sunken into the ground a little bit so find the top here
+		int correctionCount = 0;
+		do {
+			chaser = chaser.add(0, 1, 0);
+			thisBlock = w.getBlockState(chaser).getBlock();
+			correctionCount++;
+		} while (!thisBlock.isReplaceable(w, chaser));
+		if(correctionCount > 8) return; //don't climb wayyy up a pillar so lights don't show up in a bizarre spot
+		
+		System.out.println("Asdhlsakdhlsahld " + chaser);
+		
+		//place the light circle at that location
+		//todo signal strength + distance bonus
+		List<BlockPos> circle = CIRCLE_CACHE[12];
+		for(BlockPos pos : circle) {
+			BlockPos placementPos = pos.add(chaser.getX(), chaser.getY(), chaser.getZ());
+			
+			if(w.getBlockState(placementPos).getBlock().isReplaceable(w, pos)) {
+				w.setBlockState(placementPos, LIGHT_SOURCE.getDefaultState());
+			}
+		}
 	}
 	
 	@Override
