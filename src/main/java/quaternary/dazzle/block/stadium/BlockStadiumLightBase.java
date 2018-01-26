@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import quaternary.dazzle.block.BlockBase;
@@ -28,6 +29,26 @@ public class BlockStadiumLightBase extends BlockBase {
 	public BlockStadiumLightBase(String name, ComponentType type) {
 		super(name, Material.IRON, MapColor.GRAY_STAINED_HARDENED_CLAY);
 		this.type = type;
+	}
+	
+	@Override
+	public boolean isFullBlock(IBlockState state) {
+		return false;
+	}
+	
+	@Override
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
+	
+	@Override
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
+	
+	@Override
+	public boolean isNormalCube(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return false;
 	}
 	
 	private boolean canSupport(ComponentType aboveType) {

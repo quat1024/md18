@@ -1,0 +1,16 @@
+{
+	"variants": {
+		"normal": [{
+			"model": "dazzle:stadium_pole"
+		}, {
+			"model": "dazzle:stadium_pole", "y": 90
+		}, {
+			"model": "dazzle:stadium_pole", "y": 180
+		}, {
+			"model": "dazzle:stadium_pole", "y": 270
+		}],
+		"inventory": {
+			"model": "dazzle:stadium_pole"
+		}
+	}
+}

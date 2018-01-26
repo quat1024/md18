@@ -68,6 +68,7 @@ public class BlockBase extends Block {
 		return null;
 	}
 	
+	//a more reasonable default
 	@Override
 	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing face)
 	{

@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"normal": {
+			"model": "dazzle:stadium_base"
+		},
+		"inventory": {
+			"model": "dazzle:stadium_base"
+		}
+	}
+}
