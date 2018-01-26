@@ -1,6 +1,7 @@
 package quaternary.dazzle.block.stadium;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -12,10 +13,13 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class BlockStadiumLightTop extends BlockStadiumLightBase {
-	public static final PropertyInteger ROTATION = PropertyInteger.create("rotation", 0, 15);
+	public static final PropertyInteger ROTATION = PropertyInteger.create("rotation", 0, 3);
+	public static final PropertyBool LIT = PropertyBool.create("lit");
 	
 	public BlockStadiumLightTop() {
 		super("stadium_top", ComponentType.TOP);
+		
+		setDefaultState(getDefaultState().withProperty(ROTATION, 0).withProperty(LIT, false));
 	}
 	
 	@Override
@@ -26,31 +30,44 @@ public class BlockStadiumLightTop extends BlockStadiumLightBase {
 	}
 	
 	@Override
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
+		boolean shouldLight = shouldLight(world, pos);
+		if(shouldLight != world.getBlockState(pos).getValue(LIT)) {
+			world.setBlockState(pos, world.getBlockState(pos).withProperty(LIT, shouldLight));
+		}
+	}
+	
+	@Override
 	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
-		/*
 		//adapted from ItemSign.java
-		int i = MathHelper.floor((double)((placer.rotationYaw + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15;
+		int i = MathHelper.floor((double)((placer.rotationYaw + 180.0F) * 4.0F / 360.0F) + 0.5D) & 3;
 		
-		return getDefaultState().withProperty(ROTATION, i);
-		*/
-		return getDefaultState();
+		return getDefaultState().withProperty(ROTATION, i).withProperty(LIT, false);
+	}
+	
+	boolean shouldLight(World w, BlockPos p) {
+		BlockPos basePos = climbDownPole(w, p);
+		if(basePos == null) return false; //somehow
+		
+		for(EnumFacing whichWay : EnumFacing.HORIZONTALS) {
+			if(w.isBlockPowered(basePos.offset(whichWay))) return true;
+		}
+		return false;
 	}
 	
 	//blockstate boilerplate
-	/*
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(ROTATION, meta);
+		return getDefaultState().withProperty(LIT, (meta & 4) != 0).withProperty(ROTATION, meta & 3);
 	}
 	
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return state.getValue(ROTATION);
+		return state.getValue(ROTATION) | (state.getValue(LIT) ? 4 : 0);
 	}
 	
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, ROTATION);
+		return new BlockStateContainer(this, ROTATION, LIT);
 	}
-	*/
 }

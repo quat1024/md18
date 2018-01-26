@@ -71,6 +71,7 @@ public class BlockStadiumLightBase extends BlockBase {
 	}
 	
 	@Nullable
+	/** returns the blockpos *one space above* the pole */
 	public static BlockPos climbPole(World w, BlockPos startingPos) {
 		BlockPos climber = startingPos.add(0, 0, 0);
 		
@@ -80,6 +81,19 @@ public class BlockStadiumLightBase extends BlockBase {
 		
 		if(climber.getY() > 255) return null;
 		else return climber;
+	}
+	
+	@Nullable
+	/** returns the blockpos *at* the base of the pole */
+	public static BlockPos climbDownPole(World w, BlockPos startingPos) {
+		BlockPos climber = startingPos.add(0, 0, 0);
+		
+		while(w.getBlockState(climber).getBlock() instanceof BlockStadiumLightBase) {
+			climber = climber.down();
+		}
+		
+		if(climber.getY() < 0) return null; //somehow
+		else return climber.up();
 	}
 	
 	@GameRegistry.ObjectHolder("dazzle:stadium_pole")

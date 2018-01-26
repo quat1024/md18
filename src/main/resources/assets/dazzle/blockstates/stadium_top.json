@@ -1,7 +1,37 @@
 {
+	"forge_marker": 1,
+	"defaults": {
+		"model": "dazzle:stadium_top",
+		"textures": {
+			"tex": "dazzle:block/stadium/head_off"
+		}
+	},
 	"variants": {
-		"normal": {
-			"model": "dazzle:stadium_top"
+		"lit": {
+			"true": {
+				"textures": {
+					"tex": "dazzle:block/stadium/head"
+				}
+			},
+			"false": {
+				"textures": {
+					"tex": "dazzle:block/stadium/head_off"
+				}
+			}
+		},
+		"rotation": {
+			"0": {
+				"y": 0
+			},
+			"1": {
+				"y": 90
+			},
+			"2": {
+				"y": 180
+			},
+			"3": {
+				"y": 270
+			}
 		},
 		"inventory": {
 			"model": "dazzle:stadium_top"
