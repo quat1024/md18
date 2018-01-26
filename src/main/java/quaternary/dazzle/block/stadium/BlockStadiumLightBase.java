@@ -5,12 +5,10 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
+import net.minecraft.init.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -110,6 +108,7 @@ public class BlockStadiumLightBase extends BlockBase {
 					world.setBlockState(poleTop, TOP_BLOCK.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, 696969, player, hand));
 				}
 				if(!player.capabilities.isCreativeMode) heldStack.shrink(1);
+				world.playSound(null, poleTop, SoundEvents.BLOCK_METAL_PLACE, SoundCategory.BLOCKS, 1, 1);
 				return true;
 			}
 		}
