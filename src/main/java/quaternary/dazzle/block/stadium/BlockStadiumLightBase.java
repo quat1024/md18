@@ -71,8 +71,20 @@ public class BlockStadiumLightBase extends BlockBase {
 	}
 	
 	@Nullable
-	/** returns the blockpos *one space above* the pole */
+	/** returns the blockpos *at* the top of the pole for e.g. finding the lamp */
 	public static BlockPos climbPole(World w, BlockPos startingPos) {
+		BlockPos climber = startingPos.add(0, 0, 0);
+		
+		while(w.getBlockState(climber).getBlock() instanceof BlockStadiumLightBase) {
+			climber = climber.up();
+		}
+		
+		return climber.down();
+	}
+	
+	@Nullable
+	/** returns the blockpos *one space above* the pole for e.g. extending the pole */
+	public static BlockPos climbAtopPole(World w, BlockPos startingPos) {
 		BlockPos climber = startingPos.add(0, 0, 0);
 		
 		while(w.getBlockState(climber).getBlock() instanceof BlockStadiumLightBase) {
@@ -84,7 +96,7 @@ public class BlockStadiumLightBase extends BlockBase {
 	}
 	
 	@Nullable
-	/** returns the blockpos *at* the base of the pole */
+	/** returns the blockpos *at* the base of the pole for e.g. determining whether the light should be on*/
 	public static BlockPos climbDownPole(World w, BlockPos startingPos) {
 		BlockPos climber = startingPos.add(0, 0, 0);
 		
@@ -114,12 +126,12 @@ public class BlockStadiumLightBase extends BlockBase {
 		
 		ItemStack heldStack = player.getHeldItem(hand);
 		if(heldStack.getItem() == POLE_ITEM || heldStack.getItem() == TOP_ITEM) {
-			BlockPos poleTop = climbPole(world, pos);
+			BlockPos poleTop = climbAtopPole(world, pos);
 			if(poleTop != null && world.getBlockState(poleTop).getBlock().isReplaceable(world, poleTop)) {
 				if(heldStack.getItem() == POLE_ITEM) {
 					world.setBlockState(poleTop, POLE_BLOCK.getDefaultState());
 				} else {
-					world.setBlockState(poleTop, TOP_BLOCK.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, 696969, player, hand));
+					world.setBlockState(poleTop, TOP_BLOCK.getStateForPlacement(world, poleTop, facing, hitX, hitY, hitZ, 696969, player, hand));
 				}
 				if(!player.capabilities.isCreativeMode) heldStack.shrink(1);
 				world.playSound(null, poleTop, SoundEvents.BLOCK_METAL_PLACE, SoundCategory.BLOCKS, 1, 1);

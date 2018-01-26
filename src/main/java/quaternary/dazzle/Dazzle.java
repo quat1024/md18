@@ -49,9 +49,12 @@ public class Dazzle {
 		}
 		
 		BLOCKS.add(new BlockLightPanel());
+		
+		//stadium light
 		BLOCKS.add(new BlockStadiumLightBottom());
 		BLOCKS.add(new BlockStadiumLightPole());
 		BLOCKS.add(new BlockStadiumLightTop());
+		BLOCKS.add(new BlockStadiumLightBottomStructure());
 		
 		BLOCKS.add(new BlockInvisibleLightSource());
 	}

@@ -35,6 +35,8 @@ public class BlockStadiumLightTop extends BlockStadiumLightBase {
 		if(shouldLight != world.getBlockState(pos).getValue(LIT)) {
 			world.setBlockState(pos, world.getBlockState(pos).withProperty(LIT, shouldLight));
 		}
+		
+		super.neighborChanged(state, world, pos, block, fromPos);
 	}
 	
 	@Override
@@ -42,15 +44,19 @@ public class BlockStadiumLightTop extends BlockStadiumLightBase {
 		//adapted from ItemSign.java
 		int i = MathHelper.floor((double)((placer.rotationYaw + 180.0F) * 4.0F / 360.0F) + 0.5D) & 3;
 		
-		return getDefaultState().withProperty(ROTATION, i).withProperty(LIT, false);
+		return getDefaultState().withProperty(ROTATION, i).withProperty(LIT, shouldLight(world, pos));
 	}
 	
 	boolean shouldLight(World w, BlockPos p) {
 		BlockPos basePos = climbDownPole(w, p);
 		if(basePos == null) return false; //somehow
-		
+		return shouldLightFromBase(w, basePos);
+	}
+	
+	boolean shouldLightFromBase(World w, BlockPos p) {		
+		if(w.isBlockPowered(p)) return true;
 		for(EnumFacing whichWay : EnumFacing.HORIZONTALS) {
-			if(w.isBlockPowered(basePos.offset(whichWay))) return true;
+			if(w.isBlockPowered(p.offset(whichWay))) return true;
 		}
 		return false;
 	}
