@@ -15,8 +15,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.IForgeRegistry;
 import quaternary.dazzle.block.*;
-import quaternary.dazzle.block.stadium.BlockStadiumLightBase;
-import quaternary.dazzle.block.stadium.BlockStadiumLightPole;
+import quaternary.dazzle.block.stadium.*;
 
 import java.util.*;
 
@@ -50,8 +49,9 @@ public class Dazzle {
 		}
 		
 		BLOCKS.add(new BlockLightPanel());
-		BLOCKS.add(new BlockStadiumLightBase());
+		BLOCKS.add(new BlockStadiumLightBottom());
 		BLOCKS.add(new BlockStadiumLightPole());
+		BLOCKS.add(new BlockStadiumLightTop());
 		
 		BLOCKS.add(new BlockInvisibleLightSource());
 	}
