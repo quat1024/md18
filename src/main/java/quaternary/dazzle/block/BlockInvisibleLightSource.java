@@ -89,6 +89,11 @@ public class BlockInvisibleLightSource extends BlockBase {
 		return false;
 	}
 	
+	@Override
+	public boolean isAir(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return true;
+	}
+	
 	@Override //VERY GOOD MOJANGLE
 	public boolean isBlockNormalCube(IBlockState state) {
 		return false;

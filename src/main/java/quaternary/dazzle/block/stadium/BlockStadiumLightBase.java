@@ -17,6 +17,7 @@ import quaternary.dazzle.block.BlockBase;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class BlockStadiumLightBase extends BlockBase {
 	public enum ComponentType {
@@ -25,10 +26,9 @@ public class BlockStadiumLightBase extends BlockBase {
 	
 	@SuppressWarnings("unchecked")
 	//JARBO.JPG
-	static ArrayList<BlockPos>[] CIRCLE_CACHE = (ArrayList<BlockPos>[]) new ArrayList[15];
+	static ArrayList<BlockPos>[] CIRCLE_CACHE = (ArrayList<BlockPos>[]) new ArrayList[30];
 	
 	static {
-		System.out.println("[Dazzle] assembling circle cache...");
 		for(int i = 0; i < CIRCLE_CACHE.length; i++) {
 			int radius = i + 1; //arrays start at 0, but I want the 0th element to be a circle of size 1
 			CIRCLE_CACHE[i] = new ArrayList<>();
@@ -46,7 +46,11 @@ public class BlockStadiumLightBase extends BlockBase {
 				}
 			}
 		}
-		System.out.println("[Dazzle] done");
+	}
+	
+	static final List<BlockPos> getCircle(int radius) {
+		if(radius >= CIRCLE_CACHE.length) radius = CIRCLE_CACHE.length - 1;
+		return CIRCLE_CACHE[radius];
 	}
 	
 	public final ComponentType type;
