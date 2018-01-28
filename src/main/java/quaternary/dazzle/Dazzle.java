@@ -12,10 +12,12 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.IForgeRegistry;
 import quaternary.dazzle.block.*;
 import quaternary.dazzle.block.stadium.*;
+import quaternary.dazzle.tile.TileEntityLightSensor;
 
 import java.util.*;
 
@@ -49,6 +51,7 @@ public class Dazzle {
 		}
 		
 		BLOCKS.add(new BlockLightPanel());
+		BLOCKS.add(new BlockLightSensor());
 		
 		//stadium light
 		BLOCKS.add(new BlockStadiumLightBottom());
@@ -68,6 +71,8 @@ public class Dazzle {
 			for(BlockBase b : BLOCKS) {
 				reg.register(b);
 			}
+			
+			GameRegistry.registerTileEntity(TileEntityLightSensor.class, Dazzle.MODID + "_light_sensor");
 		}
 		
 		@SubscribeEvent

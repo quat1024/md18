@@ -24,6 +24,7 @@ public class BlockStadiumLightBase extends BlockBase {
 		BASE, POLE, TOP
 	}
 	
+	/*
 	@SuppressWarnings("unchecked")
 	//JARBO.JPG
 	static ArrayList<BlockPos>[] CIRCLE_CACHE = (ArrayList<BlockPos>[]) new ArrayList[30];
@@ -52,6 +53,7 @@ public class BlockStadiumLightBase extends BlockBase {
 		if(radius >= CIRCLE_CACHE.length) radius = CIRCLE_CACHE.length - 1;
 		return CIRCLE_CACHE[radius];
 	}
+	*/
 	
 	public final ComponentType type;
 	
