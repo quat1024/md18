@@ -52,7 +52,6 @@ public class BlockLightSensor extends BlockBase {
 		BlockPos sensedPos = pos.offset(sensedDirection);
 		
 		int lightLevel = w.getLightFor(EnumSkyBlock.BLOCK, sensedPos);
-		System.out.println("getweakpower " + lightLevel);
 		return lightLevel;
 	}
 	

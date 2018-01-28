@@ -20,14 +20,6 @@ public class TileEntityLightSensor extends TileEntity implements ITickable {
 			
 			world.neighborChanged(posToUpdateAround, b, pos);
 			world.notifyNeighborsOfStateExcept(posToUpdateAround, b, facing);
-			/*
-			world.scheduleUpdate(posToUpdateAround, world.getBlockState(posToUpdateAround).getBlock(), 0);
-			for(EnumFacing whichWay : EnumFacing.values()) {
-				if(whichWay == facing) continue;
-				BlockPos u = posToUpdateAround.offset(whichWay);
-				world.scheduleUpdate(u, world.getBlockState(u).getBlock(), 0);
-			}
-			*/
 		}
 	}
 }

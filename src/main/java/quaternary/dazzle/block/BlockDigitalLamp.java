@@ -17,18 +17,30 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import quaternary.dazzle.item.ItemBlockLamp;
 
 public class BlockDigitalLamp extends BlockBase {
 	public static final PropertyBool LIT = PropertyBool.create("lit");
 	public static final PropertyBool INVERTED = PropertyBool.create("inverted");
 	
-	private final EnumDyeColor dyeColor;
+	private final EnumDyeColor color;
+	private final String variant;
 	
 	public BlockDigitalLamp(EnumDyeColor color, String variant) {
 		super(color.getDyeColorName() + "_" + variant + "_digital_lamp", Material.REDSTONE_LIGHT);
-		this.dyeColor = color;
+		this.color = color;
+		this.variant = variant;
 		
 		setDefaultState(getDefaultState().withProperty(LIT, false).withProperty(INVERTED, false));
+	}
+	
+	Item item;
+	@Override
+	public Item getItemForm() {
+		if(item == null) {
+			item = new ItemBlockLamp(this, color, variant, "tile.dazzle.digital_lamp.name");
+		}
+		return item;
 	}
 	
 	//Allow for transparency in layers when this gets iblockcolored
@@ -46,7 +58,7 @@ public class BlockDigitalLamp extends BlockBase {
 	@Override
 	public IBlockColor getBlockColors() {
 		return (state, worldIn, pos, tintIndex) -> {
-			int color = dyeColor.getColorValue();
+			int color = this.color.getColorValue();
 			
 			int r = (color & 0xFF0000) >> 16;
 			int g = (color & 0x00FF00) >> 8;
@@ -64,7 +76,7 @@ public class BlockDigitalLamp extends BlockBase {
 	
 	@Override
 	public IItemColor getItemColors() {
-		return (stack, tintIndex) -> dyeColor.getColorValue();
+		return (stack, tintIndex) -> color.getColorValue();
 	}
 	
 	//Inversion

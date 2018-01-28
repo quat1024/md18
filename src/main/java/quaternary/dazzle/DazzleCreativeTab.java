@@ -29,6 +29,11 @@ public class DazzleCreativeTab extends CreativeTabs {
 	}
 	
 	@Override
+	public String getBackgroundImageName() {
+		return "item_search.png";
+	}
+	
+	@Override
 	public void displayAllRelevantItems(NonNullList<ItemStack> list) {
 		for(BlockBase b : Dazzle.BLOCKS) {
 			if(b.hasItemForm()) {

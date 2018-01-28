@@ -1,0 +1,33 @@
+itemGroup.dazzle=Dazzle
+
+tile.dazzle.panel.name=Light Panel
+tile.dazzle.light_sensor.name=Light Sensor
+tile.dazzle.stadium_base.name=Stadium Light Base
+tile.dazzle.stadium_pole.name=Stadium Light Pole
+tile.dazzle.stadium_top.name=Stadium Light Top
+
+tile.dazzle.digital_lamp.name=%s %s Lamp
+tile.dazzle.analog_lamp.name=%s %s Analog Lamp
+
+dazzle.lamp_style.classic=Classic
+dazzle.lamp_style.modern=Modern
+
+#For some reason Minecraft doesn't ship with just dye color localizations lol
+dazzle.color.black=Black
+dazzle.color.red=Red
+dazzle.color.green=Green
+dazzle.color.brown=Brown
+dazzle.color.blue=Blue
+dazzle.color.purple=Purple
+dazzle.color.cyan=Cyan
+dazzle.color.silver=Light Gray
+dazzle.color.gray=Gray
+dazzle.color.pink=Pink
+dazzle.color.lime=Lime
+dazzle.color.yellow=Yellow
+dazzle.color.lightBlue=Light Blue
+dazzle.color.magenta=Magenta
+dazzle.color.orange=Orange
+dazzle.color.white=White
+
+tile.dazzle.invisible_light_source.name=Invisible Light Source (how are you reading this?!)
