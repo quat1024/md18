@@ -4,8 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
-import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.Item;
+import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -64,6 +63,8 @@ public class Dazzle {
 		BLOCKS.add(new BlockInvisibleLightSource());
 	}
 	
+	static final BlockDimRedstoneTorch DIM_REDSTONE_TORCH = new BlockDimRedstoneTorch();
+	
 	@Mod.EventBusSubscriber(modid = MODID)
 	public static class CommonEvents {
 		@SubscribeEvent
@@ -73,6 +74,9 @@ public class Dazzle {
 			for(BlockBase b : BLOCKS) {
 				reg.register(b);
 			}
+			
+			//HACK: because blockdimredstonetorch doesn't extend BlockBase I can't put it in my list.
+			reg.register(DIM_REDSTONE_TORCH);
 			
 			GameRegistry.registerTileEntity(TileEntityLightSensor.class, Dazzle.MODID + "_light_sensor");
 		}
@@ -86,6 +90,9 @@ public class Dazzle {
 					reg.register(b.getItemForm());
 				}
 			}
+			
+			//HACK: dim redstone torch again
+			reg.register(DIM_REDSTONE_TORCH.itemForm());
 		}
 	}
 	
@@ -111,6 +118,11 @@ public class Dazzle {
 					ModelLoader.setCustomStateMapper(b, b.getCustomStatemapper());
 				}
 			}
+			
+			//dim redstone torch hack again lul
+			Item dimTorchItem = DIM_REDSTONE_TORCH.itemForm();
+			ModelResourceLocation mrl = new ModelResourceLocation(dimTorchItem.getRegistryName(), "inventory");
+			ModelLoader.setCustomModelResourceLocation(dimTorchItem, 0, mrl);
 		}
 		
 		@SubscribeEvent

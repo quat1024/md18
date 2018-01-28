@@ -6,8 +6,8 @@ import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import quaternary.dazzle.Dazzle;
 
 /** A statemapper that ignores all IProperties, and returns whatever name you pass in for the name
- * of the blockstate file instead of using the block's registry name. Used in lamps, to avoid writing
- * 48 *identical* blockstate JSONs for the 48 nearly-identical lamps. The lamps are all colored using
+ * of the blockstate file, instead of using the block's registry name. Used in lamps, to avoid writing
+ * 48 *identical* blockstate JSONs for the 48 identical lamps. The lamps are all colored using
  * IBlockColors anyways, and it's unlikely someone will want to remodel only one lamp of a set. */
 public class RenamedIgnoringStatemapper extends StateMapperBase {
 	private final String modelName;
