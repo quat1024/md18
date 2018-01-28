@@ -46,8 +46,8 @@ public class BlockStadiumLightTop extends BlockStadiumLightBase {
 		super.breakBlock(world, pos, state);
 	}
 	
-	@GameRegistry.ObjectHolder("dazzle:invisible_light_source")
-	public static final Block LIGHT_SOURCE = Blocks.DIAMOND_BLOCK;
+	//@GameRegistry.ObjectHolder("dazzle:invisible_light_source")
+	//public static final Block LIGHT_SOURCE = Blocks.DIAMOND_BLOCK;
 	
 	//placing and removing light blocks
 	void placeLightBlocks(World w, BlockPos lampPos, int lightValue) {
@@ -55,6 +55,8 @@ public class BlockStadiumLightTop extends BlockStadiumLightBase {
 		
 		if(w.getBlockState(lampPos).getBlock() instanceof BlockStadiumLightTop)
 			w.setBlockState(lampPos, w.getBlockState(lampPos).withProperty(LIT, lightValue != 0));
+		
+		/*
 		
 		//find the position on the ground that the lamp is "pointing at"
 		EnumFacing facing = w.getBlockState(lampPos).getValue(FACING);
@@ -113,6 +115,7 @@ public class BlockStadiumLightTop extends BlockStadiumLightBase {
 				}
 			}
 		}
+		*/
 	}
 	
 	@Override
