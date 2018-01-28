@@ -32,6 +32,11 @@ public class BlockLightSensor extends BlockBase {
 	
 	//powering
 	@Override
+	public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos pos, @Nullable EnumFacing side) {
+		return state.getValue(FACING) == side;
+	}
+	
+	@Override
 	public boolean canProvidePower(IBlockState state) {
 		return true;
 	}
