@@ -2,7 +2,9 @@ package quaternary.dazzle.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.*;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
+import quaternary.dazzle.Dazzle;
 
 public class ItemBlockLamp extends ItemBlock {
 	final EnumDyeColor color;
@@ -23,5 +25,9 @@ public class ItemBlockLamp extends ItemBlock {
 		String lampStyleLocal = I18n.translateToLocal("dazzle.lamp_style." + style);
 		String colorLocal = I18n.translateToLocal("dazzle.color." + color.getUnlocalizedName());
 		return I18n.translateToLocalFormatted(langKey, colorLocal, lampStyleLocal);
+	}
+	
+	public ResourceLocation getModelResourceHack() {
+		return new ResourceLocation(Dazzle.MODID, "lamp_" + style);
 	}
 }

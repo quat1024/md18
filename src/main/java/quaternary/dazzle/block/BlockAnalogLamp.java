@@ -17,6 +17,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import quaternary.dazzle.block.statemapper.RenamedIgnoringStatemapper;
 import quaternary.dazzle.item.ItemBlockLamp;
 
 public class BlockAnalogLamp extends BlockBase {
@@ -150,6 +151,6 @@ public class BlockAnalogLamp extends BlockBase {
 	
 	@Override
 	public IStateMapper getCustomStatemapper() {
-		return new StateMap.Builder().ignore(POWER).build();
+		return new RenamedIgnoringStatemapper("lamp_" + variant);
 	}
 }

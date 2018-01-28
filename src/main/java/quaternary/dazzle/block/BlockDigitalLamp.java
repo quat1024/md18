@@ -1,8 +1,11 @@
 package quaternary.dazzle.block;
 
+import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.properties.*;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
@@ -17,7 +20,11 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import quaternary.dazzle.block.statemapper.RenamedIgnoringStatemapper;
 import quaternary.dazzle.item.ItemBlockLamp;
+
+import java.util.Collection;
+import java.util.Collections;
 
 public class BlockDigitalLamp extends BlockBase {
 	public static final PropertyBool LIT = PropertyBool.create("lit");
@@ -136,6 +143,6 @@ public class BlockDigitalLamp extends BlockBase {
 	
 	@Override
 	public IStateMapper getCustomStatemapper() {
-		return new StateMap.Builder().ignore(INVERTED, LIT).build();
+		return new RenamedIgnoringStatemapper("lamp_" + variant);
 	}
 }

@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -17,6 +18,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.IForgeRegistry;
 import quaternary.dazzle.block.*;
 import quaternary.dazzle.block.stadium.*;
+import quaternary.dazzle.item.ItemBlockLamp;
 import quaternary.dazzle.tile.TileEntityLightSensor;
 
 import java.util.*;
@@ -94,7 +96,14 @@ public class Dazzle {
 			for(BlockBase b : BLOCKS) {
 				if(b.hasItemForm()) {
 					Item i = b.getItemForm();
-					ModelResourceLocation mrl = new ModelResourceLocation(i.getRegistryName(), "inventory");
+					ResourceLocation res = i.getRegistryName();
+					
+					//Hack to set lamp item model jsons properly as they use a fancy statemapper
+					if(i instanceof ItemBlockLamp) {
+						res = ((ItemBlockLamp)i).getModelResourceHack();
+					}
+					
+					ModelResourceLocation mrl = new ModelResourceLocation(res, "inventory");
 					ModelLoader.setCustomModelResourceLocation(i, 0, mrl);
 				}
 				

@@ -31,3 +31,5 @@ dazzle.color.orange=Orange
 dazzle.color.white=White
 
 tile.dazzle.invisible_light_source.name=Invisible Light Source (how are you reading this?!)
+
+tile.dazzle.light_sensor.name=Light Sensor
