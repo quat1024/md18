@@ -78,7 +78,7 @@ public class Dazzle {
 			//HACK: because blockdimredstonetorch doesn't extend BlockBase I can't put it in my list.
 			reg.register(DIM_REDSTONE_TORCH);
 			
-			GameRegistry.registerTileEntity(TileEntityLightSensor.class, Dazzle.MODID + "_light_sensor");
+			GameRegistry.registerTileEntity(TileEntityLightSensor.class, Dazzle.MODID + ":light_sensor");
 		}
 		
 		@SubscribeEvent

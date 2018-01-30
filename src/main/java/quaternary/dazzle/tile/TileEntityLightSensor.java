@@ -12,7 +12,7 @@ public class TileEntityLightSensor extends TileEntity implements ITickable {
 	@Override
 	public void update() {
 		//update blocks surrounding my position
-		if(!world.isRemote && world.getTotalWorldTime() % 10 == 0) {
+		if(!world.isRemote && world.getTotalWorldTime() % 5 == 0) {
 			IBlockState state = world.getBlockState(pos);
 			Block b = state.getBlock();
 			EnumFacing facing = state.getValue(BlockLightSensor.FACING);
