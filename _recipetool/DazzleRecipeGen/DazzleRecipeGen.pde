@@ -26,25 +26,49 @@ void setup() {
     String c = colors[i];
     String oreKey = oreKeys[i];
     
+    println("Generating digital lamps");
     for(String variant : variants) {
-      for(String lampStyle : lampStyles) {
+      recipeCount++;
+      String fileName = c + "_" + variant + "_digital_lamp";
+      String itemID = "dazzle:" + fileName;
+      println("Generating recipe for " + itemID);
+      
+      template = loadStrings("_template_" + variant + ".json");
+      
+      String[] outputFile = new String[template.length];
+      int j = 0;
+      for(String line : template) {
+        String line2 = line.replace("ITEMID", itemID).replace("DYEID", oreKey);
+        outputFile[j] = line2;
+        j++;
+      }
+      saveStrings("out/" + fileName + ".json", outputFile);
+    }
+  }
+  
+  println("Generating analog lamps");
+  for(int i=0; i < 16; i++) {
+    String c = colors[i];
+    String oreKey = oreKeys[i];
+    
+    for(String variant : variants) {
         recipeCount++;
-        String fileName = c + "_" + variant + "_" + lampStyle
-        String itemID = "dazzle:" + fileName;
+        String analogName = c + "_" + variant + "_analog_lamp";
+        String itemID = "dazzle:" + analogName;
+        String digitalName = c + "_" + variant + "_digital_lamp";
+        String digitalID = "dazzle:" + digitalName;
         println("Generating recipe for " + itemID);
         
-        template = loadStrings("_template" + lampStype + ".json");
+        template = loadStrings("_template_toAnalog.json");
         
         String[] outputFile = new String[template.length];
         int j = 0;
         for(String line : template) {
-          String line2 = line.replace("ITEMID", itemID).replace("DYEID", oreKey);
+          String line2 = line.replace("DIGITALID", digitalID).replace("ANALOGID", itemID);
           outputFile[j] = line2;
           j++;
         }
-        saveStrings(fileName + ".json", outputFile);
-        println("done");
-      }
+        saveStrings("out/" + analogName + ".json", outputFile);
     }
   }
   
