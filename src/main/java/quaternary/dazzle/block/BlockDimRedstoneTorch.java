@@ -26,6 +26,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import quaternary.dazzle.Dazzle;
+import quaternary.dazzle.DazzleCreativeTab;
 
 /** Based on a copy of BlockRedstoneTorch. Changes noted. */
 public class BlockDimRedstoneTorch extends BlockTorch

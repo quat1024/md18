@@ -6,18 +6,20 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import quaternary.dazzle.DazzleCreativeTab;
+import quaternary.dazzle.item.ItemParticleLight;
 import quaternary.dazzle.tile.TileParticleLightSource;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
-import java.util.Random;
 
 //based on copypasta of BlockInvisibleLightSource
 //TODO make it not copypasta
@@ -29,6 +31,24 @@ public class BlockParticleLightSource extends BlockBase {
 		super("particle_light_source", Material.STRUCTURE_VOID);
 		
 		setDefaultState(getDefaultState().withProperty(COLOR, EnumDyeColor.WHITE));
+	}
+	
+	@Override
+	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> items) {
+		if(tab == DazzleCreativeTab.INST) {
+			for(int i=0; i < EnumDyeColor.values().length; i++) {
+				items.add(new ItemStack(getItemForm(), 1, i));
+			}
+		}
+	}
+	
+	ItemParticleLight item;
+	@Override
+	public Item getItemForm() {
+		if(item == null) {
+			item = new ItemParticleLight(this);
+		}
+		return item;
 	}
 	
 	//tile
@@ -43,6 +63,7 @@ public class BlockParticleLightSource extends BlockBase {
 		return new TileParticleLightSource(state.getValue(COLOR));
 	}
 	
+	//meta
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return getDefaultState().withProperty(COLOR, EnumDyeColor.values()[meta]);

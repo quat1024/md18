@@ -8,6 +8,8 @@ import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import quaternary.dazzle.block.BlockBase;
 
+import java.util.*;
+
 public class DazzleCreativeTab extends CreativeTabs {
 	public static DazzleCreativeTab INST = new DazzleCreativeTab();
 	
@@ -15,7 +17,7 @@ public class DazzleCreativeTab extends CreativeTabs {
 		super(Dazzle.MODID);
 	}
 	
-	@GameRegistry.ObjectHolder("dazzle:red_modern_analog_lamp")
+	@GameRegistry.ObjectHolder("dazzle:light_blue_pulsating_digital_lamp")
 	public static final Item tabIcon = Items.AIR;
 	
 	@Override
@@ -31,14 +33,5 @@ public class DazzleCreativeTab extends CreativeTabs {
 	@Override
 	public String getBackgroundImageName() {
 		return "item_search.png";
-	}
-	
-	@Override
-	public void displayAllRelevantItems(NonNullList<ItemStack> list) {
-		for(BlockBase b : Dazzle.BLOCKS) {
-			if(b.hasItemForm()) {
-				list.add(new ItemStack(b.getItemForm()));
-			}
-		}
 	}
 }

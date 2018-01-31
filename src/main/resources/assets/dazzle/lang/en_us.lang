@@ -34,4 +34,6 @@ dazzle.color.white=White
 
 tile.dazzle.invisible_light_source.name=Invisible Light Source (how are you reading this?!)
 
+tile.dazzle.particle_light_source.name=%s Dust Light
+
 tile.dazzle.light_sensor.name=Light Sensor

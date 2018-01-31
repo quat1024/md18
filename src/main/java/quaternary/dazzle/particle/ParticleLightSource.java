@@ -2,12 +2,16 @@ package quaternary.dazzle.particle;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import org.lwjgl.opengl.GL11;
 import quaternary.dazzle.Dazzle;
 
 public class ParticleLightSource extends Particle {
@@ -58,6 +62,13 @@ public class ParticleLightSource extends Particle {
 		particleAge++;
 		
 		move(motionX, motionY, motionZ);
+	}
+	
+	@Override
+	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
+		GlStateManager.depthMask(false);
+		super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
+		GlStateManager.depthMask(true);
 	}
 	
 	@Override

@@ -15,6 +15,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import quaternary.dazzle.Dazzle;
+import quaternary.dazzle.DazzleCreativeTab;
 
 public class BlockBase extends Block {
 	public BlockBase(String name, Material mat) {
@@ -22,6 +23,10 @@ public class BlockBase extends Block {
 		
 		setRegistryName(new ResourceLocation(Dazzle.MODID, name));
 		setUnlocalizedName(Dazzle.MODID + "." + name);
+		
+		if(this.hasItemForm()) {
+			setCreativeTab(DazzleCreativeTab.INST);
+		}
 	}
 	
 	public BlockBase(String name, Material mat, MapColor color) {
@@ -29,6 +34,10 @@ public class BlockBase extends Block {
 		//CODE DUPLICATION HAHA YES
 		setRegistryName(new ResourceLocation(Dazzle.MODID, name));
 		setUnlocalizedName(Dazzle.MODID + "." + name);
+		
+		if(this.hasItemForm()) {
+			setCreativeTab(DazzleCreativeTab.INST);
+		}
 	}
 	
 	//item form management

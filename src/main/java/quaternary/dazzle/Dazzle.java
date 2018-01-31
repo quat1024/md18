@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.*;
@@ -14,12 +15,13 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.*;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.IForgeRegistry;
 import quaternary.dazzle.block.*;
 import quaternary.dazzle.block.stadium.*;
-import quaternary.dazzle.item.ItemBlockLamp;
+import quaternary.dazzle.entity.EntityTorchGrenade;
+import quaternary.dazzle.item.*;
 import quaternary.dazzle.particle.ParticleLightSource;
 import quaternary.dazzle.tile.TileLightSensor;
 import quaternary.dazzle.tile.TileParticleLightSource;
@@ -71,11 +73,15 @@ public class Dazzle {
 	
 	static final BlockDimRedstoneTorch DIM_REDSTONE_TORCH = new BlockDimRedstoneTorch();
 	
+	@GameRegistry.ObjectHolder("dazzle:particle_light_source")
+	public static final Block OH_GOD_ITS_SO_HACKY = Blocks.AIR;
+	
+	static ItemTorchGrenade TORCH_GRENADE = new ItemTorchGrenade();
+	
+	//Temp place to put block colors until I can update Forge
 	@Mod.EventHandler
 	public static void init(FMLInitializationEvent e) {
 		if(e.getSide() != Side.CLIENT) return;
-		
-		System.out.println("doing blockcolors");
 		
 		for(BlockBase b : BLOCKS) {
 			if(b.hasBlockColors()) {
@@ -86,6 +92,10 @@ public class Dazzle {
 				}
 			}
 		}
+		
+		Minecraft.getMinecraft().getItemColors().registerItemColorHandler((stack, tint) -> {
+			return (tint != 1) ? -1 : EnumDyeColor.values()[stack.getMetadata()].getColorValue();
+		}, ((BlockParticleLightSource)OH_GOD_ITS_SO_HACKY).getItemForm());
 	}
 	
 	@Mod.EventBusSubscriber(modid = MODID)
@@ -117,6 +127,18 @@ public class Dazzle {
 			
 			//HACK: dim redstone torch again
 			reg.register(DIM_REDSTONE_TORCH.itemForm());
+			
+			//HACK: this is the only not-block item my mod actually adds so i haven't bothered to do this
+			//in a better way
+			reg.register(TORCH_GRENADE);
+		}
+		
+		@SubscribeEvent
+		public static void entities(RegistryEvent.Register<EntityEntry> e) {
+			IForgeRegistry<EntityEntry> reg = e.getRegistry();
+			
+			EntityEntry grenade = EntityEntryBuilder.create().entity(EntityTorchGrenade.class).id(new ResourceLocation(Dazzle.MODID, "torch_grenade"), 0).name("torch_grenade").tracker(128, 2, true).build();
+			reg.register(grenade);
 		}
 	}
 	
@@ -127,15 +149,26 @@ public class Dazzle {
 			for(BlockBase b : BLOCKS) {
 				if(b.hasItemForm()) {
 					Item i = b.getItemForm();
-					ResourceLocation res = i.getRegistryName();
 					
-					//Hack to set lamp item model jsons properly as they use a fancy statemapper
-					if(i instanceof ItemBlockLamp) {
-						res = ((ItemBlockLamp)i).getModelResourceHack();
+					//More shitty hacks because this is the only item with metadata
+					if(i instanceof ItemParticleLight) {
+						ResourceLocation res = i.getRegistryName();
+						for(int a = 0; a < 16; a++) {
+							ModelResourceLocation mrl = new ModelResourceLocation(res, "inventory");
+							ModelLoader.setCustomModelResourceLocation(i, a, mrl);
+						}
+					} else {
+						
+						ResourceLocation res = i.getRegistryName();
+						
+						//Hack to set lamp item model jsons properly as they use a fancy statemapper
+						if(i instanceof ItemBlockLamp) {
+							res = ((ItemBlockLamp) i).getModelResourceHack();
+						}
+						
+						ModelResourceLocation mrl = new ModelResourceLocation(res, "inventory");
+						ModelLoader.setCustomModelResourceLocation(i, 0, mrl);
 					}
-					
-					ModelResourceLocation mrl = new ModelResourceLocation(res, "inventory");
-					ModelLoader.setCustomModelResourceLocation(i, 0, mrl);
 				}
 				
 				if(b.hasCustomStatemapper()) {
@@ -147,6 +180,9 @@ public class Dazzle {
 			Item dimTorchItem = DIM_REDSTONE_TORCH.itemForm();
 			ModelResourceLocation mrl = new ModelResourceLocation(dimTorchItem.getRegistryName(), "inventory");
 			ModelLoader.setCustomModelResourceLocation(dimTorchItem, 0, mrl);
+			
+			ModelResourceLocation mrl2 = new ModelResourceLocation(TORCH_GRENADE.getRegistryName(), "inventory");
+			ModelLoader.setCustomModelResourceLocation(TORCH_GRENADE, 0, mrl2);
 		}
 		
 		/*
