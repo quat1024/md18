@@ -6,10 +6,10 @@ import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.ColorHandlerEvent;
-import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -18,7 +18,9 @@ import net.minecraftforge.registries.IForgeRegistry;
 import quaternary.dazzle.block.*;
 import quaternary.dazzle.block.stadium.*;
 import quaternary.dazzle.item.ItemBlockLamp;
-import quaternary.dazzle.tile.TileEntityLightSensor;
+import quaternary.dazzle.particle.ParticleLightSource;
+import quaternary.dazzle.tile.TileLightSensor;
+import quaternary.dazzle.tile.TileParticleLightSource;
 
 import java.util.*;
 
@@ -60,6 +62,8 @@ public class Dazzle {
 		BLOCKS.add(new BlockStadiumLightTop());
 		BLOCKS.add(new BlockStadiumLightBottomStructure());
 		
+		BLOCKS.add(new BlockParticleLightSource());
+		
 		BLOCKS.add(new BlockInvisibleLightSource());
 	}
 	
@@ -78,7 +82,8 @@ public class Dazzle {
 			//HACK: because blockdimredstonetorch doesn't extend BlockBase I can't put it in my list.
 			reg.register(DIM_REDSTONE_TORCH);
 			
-			GameRegistry.registerTileEntity(TileEntityLightSensor.class, Dazzle.MODID + ":light_sensor");
+			GameRegistry.registerTileEntity(TileLightSensor.class, Dazzle.MODID + ":light_sensor");
+			GameRegistry.registerTileEntity(TileParticleLightSource.class, Dazzle.MODID + ":particle_light");
 		}
 		
 		@SubscribeEvent
@@ -145,6 +150,11 @@ public class Dazzle {
 					colors.registerItemColorHandler(b.getItemColors(), b.getItemForm());
 				}
 			}
+		}
+		
+		@SubscribeEvent
+		public static void textureStitch(TextureStitchEvent.Pre e) {
+			ParticleLightSource.textureStitch(e);
 		}
 	}
 }

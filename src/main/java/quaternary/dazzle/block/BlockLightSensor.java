@@ -10,7 +10,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.*;
-import quaternary.dazzle.tile.TileEntityLightSensor;
+import quaternary.dazzle.tile.TileLightSensor;
 
 import javax.annotation.Nullable;
 
@@ -69,7 +69,7 @@ public class BlockLightSensor extends BlockBase {
 	@Nullable
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState state) {
-		return new TileEntityLightSensor();
+		return new TileLightSensor();
 	}
 	
 	//blockstate boilerplate

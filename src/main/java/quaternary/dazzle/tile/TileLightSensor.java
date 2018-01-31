@@ -8,7 +8,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import quaternary.dazzle.block.BlockLightSensor;
 
-public class TileEntityLightSensor extends TileEntity implements ITickable {
+public class TileLightSensor extends TileEntity implements ITickable {
 	@Override
 	public void update() {
 		//update blocks surrounding my position
