@@ -13,8 +13,6 @@ import net.minecraft.world.World;
 import quaternary.dazzle.Dazzle;
 import quaternary.dazzle.block.BlockBase;
 
-import java.util.Collections;
-
 /** An invisible block only used for taking up space around the base of the stadium light. */
 public class BlockStadiumLightBottomStructure extends BlockBase {
 	public BlockStadiumLightBottomStructure() {

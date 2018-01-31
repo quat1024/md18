@@ -16,8 +16,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import quaternary.dazzle.block.BlockBase;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class BlockStadiumLightBase extends BlockBase {
 	public enum ComponentType {

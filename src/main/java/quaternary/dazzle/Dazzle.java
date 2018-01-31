@@ -4,29 +4,33 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
-import net.minecraft.client.renderer.color.*;
+import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.*;
+import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.*;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.*;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.*;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.IForgeRegistry;
 import quaternary.dazzle.block.*;
 import quaternary.dazzle.block.stadium.*;
-import quaternary.dazzle.entity.EntityTorchGrenade;
 import quaternary.dazzle.item.*;
 import quaternary.dazzle.particle.ParticleLightSource;
 import quaternary.dazzle.proxy.ServerProxy;
 import quaternary.dazzle.tile.TileLightSensor;
 import quaternary.dazzle.tile.TileParticleLightSource;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Mod(modid = Dazzle.MODID, name = Dazzle.NAME, version = Dazzle.VERSION)
 public class Dazzle {

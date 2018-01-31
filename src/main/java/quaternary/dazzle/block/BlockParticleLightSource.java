@@ -7,7 +7,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -18,7 +19,6 @@ import quaternary.dazzle.item.ItemParticleLight;
 import quaternary.dazzle.tile.TileParticleLightSource;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
 
 //based on copypasta of BlockInvisibleLightSource
 //TODO make it not copypasta

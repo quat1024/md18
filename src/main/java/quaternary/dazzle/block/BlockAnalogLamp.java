@@ -14,7 +14,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import quaternary.dazzle.Dazzle;
-import quaternary.dazzle.block.statemapper.RenamedIgnoringStatemapper;
 import quaternary.dazzle.item.ItemBlockLamp;
 
 public class BlockAnalogLamp extends BlockBase {

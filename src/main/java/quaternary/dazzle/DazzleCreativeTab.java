@@ -4,11 +4,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import quaternary.dazzle.block.BlockBase;
-
-import java.util.*;
 
 public class DazzleCreativeTab extends CreativeTabs {
 	public static DazzleCreativeTab INST = new DazzleCreativeTab();

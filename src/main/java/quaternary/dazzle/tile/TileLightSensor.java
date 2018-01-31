@@ -2,7 +2,6 @@ package quaternary.dazzle.tile;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -10,7 +9,6 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumSkyBlock;
-import net.minecraft.world.WorldServer;
 import quaternary.dazzle.block.BlockLightSensor;
 
 public class TileLightSensor extends TileEntity implements ITickable {

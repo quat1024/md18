@@ -11,7 +11,6 @@ import net.minecraft.world.IBlockAccess;
 import quaternary.dazzle.Dazzle;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
 
 public class BlockInvisibleLightSource extends BlockBase {
 	
