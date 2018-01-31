@@ -46,6 +46,7 @@ public class BlockDimRedstoneTorch extends BlockTorch
 		String name = "dim_redstone_torch";
 		setRegistryName(Dazzle.MODID, name);
 		setUnlocalizedName(Dazzle.MODID + "." + name);
+		setCreativeTab(DazzleCreativeTab.INST);
 	}
 	
 	//Dazzle: set light value here instead of when constructing

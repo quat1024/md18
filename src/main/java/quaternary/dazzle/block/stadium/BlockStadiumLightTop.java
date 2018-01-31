@@ -5,15 +5,19 @@ import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class BlockStadiumLightTop extends BlockStadiumLightBase {
@@ -24,6 +28,11 @@ public class BlockStadiumLightTop extends BlockStadiumLightBase {
 		super("stadium_top", ComponentType.TOP);
 		
 		setDefaultState(getDefaultState().withProperty(FACING, EnumFacing.NORTH).withProperty(LIT, false));
+	}
+	
+	@Override
+	public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
+		tooltip.add(TextFormatting.DARK_GRAY + "" + TextFormatting.ITALIC + "Pay no attention to the item model.");
 	}
 	
 	@Override

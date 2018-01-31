@@ -1,0 +1,19 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+		{
+			"item": "minecraft:glowstone_dust"
+		},
+		{
+			"item": "minecraft:chorus_fruit_popped"
+		},
+		{
+			"type": "forge:ore_dict",
+			"ore": "dyeLightGray"
+		}
+	],
+	"result": {
+		"item": "dazzle:particle_light_source",
+		"data": 8
+	}
+}

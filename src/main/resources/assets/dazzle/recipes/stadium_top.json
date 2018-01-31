@@ -1,0 +1,22 @@
+{
+	"result": {
+		"item": "dazzle:stadium_top"
+	},
+	"pattern": [
+		"LLL",
+		"LLL",
+		"DID"
+	],
+	"type": "forge:ore_shaped",
+	"key": {
+		"I": {
+			"item": "minecraft:iron_bars"
+		},
+		"L": {
+			"item": "minecraft:redstone_lamp"
+		},
+		"D": {
+			"item": "minecraft:diamond"
+		}
+	}
+}

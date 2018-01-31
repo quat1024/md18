@@ -22,6 +22,30 @@ void setup() {
   noLoop();
   
   int recipeCount = 0;
+  
+  println("Generating particle lights");
+  for(int i=0; i < 16; i++) {
+    String c = colors[i];
+    String oreKey = oreKeys[i];
+    recipeCount++;
+    
+    String fileName = "particle_light_" + c;
+    String meta = i;
+    
+    template = loadStrings("_template_particleLight.json");
+    
+    String[] outputFile = new String[template.length];
+    int j = 0;
+    for(String line : template) {
+      String line2 = line.replace("META", meta).replace("OREKEY", oreKey);
+      outputFile[j] = line2;
+      j++;
+    }
+    
+    saveStrings("out/" + filename + ".json", outputFile);
+  }
+  
+  /*
   for(int i=0; i < 16; i++) {
     String c = colors[i];
     String oreKey = oreKeys[i];
@@ -71,6 +95,7 @@ void setup() {
         saveStrings("out/" + analogName + ".json", outputFile);
     }
   }
+  */
   
   println("Generated " + recipeCount + " recipes.");
 }
