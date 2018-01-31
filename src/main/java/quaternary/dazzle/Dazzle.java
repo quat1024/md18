@@ -1,6 +1,7 @@
 package quaternary.dazzle;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
@@ -11,6 +12,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -68,6 +70,23 @@ public class Dazzle {
 	}
 	
 	static final BlockDimRedstoneTorch DIM_REDSTONE_TORCH = new BlockDimRedstoneTorch();
+	
+	@Mod.EventHandler
+	public static void init(FMLInitializationEvent e) {
+		if(e.getSide() != Side.CLIENT) return;
+		
+		System.out.println("doing blockcolors");
+		
+		for(BlockBase b : BLOCKS) {
+			if(b.hasBlockColors()) {
+				Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(b.getBlockColors(), b);
+				
+				if(b.hasItemForm()) {
+					Minecraft.getMinecraft().getItemColors().registerItemColorHandler(b.getItemColors(), b.getItemForm());
+				}
+			}
+		}
+	}
 	
 	@Mod.EventBusSubscriber(modid = MODID)
 	public static class CommonEvents {
@@ -130,6 +149,8 @@ public class Dazzle {
 			ModelLoader.setCustomModelResourceLocation(dimTorchItem, 0, mrl);
 		}
 		
+		/*
+		//Not in this version of Forge.
 		@SubscribeEvent
 		public static void blockColors(ColorHandlerEvent.Block e) {
 			BlockColors colors = e.getBlockColors();
@@ -151,6 +172,7 @@ public class Dazzle {
 				}
 			}
 		}
+		*/
 		
 		@SubscribeEvent
 		public static void textureStitch(TextureStitchEvent.Pre e) {
