@@ -6,11 +6,13 @@ tile.dazzle.stadium_base.name=Stadium Light Base
 tile.dazzle.stadium_pole.name=Stadium Light Pole
 tile.dazzle.stadium_top.name=Stadium Light Top
 
-tile.dazzle.digital_lamp.name=%s %s Lamp
-tile.dazzle.analog_lamp.name=%s %s Analog Lamp
+tile.dazzle.digital_lamp.name=%s %s
+tile.dazzle.analog_lamp.name=Analog %s %s
 
-dazzle.lamp_style.classic=Classic
-dazzle.lamp_style.modern=Modern
+dazzle.lamp_style.classic=Classic Lamp
+dazzle.lamp_style.modern=Modern Lamp
+dazzle.lamp_style.pulsating=Pulsating Lamp
+dazzle.lamp_style.lantern=Sea Lantern
 
 #For some reason Minecraft doesn't ship with just dye color localizations lol
 dazzle.color.black=Black

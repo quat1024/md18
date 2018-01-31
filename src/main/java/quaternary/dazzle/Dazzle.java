@@ -32,7 +32,7 @@ public class Dazzle {
 	
 	public static final List<BlockBase> BLOCKS = new ArrayList<>();
 	
-	private static final String[] LAMP_VARIANTS = new String[] {"classic", "modern"};
+	private static final String[] LAMP_VARIANTS = new String[] {"classic", "modern", "pulsating", "lantern"};
 	
 	static {
 		for(String variant : LAMP_VARIANTS) {

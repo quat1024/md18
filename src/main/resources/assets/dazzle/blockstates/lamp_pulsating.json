@@ -1,0 +1,15 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "dazzle:lamp_side",
+		"textures": {
+			"base": "dazzle:block/pulsating_lamp/base",
+			"side": "dazzle:block/pulsating_lamp/side",
+			"end": "dazzle:block/pulsating_lamp/top"
+		}
+	},
+	"variants": {
+		"normal": [{}],
+		"inventory": [{}]
+	}
+}
