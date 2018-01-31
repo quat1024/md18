@@ -1,0 +1,14 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [
+		{
+			"item": "minecraft:comparator"
+		},
+		{
+			"item": "dazzle:blue_pulsating_digital_lamp"
+		}
+	],
+	"result": {
+		"item": "dazzle:blue_pulsating_analog_lamp"
+	}
+}

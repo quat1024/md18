@@ -1,0 +1,19 @@
+{
+	"result": {
+		"item": "dazzle:white_classic_digital_lamp"
+	},
+	"pattern": [
+		"D",
+		"L"
+	],
+	"type": "forge:ore_shaped",
+	"key": {
+		"D": {
+			"type": "forge:ore_dict",
+			"ore": "dyeWhite"
+		},
+		"L": {
+			"item": "minecraft:redstone_lamp"
+		}
+	}
+}

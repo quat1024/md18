@@ -1,0 +1,23 @@
+{
+	"result": {
+		"item": "dazzle:green_pulsating_digital_lamp"
+	},
+	"pattern": [
+		"D",
+		"P",
+		"L"
+	],
+	"type": "forge:ore_shaped",
+	"key": {
+		"D": {
+			"type": "forge:ore_dict",
+			"ore": "dyeGreen"
+		},
+		"P": {
+			"item": "minecraft:end_rod"
+		},
+		"L": {
+			"item": "minecraft:redstone_lamp"
+		}
+	}
+}

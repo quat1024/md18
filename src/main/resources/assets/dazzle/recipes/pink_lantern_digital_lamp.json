@@ -1,0 +1,23 @@
+{
+	"result": {
+		"item": "dazzle:pink_lantern_digital_lamp"
+	},
+	"pattern": [
+		"D",
+		"P",
+		"L"
+	],
+	"type": "forge:ore_shaped",
+	"key": {
+		"D": {
+			"type": "forge:ore_dict",
+			"ore": "dyePink"
+		},
+		"P": {
+			"item": "minecraft:prismarine_crystals"
+		},
+		"L": {
+			"item": "minecraft:redstone_lamp"
+		}
+	}
+}

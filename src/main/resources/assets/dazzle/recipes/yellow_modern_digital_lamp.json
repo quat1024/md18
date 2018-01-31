@@ -1,0 +1,23 @@
+{
+	"result": {
+		"item": "dazzle:yellow_modern_digital_lamp"
+	},
+	"pattern": [
+		"D",
+		"P",
+		"L"
+	],
+	"type": "forge:ore_shaped",
+	"key": {
+		"D": {
+			"type": "forge:ore_dict",
+			"ore": "dyeYellow"
+		},
+		"P": {
+			"item": "minecraft:stone_pressure_plate"
+		},
+		"L": {
+			"item": "minecraft:redstone_lamp"
+		}
+	}
+}
