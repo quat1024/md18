@@ -7,7 +7,7 @@ import net.minecraft.util.text.translation.I18n;
 import quaternary.dazzle.Dazzle;
 
 public class ItemBlockLamp extends ItemBlock {
-	final EnumDyeColor color;
+	public final EnumDyeColor color;
 	final String style;
 	final String langKey;
 	

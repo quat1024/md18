@@ -2,10 +2,8 @@ package quaternary.dazzle.block;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntity;
@@ -14,6 +12,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import quaternary.dazzle.Dazzle;
 import quaternary.dazzle.DazzleCreativeTab;
 import quaternary.dazzle.item.ItemParticleLight;
 import quaternary.dazzle.tile.TileParticleLightSource;
@@ -86,8 +85,8 @@ public class BlockParticleLightSource extends BlockBase {
 	}
 	
 	@Override
-	public IStateMapper getCustomStatemapper() {
-		return block -> Collections.emptyMap();
+	public Object getCustomStatemapper() {
+		return Dazzle.PROXY.getEmptyStatemapper();
 	}
 	
 	//Light level

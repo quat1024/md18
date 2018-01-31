@@ -1,17 +1,10 @@
 package quaternary.dazzle.block;
 
-import com.google.common.base.Optional;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.statemap.IStateMapper;
-import net.minecraft.client.renderer.block.statemap.StateMap;
-import net.minecraft.client.renderer.color.IBlockColor;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -20,21 +13,19 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import quaternary.dazzle.Dazzle;
 import quaternary.dazzle.block.statemapper.RenamedIgnoringStatemapper;
 import quaternary.dazzle.item.ItemBlockLamp;
-
-import java.util.Collection;
-import java.util.Collections;
 
 public class BlockDigitalLamp extends BlockBase {
 	public static final PropertyBool LIT = PropertyBool.create("lit");
 	public static final PropertyBool INVERTED = PropertyBool.create("inverted");
 	
-	private final EnumDyeColor color;
+	public final EnumDyeColor color;
 	private final String variant;
 	
 	public BlockDigitalLamp(EnumDyeColor color, String variant) {
-		super(color.getDyeColorName() + "_" + variant + "_digital_lamp", Material.REDSTONE_LIGHT);
+		super(color.getName() + "_" + variant + "_digital_lamp", Material.REDSTONE_LIGHT);
 		this.color = color;
 		this.variant = variant;
 		
@@ -63,27 +54,13 @@ public class BlockDigitalLamp extends BlockBase {
 	}
 	
 	@Override
-	public IBlockColor getBlockColors() {
-		return (state, worldIn, pos, tintIndex) -> {
-			int color = this.color.getColorValue();
-			
-			int r = (color & 0xFF0000) >> 16;
-			int g = (color & 0x00FF00) >> 8;
-			int b = (color & 0x0000FF);
-			
-			if(!isLit(state)) {
-				r /= 5;
-				g /= 5;
-				b /= 5;
-			}
-			
-			return (r << 16) | (g << 8) | b;
-		};
+	public Object getBlockColors() {
+		return Dazzle.PROXY.getDigitalLampBlockColors();
 	}
 	
 	@Override
-	public IItemColor getItemColors() {
-		return (stack, tintIndex) -> color.getColorValue();
+	public Object getItemColors() {
+		return Dazzle.PROXY.getLampItemColors();
 	}
 	
 	//Inversion
@@ -96,7 +73,7 @@ public class BlockDigitalLamp extends BlockBase {
 		return false;
 	}
 	
-	public boolean isLit(IBlockState state) {
+	public static boolean isLit(IBlockState state) {
 		return state.getValue(LIT) ^ state.getValue(INVERTED);
 	}
 	
@@ -142,7 +119,7 @@ public class BlockDigitalLamp extends BlockBase {
 	}
 	
 	@Override
-	public IStateMapper getCustomStatemapper() {
-		return new RenamedIgnoringStatemapper("lamp_" + variant);
+	public Object getCustomStatemapper() {
+		return Dazzle.PROXY.getLampStatemapper("lamp_" + variant);
 	}
 }

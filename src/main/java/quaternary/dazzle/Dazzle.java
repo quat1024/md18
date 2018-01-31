@@ -3,16 +3,15 @@ package quaternary.dazzle;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.color.BlockColors;
-import net.minecraft.client.renderer.color.ItemColors;
+import net.minecraft.client.renderer.block.statemap.IStateMapper;
+import net.minecraft.client.renderer.color.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.*;
@@ -23,6 +22,7 @@ import quaternary.dazzle.block.stadium.*;
 import quaternary.dazzle.entity.EntityTorchGrenade;
 import quaternary.dazzle.item.*;
 import quaternary.dazzle.particle.ParticleLightSource;
+import quaternary.dazzle.proxy.ServerProxy;
 import quaternary.dazzle.tile.TileLightSensor;
 import quaternary.dazzle.tile.TileParticleLightSource;
 
@@ -35,6 +35,9 @@ public class Dazzle {
 	public static final String VERSION = "0.0.0";
 	
 	public static final List<BlockBase> BLOCKS = new ArrayList<>();
+	
+	@SidedProxy(serverSide = "quaternary.dazzle.proxy.ServerProxy", clientSide = "quaternary.dazzle.proxy.ClientProxy")
+	public static ServerProxy PROXY;
 	
 	private static final String[] LAMP_VARIANTS = new String[] {"classic", "modern", "pulsating", "lantern"};
 	
@@ -85,10 +88,10 @@ public class Dazzle {
 		
 		for(BlockBase b : BLOCKS) {
 			if(b.hasBlockColors()) {
-				Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(b.getBlockColors(), b);
+				Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler((IBlockColor) b.getBlockColors(), b);
 				
 				if(b.hasItemForm()) {
-					Minecraft.getMinecraft().getItemColors().registerItemColorHandler(b.getItemColors(), b.getItemForm());
+					Minecraft.getMinecraft().getItemColors().registerItemColorHandler((IItemColor) b.getItemColors(), b.getItemForm());
 				}
 			}
 		}
@@ -128,11 +131,14 @@ public class Dazzle {
 			//HACK: dim redstone torch again
 			reg.register(DIM_REDSTONE_TORCH.itemForm());
 			
+			/*
 			//HACK: this is the only not-block item my mod actually adds so i haven't bothered to do this
 			//in a better way
 			reg.register(TORCH_GRENADE);
+			*/
 		}
 		
+		/*
 		@SubscribeEvent
 		public static void entities(RegistryEvent.Register<EntityEntry> e) {
 			IForgeRegistry<EntityEntry> reg = e.getRegistry();
@@ -140,6 +146,7 @@ public class Dazzle {
 			EntityEntry grenade = EntityEntryBuilder.create().entity(EntityTorchGrenade.class).id(new ResourceLocation(Dazzle.MODID, "torch_grenade"), 0).name("torch_grenade").tracker(128, 2, true).build();
 			reg.register(grenade);
 		}
+		*/
 	}
 	
 	@Mod.EventBusSubscriber(value = Side.CLIENT, modid = MODID)
@@ -172,7 +179,7 @@ public class Dazzle {
 				}
 				
 				if(b.hasCustomStatemapper()) {
-					ModelLoader.setCustomStateMapper(b, b.getCustomStatemapper());
+					ModelLoader.setCustomStateMapper(b, (IStateMapper) b.getCustomStatemapper());
 				}
 			}
 			
@@ -181,8 +188,10 @@ public class Dazzle {
 			ModelResourceLocation mrl = new ModelResourceLocation(dimTorchItem.getRegistryName(), "inventory");
 			ModelLoader.setCustomModelResourceLocation(dimTorchItem, 0, mrl);
 			
+			/*
 			ModelResourceLocation mrl2 = new ModelResourceLocation(TORCH_GRENADE.getRegistryName(), "inventory");
 			ModelLoader.setCustomModelResourceLocation(TORCH_GRENADE, 0, mrl2);
+			*/
 		}
 		
 		/*

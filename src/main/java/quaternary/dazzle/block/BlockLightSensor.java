@@ -44,20 +44,18 @@ public class BlockLightSensor extends BlockBase {
 	@Override
 	public int getStrongPower(IBlockState state, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
 		if(blockAccess instanceof ChunkCache) return 0;
+		
 		return getWeakPower(state, blockAccess, pos, side);
 	}
 	
 	@Override
 	public int getWeakPower(IBlockState state, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
 		if(blockAccess instanceof ChunkCache) return 0;
+		
 		EnumFacing sensedDirection = state.getValue(FACING);
 		if(side != sensedDirection) return 0;
 		
-		World w = (World) blockAccess;
-		BlockPos sensedPos = pos.offset(sensedDirection);
-		
-		int lightLevel = w.getLightFor(EnumSkyBlock.BLOCK, sensedPos);
-		return lightLevel;
+		return ((TileLightSensor) blockAccess.getTileEntity(pos)).lightLevel;
 	}
 	
 	//tile

@@ -1,11 +1,10 @@
 package quaternary.dazzle.tile;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
+import quaternary.dazzle.Dazzle;
 import quaternary.dazzle.block.BlockParticleLightSource;
-import quaternary.dazzle.particle.ParticleLightSource;
 
 public class TileParticleLightSource extends TileEntity implements ITickable {
 	EnumDyeColor color;
@@ -23,6 +22,6 @@ public class TileParticleLightSource extends TileEntity implements ITickable {
 		
 		color = world.getBlockState(pos).getValue(BlockParticleLightSource.COLOR);
 		
-		Minecraft.getMinecraft().effectRenderer.addEffect(new ParticleLightSource(world, pos, color));
+		Dazzle.PROXY.spawnLightSourceParticle(world, pos, color);
 	}
 }

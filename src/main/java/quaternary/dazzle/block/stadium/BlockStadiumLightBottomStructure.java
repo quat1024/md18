@@ -4,13 +4,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import quaternary.dazzle.Dazzle;
 import quaternary.dazzle.block.BlockBase;
 
 import java.util.Collections;
@@ -32,8 +32,8 @@ public class BlockStadiumLightBottomStructure extends BlockBase {
 	}
 	
 	@Override
-	public IStateMapper getCustomStatemapper() {
-		return block -> Collections.emptyMap();
+	public Object getCustomStatemapper() {
+		return Dazzle.PROXY.getEmptyStatemapper();
 	}
 	
 	//aabb

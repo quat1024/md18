@@ -59,7 +59,7 @@ public class BlockBase extends Block {
 		return false;
 	}
 	
-	public IStateMapper getCustomStatemapper() {
+	public Object getCustomStatemapper() {
 		return null;
 	}
 	
@@ -69,11 +69,11 @@ public class BlockBase extends Block {
 	}
 	
 	//Yaknow i should really make these abstract.
-	public IBlockColor getBlockColors() {
+	public Object getBlockColors() {
 		return null;
 	}
 	
-	public IItemColor getItemColors() {
+	public Object getItemColors() {
 		return null;
 	}
 	
