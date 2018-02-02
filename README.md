@@ -16,3 +16,5 @@ Featuring:
  - More things as I can think of them!
  
 Dazzle is licensed under the short and permissive zlib license.
+
+**This is the post-compo branch**, created to continue working on the mod after ModOff but before judging, because I am an impatient bastard. The version of the mod exactly as it was created during ModOff is available on the `lights` branch.
