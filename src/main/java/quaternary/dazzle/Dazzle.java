@@ -36,7 +36,7 @@ import java.util.List;
 public class Dazzle {
 	public static final String MODID = "dazzle";
 	public static final String NAME = "Dazzle";
-	public static final String VERSION = "0.0.0";
+	public static final String VERSION = "1.1.0";
 	
 	public static final List<BlockBase> BLOCKS = new ArrayList<>();
 	

@@ -1,5 +1,7 @@
 itemGroup.dazzle=Dazzle
 
+dazzle.config.mirage_support=Mirage Support
+
 tile.dazzle.panel.name=Light Panel
 tile.dazzle.light_sensor.name=Light Sensor
 tile.dazzle.stadium_base.name=Stadium Light Base

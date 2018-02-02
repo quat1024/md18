@@ -13,8 +13,9 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import quaternary.dazzle.Dazzle;
-import quaternary.dazzle.DazzleCreativeTab;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.Loader;
+import quaternary.dazzle.*;
 import quaternary.dazzle.item.ItemParticleLight;
 import quaternary.dazzle.tile.TileParticleLightSource;
 
@@ -92,7 +93,10 @@ public class BlockParticleLightSource extends BlockBase {
 	//Light level
 	@Override
 	public int getLightValue(IBlockState state) {
-		return 15;
+		//Don't use the vanilla lighting system if Mirage support is enabled.
+		//This *will* cause weirdness with mods that display light level overlays, but idk
+		if(DazzleConfig.MIRAGE_SUPPORT && Loader.isModLoaded("mirage") && FMLCommonHandler.instance().getEffectiveSide().isClient()) return 0;
+		else return 15;
 	}
 	
 	//Make it invisible
