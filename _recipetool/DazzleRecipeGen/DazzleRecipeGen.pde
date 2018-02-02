@@ -30,7 +30,7 @@ void setup() {
     recipeCount++;
     
     String fileName = "particle_light_" + c;
-    String meta = i;
+    String meta = str(i);
     
     template = loadStrings("_template_particleLight.json");
     
@@ -42,7 +42,7 @@ void setup() {
       j++;
     }
     
-    saveStrings("out/" + filename + ".json", outputFile);
+    saveStrings("out/" + fileName + ".json", outputFile);
   }
   
   /*
