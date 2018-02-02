@@ -1,11 +1,17 @@
 package quaternary.dazzle.entity;
 
+import elucent.albedo.lighting.ILightProvider;
+import elucent.albedo.lighting.Light;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityThrownTorch extends Entity {
+@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
+public class EntityThrownTorch extends Entity implements ILightProvider {
 	public EntityThrownTorch(World w) { super(w); }
 	
 	public EntityThrownTorch(World w, BlockPos pos) {
@@ -35,5 +41,15 @@ public class EntityThrownTorch extends Entity {
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound compound) {
 		
+	}
+
+	@Override
+	@Optional.Method(modid="albedo")
+	public Light provideLight() {
+		return new Light.Builder().
+			pos(this.getEntityBoundingBox().getCenter()).
+			color(1F, 1F, 1F).
+			radius(5F).
+			build();
 	}
 }

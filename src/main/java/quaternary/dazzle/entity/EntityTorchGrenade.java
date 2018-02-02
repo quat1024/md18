@@ -1,12 +1,16 @@
 package quaternary.dazzle.entity;
 
+import elucent.albedo.lighting.ILightProvider;
+import elucent.albedo.lighting.Light;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 
-public class EntityTorchGrenade extends EntityThrowable {
+@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
+public class EntityTorchGrenade extends EntityThrowable implements ILightProvider{
 	int torchCount;
 	
 	public EntityTorchGrenade(World w) { super(w); }
@@ -44,5 +48,16 @@ public class EntityTorchGrenade extends EntityThrowable {
 	public void writeEntityToNBT(NBTTagCompound cmp) {
 		cmp.setInteger("TorchCount", torchCount);
 		super.writeEntityToNBT(cmp);
+	}
+
+	@Override
+	@Optional.Method(modid="albedo")
+	public Light provideLight() {
+		float radius =  4F + (this.torchCount);
+		return new Light.Builder().
+				pos(this.getEntityBoundingBox().getCenter()).
+				color(1F, 1F, 1F).
+				radius(radius).
+				build();
 	}
 }
