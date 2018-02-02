@@ -14,6 +14,7 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -23,6 +24,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.IForgeRegistry;
 import quaternary.dazzle.block.*;
 import quaternary.dazzle.block.stadium.*;
+import quaternary.dazzle.compat.albedo.AlbedoCompat;
 import quaternary.dazzle.item.*;
 import quaternary.dazzle.particle.ParticleLightSource;
 import quaternary.dazzle.proxy.ServerProxy;
@@ -39,11 +41,16 @@ public class Dazzle {
 	public static final String VERSION = "0.0.0";
 	
 	public static final List<BlockBase> BLOCKS = new ArrayList<>();
+
+	@Mod.Instance
+	public static Dazzle instance;
 	
 	@SidedProxy(serverSide = "quaternary.dazzle.proxy.ServerProxy", clientSide = "quaternary.dazzle.proxy.ClientProxy")
 	public static ServerProxy PROXY;
 	
 	private static final String[] LAMP_VARIANTS = new String[] {"classic", "modern", "pulsating", "lantern"};
+
+	private AlbedoCompat albedoCompat = new AlbedoCompat();
 	
 	static {
 		for(String variant : LAMP_VARIANTS) {
@@ -103,6 +110,10 @@ public class Dazzle {
 		Minecraft.getMinecraft().getItemColors().registerItemColorHandler((stack, tint) -> {
 			return (tint != 1) ? -1 : EnumDyeColor.values()[stack.getMetadata()].getColorValue();
 		}, ((BlockParticleLightSource)OH_GOD_ITS_SO_HACKY).getItemForm());
+
+		if(Loader.isModLoaded("albedo")){
+			AlbedoCompat.load();
+		}
 	}
 	
 	@Mod.EventBusSubscriber(modid = MODID)
@@ -227,5 +238,9 @@ public class Dazzle {
 		public static void textureStitch(TextureStitchEvent.Pre e) {
 			ParticleLightSource.textureStitch(e);
 		}
+	}
+
+	public AlbedoCompat getAlbedoCompat(){
+		return this.albedoCompat;
 	}
 }

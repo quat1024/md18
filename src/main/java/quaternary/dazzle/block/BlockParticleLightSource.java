@@ -13,6 +13,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import quaternary.dazzle.Dazzle;
 import quaternary.dazzle.DazzleCreativeTab;
 import quaternary.dazzle.item.ItemParticleLight;
@@ -92,6 +93,12 @@ public class BlockParticleLightSource extends BlockBase {
 	//Light level
 	@Override
 	public int getLightValue(IBlockState state) {
+	    //Check for client side and mod lights so normal lights don't render on the client, but still prevent mob spawns
+        //on the server side.
+		if(FMLCommonHandler.instance().getEffectiveSide().isClient()
+                && Dazzle.instance.getAlbedoCompat().getLightsEnabled()) {
+            return 0;
+        }
 		return 15;
 	}
 	
