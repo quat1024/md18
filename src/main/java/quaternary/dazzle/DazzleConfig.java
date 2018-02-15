@@ -16,7 +16,7 @@ public class DazzleConfig {
 		@Config.Name("mirage_support")
 		@Config.Comment("If Mirage is installed, certain lights will create colored lighting shader effects.\n\nThis config option does nothing without Mirage installed.")
 		@Config.LangKey(Dazzle.MODID + ".config.mirage_support")
-		public static boolean MIRAGE_SUPPORT = true;
+		public boolean MIRAGE_SUPPORT = true;
 		
 		@Config.Name("dumb_injokes")
 		@Config.Comment("Enable various (clientside only, non gameplay affecting) dumb things?")
