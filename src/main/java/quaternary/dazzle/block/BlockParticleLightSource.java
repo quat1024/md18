@@ -4,6 +4,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntity;
@@ -15,11 +16,15 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
-import quaternary.dazzle.*;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import quaternary.dazzle.DazzleConfig;
+import quaternary.dazzle.DazzleCreativeTab;
 import quaternary.dazzle.item.ItemParticleLight;
 import quaternary.dazzle.tile.TileParticleLightSource;
 
 import javax.annotation.Nullable;
+import java.util.Collections;
 
 //based on copypasta of BlockInvisibleLightSource
 //TODO make it not copypasta
@@ -86,8 +91,9 @@ public class BlockParticleLightSource extends BlockBase {
 	}
 	
 	@Override
-	public Object getCustomStatemapper() {
-		return Dazzle.PROXY.getEmptyStatemapper();
+	@SideOnly(Side.CLIENT)
+	public IStateMapper getCustomStatemapper() {
+		return block -> Collections.emptyMap();
 	}
 	
 	//Light level
@@ -95,7 +101,7 @@ public class BlockParticleLightSource extends BlockBase {
 	public int getLightValue(IBlockState state) {
 		//Don't use the vanilla lighting system if Mirage support is enabled.
 		//This *will* cause weirdness with mods that display light level overlays, but idk
-		if(DazzleConfig.MIRAGE_SUPPORT && Loader.isModLoaded("mirage") && FMLCommonHandler.instance().getEffectiveSide().isClient()) return 0;
+		if(DazzleConfig.CLIENT.MIRAGE_SUPPORT && Loader.isModLoaded("mirage") && FMLCommonHandler.instance().getEffectiveSide().isClient()) return 0;
 		else return 15;
 	}
 	

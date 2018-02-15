@@ -4,14 +4,18 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import quaternary.dazzle.Dazzle;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import quaternary.dazzle.block.BlockBase;
+
+import java.util.Collections;
 
 /** An invisible block only used for taking up space around the base of the stadium light. */
 public class BlockStadiumLightBottomStructure extends BlockBase {
@@ -30,8 +34,9 @@ public class BlockStadiumLightBottomStructure extends BlockBase {
 	}
 	
 	@Override
-	public Object getCustomStatemapper() {
-		return Dazzle.PROXY.getEmptyStatemapper();
+	@SideOnly(Side.CLIENT)
+	public IStateMapper getCustomStatemapper() {
+		return block -> Collections.emptyMap();
 	}
 	
 	//aabb

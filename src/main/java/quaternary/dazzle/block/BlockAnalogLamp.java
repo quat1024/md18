@@ -5,6 +5,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.statemap.IStateMapper;
+import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -13,7 +15,9 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import quaternary.dazzle.Dazzle;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import quaternary.dazzle.block.statemapper.RenamedIgnoringStatemapper;
 import quaternary.dazzle.item.ItemBlockLamp;
 
 public class BlockAnalogLamp extends BlockBase {
@@ -49,18 +53,34 @@ public class BlockAnalogLamp extends BlockBase {
 	}
 	
 	@Override
+	@SideOnly(Side.CLIENT)
 	public boolean hasBlockColors() {
 		return true;
 	}
 	
 	@Override
-	public Object getBlockColors() {
-		return Dazzle.PROXY.getAnalogLampBlockColors();
-	}
-	
-	@Override
-	public Object getItemColors() {
-		return Dazzle.PROXY.getLampItemColors();
+	@SideOnly(Side.CLIENT)
+	public IBlockColor getBlockColors() {
+		return (state, worldIn, pos, tintIndex) -> {
+			if(tintIndex != 0) return -1;
+			
+			Block block = state.getBlock();
+			
+			int color = ((BlockAnalogLamp)block).color.getColorValue();
+			
+			int r = (color & 0xFF0000) >> 16;
+			int g = (color & 0x00FF00) >> 8;
+			int b = (color & 0x0000FF);
+			
+			//This is just a really lazy rgb lerp so it needs a little finaggling to look nice.
+			double lightness = 1 - (block.getLightValue(state) / 15d);
+			lightness = Math.pow(lightness, 1.7); //Oh god it's awful
+			lightness = MathHelper.clampedLerp(1, 5, lightness);
+			r /= lightness;
+			g /= lightness;
+			b /= lightness;
+			return (r << 16) | (g << 8) | b;
+		};
 	}
 	
 	//Inversion
@@ -124,12 +144,14 @@ public class BlockAnalogLamp extends BlockBase {
 	
 	//Statemapper
 	@Override
+	@SideOnly(Side.CLIENT)
 	public boolean hasCustomStatemapper() {
 		return true;
 	}
 	
 	@Override
-	public Object getCustomStatemapper() {
-		return Dazzle.PROXY.getLampStatemapper("lamp_" + variant);
+	@SideOnly(Side.CLIENT)
+	public IStateMapper getCustomStatemapper() {
+		return new RenamedIgnoringStatemapper("lamp_" + variant);
 	}
 }

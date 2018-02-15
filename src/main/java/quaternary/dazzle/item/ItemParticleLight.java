@@ -1,16 +1,15 @@
 package quaternary.dazzle.item;
 
-import net.minecraft.item.*;
+import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 import quaternary.dazzle.block.BlockParticleLightSource;
 
-public class ItemParticleLight extends ItemBlock {
+public class ItemParticleLight extends DzItemBlock {
 	public ItemParticleLight(BlockParticleLightSource b) {
 		super(b);
 		setMaxDamage(0);
 		setHasSubtypes(true);
-		
-		setRegistryName(b.getRegistryName()); //pls
 	}
 	
 	@Override

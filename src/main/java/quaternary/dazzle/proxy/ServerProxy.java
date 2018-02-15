@@ -5,8 +5,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class ServerProxy {
-	//I KNOW THIS IS HACKY AND SHITTY
-	//the deadline's in 2 hours though haha
+	public void init() {
+		; //no-op
+	}
+	
 	public Object getDigitalLampBlockColors() {
 		return null;
 	}

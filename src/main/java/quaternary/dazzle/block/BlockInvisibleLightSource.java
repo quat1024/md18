@@ -4,13 +4,16 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import quaternary.dazzle.Dazzle;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
+import java.util.Collections;
 
 public class BlockInvisibleLightSource extends BlockBase {
 	
@@ -35,8 +38,9 @@ public class BlockInvisibleLightSource extends BlockBase {
 	}
 	
 	@Override
-	public Object getCustomStatemapper() {
-		return Dazzle.PROXY.getEmptyStatemapper();
+	@SideOnly(Side.CLIENT)
+	public IStateMapper getCustomStatemapper() {
+		return block -> Collections.emptyMap();
 	}
 	
 	//Light level based on states

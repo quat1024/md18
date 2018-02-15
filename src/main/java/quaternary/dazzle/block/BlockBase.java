@@ -5,14 +5,18 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.statemap.IStateMapper;
+import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import quaternary.dazzle.Dazzle;
 import quaternary.dazzle.DazzleCreativeTab;
+import quaternary.dazzle.item.DzItemBlock;
 
 public class BlockBase extends Block {
 	public BlockBase(String name, Material mat) {
@@ -46,31 +50,28 @@ public class BlockBase extends Block {
 	
 	public Item getItemForm() {
 		if(itemForm == null) {
-			itemForm = new ItemBlock(this).setRegistryName(this.getRegistryName());
+			itemForm = new DzItemBlock(this);
 		}
 		return itemForm;
 	}
 	
 	//custom statemapper management
+	@SideOnly(Side.CLIENT)
 	public boolean hasCustomStatemapper() {
 		return false;
 	}
-	
-	public Object getCustomStatemapper() {
+	@SideOnly(Side.CLIENT)
+	public IStateMapper getCustomStatemapper() {
 		return null;
 	}
 	
 	//custom iblockcolor stuff
+	@SideOnly(Side.CLIENT)
 	public boolean hasBlockColors() { 
 		return false;
 	}
-	
-	//Yaknow i should really make these abstract.
-	public Object getBlockColors() {
-		return null;
-	}
-	
-	public Object getItemColors() {
+	@SideOnly(Side.CLIENT)
+	public IBlockColor getBlockColors() {
 		return null;
 	}
 	

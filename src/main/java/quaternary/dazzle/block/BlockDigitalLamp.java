@@ -5,6 +5,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.statemap.IStateMapper;
+import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -13,7 +15,9 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import quaternary.dazzle.Dazzle;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import quaternary.dazzle.block.statemapper.RenamedIgnoringStatemapper;
 import quaternary.dazzle.item.ItemBlockLamp;
 
 public class BlockDigitalLamp extends BlockBase {
@@ -48,18 +52,31 @@ public class BlockDigitalLamp extends BlockBase {
 	
 	//IBlockColor stuff
 	@Override
+	@SideOnly(Side.CLIENT)
 	public boolean hasBlockColors() {
 		return true;
 	}
 	
 	@Override
-	public Object getBlockColors() {
-		return Dazzle.PROXY.getDigitalLampBlockColors();
-	}
-	
-	@Override
-	public Object getItemColors() {
-		return Dazzle.PROXY.getLampItemColors();
+	@SideOnly(Side.CLIENT)
+	public IBlockColor getBlockColors() {
+		return (state, worldIn, pos, tintIndex) -> {
+			Block block = state.getBlock();
+			
+			int color = ((BlockDigitalLamp)block).color.getColorValue();
+			
+			int r = (color & 0xFF0000) >> 16;
+			int g = (color & 0x00FF00) >> 8;
+			int b = (color & 0x0000FF);
+			
+			if(!BlockDigitalLamp.isLit(state)) {
+				r /= 5;
+				g /= 5;
+				b /= 5;
+			}
+			
+			return (r << 16) | (g << 8) | b;
+		};
 	}
 	
 	//Inversion
@@ -113,12 +130,14 @@ public class BlockDigitalLamp extends BlockBase {
 	
 	//Statemapper
 	@Override
+	@SideOnly(Side.CLIENT)
 	public boolean hasCustomStatemapper() {
 		return true;
 	}
 	
 	@Override
-	public Object getCustomStatemapper() {
-		return Dazzle.PROXY.getLampStatemapper("lamp_" + variant);
+	@SideOnly(Side.CLIENT)
+	public IStateMapper getCustomStatemapper() {
+		return new RenamedIgnoringStatemapper("lamp_" + variant);
 	}
 }
