@@ -12,6 +12,7 @@ Featuring:
  - Particle light flashes.
  - Panel lights, that project light in a line up to 45 blocks in front of the panel.
  - Dim redstone torches.
+ - Support for your favorite shader colored-lighting mods (Albedo and Mirage)
  - (soon!) A torch grenade, to quickly scatter lights around.
  - More things as I can think of them!
  
