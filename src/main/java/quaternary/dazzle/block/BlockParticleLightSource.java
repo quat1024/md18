@@ -14,12 +14,10 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import quaternary.dazzle.DazzleConfig;
 import quaternary.dazzle.DazzleCreativeTab;
+import quaternary.dazzle.compat.ColoredLightingMods;
 import quaternary.dazzle.item.ItemParticleLight;
 import quaternary.dazzle.tile.TileParticleLightSource;
 
@@ -101,7 +99,7 @@ public class BlockParticleLightSource extends BlockBase {
 	public int getLightValue(IBlockState state) {
 		//Don't use the vanilla lighting system if Mirage support is enabled.
 		//This *will* cause weirdness with mods that display light level overlays, but idk
-		if(DazzleConfig.CLIENT.MIRAGE_SUPPORT && Loader.isModLoaded("mirage") && FMLCommonHandler.instance().getEffectiveSide().isClient()) return 0;
+		if(ColoredLightingMods.shouldUseShaderLights()) return 0;
 		else return 15;
 	}
 	

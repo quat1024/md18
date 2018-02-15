@@ -9,23 +9,11 @@ public class ServerProxy {
 		; //no-op
 	}
 	
-	public Object getDigitalLampBlockColors() {
-		return null;
+	public boolean shouldUseShaderLights() {
+		return false;
 	}
 	
-	public Object getLampItemColors() {
-		return null;
-	}
-	
-	public Object getAnalogLampBlockColors() {
-		return null;
-	}
-	
-	public Object getLampStatemapper(String blah) {
-		return null;
-	}
-	
-	public Object getEmptyStatemapper() {
+	public Object createWrappedLight(BlockPos pos, int color, float intensity, float radius) {
 		return null;
 	}
 	

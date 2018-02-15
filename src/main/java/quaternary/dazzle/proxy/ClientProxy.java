@@ -6,8 +6,11 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Loader;
 import quaternary.dazzle.Dazzle;
+import quaternary.dazzle.DazzleConfig;
 import quaternary.dazzle.block.BlockBase;
+import quaternary.dazzle.compat.ColoredLightingMods;
 import quaternary.dazzle.item.ItemBlockLamp;
 import quaternary.dazzle.item.ItemParticleLight;
 import quaternary.dazzle.particle.ParticleLightSource;
@@ -34,6 +37,16 @@ public class ClientProxy extends ServerProxy {
 				}, i);
 			}
 		}
+	}
+	
+	@Override
+	public boolean shouldUseShaderLights() {
+		return DazzleConfig.CLIENT.COMPAT.SHADER_LIGHT_SUPPORT && (Loader.isModLoaded("albedo") || Loader.isModLoaded("mirage"));
+	}
+	
+	@Override
+	public Object createWrappedLight(BlockPos pos, int color, float intensity, float radius) {
+		return new ColoredLightingMods.WrappedLight(pos, color, intensity, radius);
 	}
 	
 	@Override

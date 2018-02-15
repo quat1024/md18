@@ -1,6 +1,7 @@
 itemGroup.dazzle=Dazzle
 
 dazzle.config.mirage_support=Mirage Support
+dazzle.config.albedo_support=Mirage Support
 dazzle.config.dumb_injokes=Dumb Inside Jokes
 dazzle.config.very_dumb_injokes=Very Dumb Inside Jokes
 

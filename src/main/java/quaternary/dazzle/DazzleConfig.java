@@ -13,10 +13,15 @@ public class DazzleConfig {
 	public static final Client CLIENT = new Client();
 	
 	public static final class Client {
-		@Config.Name("mirage_support")
-		@Config.Comment("If Mirage is installed, certain lights will create colored lighting shader effects.\n\nThis config option does nothing without Mirage installed.")
-		@Config.LangKey(Dazzle.MODID + ".config.mirage_support")
-		public boolean MIRAGE_SUPPORT = true;
+		@Config.Name("compat")
+		public final Compat COMPAT = new Compat();
+		
+		public static final class Compat {
+			@Config.Name("shader_lights")
+			@Config.Comment("If Mirage or Albedo is installed, certain lights will create colored lighting shader effects.\n\nThis config option does nothing without Mirage or Albedo installed. And yeah, it supports both!")
+			@Config.LangKey(Dazzle.MODID + ".config.shader_lighting_support")
+			public boolean SHADER_LIGHT_SUPPORT = true;
+		}
 		
 		@Config.Name("dumb_injokes")
 		@Config.Comment("Enable various (clientside only, non gameplay affecting) dumb things?")
