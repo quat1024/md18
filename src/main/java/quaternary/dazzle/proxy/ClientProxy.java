@@ -37,6 +37,11 @@ public class ClientProxy extends ServerProxy {
 				}, i);
 			}
 		}
+		
+		if(shouldUseShaderLights() && Loader.isModLoaded("albedo") && Loader.isModLoaded("mirage")) {
+			Dazzle.LOGGER.info("Wait, when I said Dazzle had support for Mirage and Albedo, I didn't mean both at the same time!!!");
+			Dazzle.LOGGER.info("This could cause problems, down the road, so be careful out there!");
+		}
 	}
 	
 	@Override
