@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -19,6 +20,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import quaternary.dazzle.block.*;
 import quaternary.dazzle.block.stadium.*;
+import quaternary.dazzle.compat.shaderlights.ColoredLightingMods;
 import quaternary.dazzle.item.ItemBlockLamp;
 import quaternary.dazzle.item.ItemParticleLight;
 import quaternary.dazzle.particle.ParticleLightSource;
@@ -91,7 +93,6 @@ public class Dazzle {
 		ITEMS.add(asdd);
 	}
 	
-	//Temp place to put block colors until I can update Forge
 	@Mod.EventHandler
 	public static void init(FMLInitializationEvent e) {		
 		PROXY.init();
@@ -194,6 +195,13 @@ public class Dazzle {
 		@SubscribeEvent
 		public static void textureStitch(TextureStitchEvent.Pre e) {
 			ParticleLightSource.textureStitch(e);
+		}
+		
+		@SubscribeEvent
+		public static void ctick(TickEvent.ClientTickEvent e) {
+			if(e.phase == TickEvent.Phase.END) {
+				ColoredLightingMods.getStaticLightManager().tick();
+			}
 		}
 	}
 }

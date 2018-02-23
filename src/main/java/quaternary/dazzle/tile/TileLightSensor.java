@@ -27,6 +27,10 @@ public class TileLightSensor extends TileEntity implements ITickable {
 			BlockPos posToReadLight = pos.offset(facing);
 			BlockPos posToUpdateAround = pos.offset(facing.getOpposite());
 			
+			if(!world.isBlockLoaded(posToReadLight) || !world.isBlockLoaded(posToUpdateAround)) {
+				return;
+			}
+			
 			int lightLevelRead = world.getLightFor(EnumSkyBlock.BLOCK, posToReadLight);
 			if(lightLevel > lightLevelRead) lightLevel--;
 			if(lightLevel < lightLevelRead) lightLevel++;

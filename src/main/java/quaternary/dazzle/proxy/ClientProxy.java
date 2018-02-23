@@ -6,11 +6,14 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import quaternary.dazzle.Dazzle;
 import quaternary.dazzle.DazzleConfig;
 import quaternary.dazzle.block.BlockBase;
-import quaternary.dazzle.compat.ColoredLightingMods;
+import quaternary.dazzle.compat.shaderlights.WrappedLight;
+import quaternary.dazzle.compat.shaderlights.buggyoptional.AlbedoLightGatherer;
+import quaternary.dazzle.compat.shaderlights.buggyoptional.MirageLightGatherer;
 import quaternary.dazzle.item.ItemBlockLamp;
 import quaternary.dazzle.item.ItemParticleLight;
 import quaternary.dazzle.particle.ParticleLightSource;
@@ -38,9 +41,22 @@ public class ClientProxy extends ServerProxy {
 			}
 		}
 		
-		if(shouldUseShaderLights() && Loader.isModLoaded("albedo") && Loader.isModLoaded("mirage")) {
-			Dazzle.LOGGER.info("Wait, when I said Dazzle had support for Mirage and Albedo, I didn't mean both at the same time!!!");
-			Dazzle.LOGGER.info("This could cause problems, down the road, so be careful out there!");
+		if(shouldUseShaderLights()) {
+			boolean albedo = Loader.isModLoaded("albedo");
+			boolean mirage = Loader.isModLoaded("mirage");
+			
+			if(albedo) {
+				MinecraftForge.EVENT_BUS.register(AlbedoLightGatherer.class);
+			}
+			
+			if(mirage) {
+				MinecraftForge.EVENT_BUS.register(MirageLightGatherer.class);
+			}
+			
+			if(albedo && mirage) {
+				Dazzle.LOGGER.info("Wait, when I said Dazzle had support for Mirage and Albedo, I didn't mean both at the same time!!!");
+				Dazzle.LOGGER.info("This could cause problems down the road, so be careful out there!");
+			}
 		}
 	}
 	
@@ -51,7 +67,7 @@ public class ClientProxy extends ServerProxy {
 	
 	@Override
 	public Object createWrappedLight(BlockPos pos, int color, float intensity, float radius) {
-		return new ColoredLightingMods.WrappedLight(pos, color, intensity, radius);
+		return new WrappedLight(pos, color, intensity, radius);
 	}
 	
 	@Override

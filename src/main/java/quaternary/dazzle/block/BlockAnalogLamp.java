@@ -18,9 +18,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import quaternary.dazzle.block.statemapper.RenamedIgnoringStatemapper;
+import quaternary.dazzle.compat.shaderlights.IDazzleStaticLight;
 import quaternary.dazzle.item.ItemBlockLamp;
 
-public class BlockAnalogLamp extends BlockBase {
+public class BlockAnalogLamp extends BlockBase implements IDazzleStaticLight {
 	public static final PropertyInteger POWER = PropertyInteger.create("power", 0, 15);
 	
 	public final EnumDyeColor color;

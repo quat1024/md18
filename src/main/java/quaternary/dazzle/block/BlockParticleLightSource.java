@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import quaternary.dazzle.DazzleCreativeTab;
-import quaternary.dazzle.compat.ColoredLightingMods;
+import quaternary.dazzle.compat.shaderlights.ColoredLightingMods;
 import quaternary.dazzle.item.ItemParticleLight;
 import quaternary.dazzle.tile.TileParticleLightSource;
 

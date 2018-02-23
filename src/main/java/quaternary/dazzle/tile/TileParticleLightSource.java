@@ -9,7 +9,8 @@ import net.minecraft.util.ITickable;
 import net.minecraftforge.fml.common.Optional;
 import quaternary.dazzle.Dazzle;
 import quaternary.dazzle.block.BlockParticleLightSource;
-import quaternary.dazzle.compat.ColoredLightingMods;
+import quaternary.dazzle.compat.shaderlights.ColoredLightingMods;
+import quaternary.dazzle.compat.shaderlights.WrappedLight;
 
 @Optional.InterfaceList( {
 	@Optional.Interface(iface = "com.elytradev.mirage.lighting.ILightEventConsumer", modid="mirage"),
@@ -46,7 +47,7 @@ public class TileParticleLightSource extends TileEntity implements ITickable, IL
 	@Override
 	public void gatherLights(GatherLightsEvent e) {
 		if(wrappedLight != null && ColoredLightingMods.shouldUseShaderLights()) {
-			e.add(((ColoredLightingMods.WrappedLight) wrappedLight).buildMirage());
+			e.add(((WrappedLight) wrappedLight).buildMirage());
 		}
 	}
 	
@@ -54,7 +55,7 @@ public class TileParticleLightSource extends TileEntity implements ITickable, IL
 	@Override
 	public elucent.albedo.lighting.Light provideLight() {
 		if(wrappedLight != null && ColoredLightingMods.shouldUseShaderLights()) {
-			return ((ColoredLightingMods.WrappedLight) wrappedLight).buildAlbedo();
+			return ((WrappedLight) wrappedLight).buildAlbedo();
 		} else return null;
 	}
 }

@@ -18,9 +18,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import quaternary.dazzle.block.statemapper.RenamedIgnoringStatemapper;
+import quaternary.dazzle.compat.shaderlights.*;
 import quaternary.dazzle.item.ItemBlockLamp;
 
-public class BlockDigitalLamp extends BlockBase {
+import java.util.Random;
+
+public class BlockDigitalLamp extends BlockBase implements IDazzleStaticLight {
 	public static final PropertyBool LIT = PropertyBool.create("lit");
 	public static final PropertyBool INVERTED = PropertyBool.create("inverted");
 	
@@ -42,6 +45,22 @@ public class BlockDigitalLamp extends BlockBase {
 			item = new ItemBlockLamp(this, color, variant, "tile.dazzle.digital_lamp.name");
 		}
 		return item;
+	}
+	
+	//Shader light support.
+	//"quat, why the hell are you overriding randomDisplayTick?"
+	//The vanilla *client* already calls this code randomly for nearby blocks.
+	//It's random, but somewhat workable for this use case.
+	//As long as you don't get that far away from the lights, it's okay.
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void randomDisplayTick(IBlockState state, World world, BlockPos mutablePos, Random rand) {
+		//Thanks MOJANG
+		BlockPos pos = mutablePos.toImmutable();
+		//todo dumping a lot of *new* shader lights into here every random tick
+		//no real need for that :P
+		WrappedLight w = new WrappedLight(pos, color.getColorValue(), .6f, 15);
+		ColoredLightingMods.getStaticLightManager().put(pos, w);
 	}
 	
 	//Allow for transparency in layers when this gets iblockcolored
@@ -95,6 +114,7 @@ public class BlockDigitalLamp extends BlockBase {
 	
 	@Override
 	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+		if(ColoredLightingMods.shouldUseShaderLights()) return 0;
 		return isLit(state) ? 15 : 0;
 	}
 	
