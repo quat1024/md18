@@ -22,16 +22,6 @@ public class DazzleConfig {
 			@Config.LangKey(Dazzle.MODID + ".config.shader_lighting_support")
 			public boolean SHADER_LIGHT_SUPPORT = true;
 		}
-		
-		@Config.Name("dumb_injokes")
-		@Config.Comment("Enable various (clientside only, non gameplay affecting) dumb things?")
-		@Config.LangKey(Dazzle.MODID + ".config.dumb_injokes")
-		public boolean DUMB_INJOKES = true;
-		
-		@Config.Name("very_dumb_injokes")
-		@Config.Comment("Dumb injokes for all!")
-		@Config.LangKey(Dazzle.MODID + ".config.very_dumb_injokes")
-		public boolean VERY_DUMB_INJOKES = false;
 	}
 		
 	@SubscribeEvent

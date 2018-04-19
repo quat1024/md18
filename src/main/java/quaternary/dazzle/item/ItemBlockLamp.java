@@ -32,31 +32,10 @@ public class ItemBlockLamp extends DzItemBlock {
 	
 	@Override
 	public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag flag) {
-		//Abandon all hope ye who enter here
 		String str = I18n.translateToLocal("dazzle.tooltip.lamp");
-		
-		boolean doDumbShit = DazzleConfig.CLIENT.DUMB_INJOKES && (DazzleConfig.CLIENT.VERY_DUMB_INJOKES || FMLClientHandler.instance().getClient().getSession().getProfile().getId().equals(UUID.fromString("32abd7b2-19fa-41e6-bd3b-142001cb8d6f")));
-		
-		if(doDumbShit) {
-			//YALL MADE ME DO IT OK
-			char[] chars = str.toCharArray();
-			StringBuilder bep = new StringBuilder();
-			Random bepis = new Random();
-			for(char c : chars) {
-				int index = bepis.nextInt(TextFormatting.values().length);
-				TextFormatting color = TextFormatting.values()[index];
-				bep.append(color.toString());
-				
-				if(bepis.nextBoolean()) {
-					bep.append(Character.toUpperCase(c));
-				} else bep.append(c);
-			}
-			str = bep.toString();
-		} else {
-			str = TextFormatting.DARK_GRAY + "" + TextFormatting.ITALIC + str + TextFormatting.RESET;
-		}
-		
+		str = TextFormatting.DARK_GRAY + "" + TextFormatting.ITALIC + str + TextFormatting.RESET;
 		tooltip.add(str);
+		
 		super.addInformation(stack, world, tooltip, flag);
 	}
 	
