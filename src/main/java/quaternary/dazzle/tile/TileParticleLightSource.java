@@ -11,6 +11,8 @@ import quaternary.dazzle.Dazzle;
 import quaternary.dazzle.block.BlockParticleLightSource;
 import quaternary.dazzle.compat.shaderlights.ColoredLightingMods;
 import quaternary.dazzle.compat.shaderlights.WrappedLight;
+import quaternary.dazzle.compat.shaderlights.albedo.AlbedoLightGatherer;
+import quaternary.dazzle.compat.shaderlights.mirage.MirageLightGatherer;
 
 @Optional.InterfaceList( {
 	@Optional.Interface(iface = "com.elytradev.mirage.lighting.ILightEventConsumer", modid="mirage"),
@@ -20,7 +22,7 @@ import quaternary.dazzle.compat.shaderlights.WrappedLight;
 public class TileParticleLightSource extends TileEntity implements ITickable, ILightEventConsumer, ILightProvider {
 	EnumDyeColor color;
 	
-	Object wrappedLight;
+	WrappedLight wrappedLight;
 	
 	public TileParticleLightSource() {
 		
@@ -37,7 +39,7 @@ public class TileParticleLightSource extends TileEntity implements ITickable, IL
 		color = world.getBlockState(pos).getValue(BlockParticleLightSource.COLOR);
 		
 		if(wrappedLight == null) {
-			wrappedLight = Dazzle.PROXY.createWrappedLight(pos, color.getColorValue(), color == EnumDyeColor.BLACK ? .2f : .5f, 15);
+			wrappedLight = new WrappedLight(pos, color.getColorValue(), color == EnumDyeColor.BLACK ? .2f : .5f, 15);
 		}
 		
 		Dazzle.PROXY.spawnLightSourceParticle(world, pos, color);
@@ -47,7 +49,7 @@ public class TileParticleLightSource extends TileEntity implements ITickable, IL
 	@Override
 	public void gatherLights(GatherLightsEvent e) {
 		if(wrappedLight != null && ColoredLightingMods.shouldUseShaderLights()) {
-			e.add(((WrappedLight) wrappedLight).buildMirage());
+			e.add(MirageLightGatherer.buildMirage(wrappedLight));
 		}
 	}
 	
@@ -55,7 +57,7 @@ public class TileParticleLightSource extends TileEntity implements ITickable, IL
 	@Override
 	public elucent.albedo.lighting.Light provideLight() {
 		if(wrappedLight != null && ColoredLightingMods.shouldUseShaderLights()) {
-			return ((WrappedLight) wrappedLight).buildAlbedo();
+			return AlbedoLightGatherer.buildAlbedo(wrappedLight);
 		} else return null;
 	}
 }

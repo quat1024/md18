@@ -21,21 +21,16 @@ import quaternary.dazzle.block.statemapper.RenamedIgnoringStatemapper;
 import quaternary.dazzle.compat.shaderlights.IDazzleStaticLight;
 import quaternary.dazzle.item.ItemBlockLamp;
 
-public class BlockAnalogLamp extends BlockBase implements IDazzleStaticLight {
+public class BlockAnalogLamp extends BlockLamp implements IDazzleStaticLight {
 	public static final PropertyInteger POWER = PropertyInteger.create("power", 0, 15);
-	
-	public final EnumDyeColor color;
-	private final String variant;
 	
 	private final boolean inverted;
 	private IBlockState inverseState;
 	
-	public BlockAnalogLamp(EnumDyeColor c, String variant, boolean inverted) {
-		super((inverted ? "inverted_" : "") + c.getName() + "_" + variant + "_analog_lamp", Material.REDSTONE_LIGHT);
+	public BlockAnalogLamp(EnumDyeColor color, String variant, boolean inverted) {
+		super("analog_lamp" + (inverted ? "_inverted" : ""), color, variant);
 		
 		this.inverted = inverted;
-		this.variant = variant;
-		this.color = c;
 	}
 	
 	Item item;
@@ -47,41 +42,24 @@ public class BlockAnalogLamp extends BlockBase implements IDazzleStaticLight {
 		return item;
 	}
 	
-	//Block colors
 	@Override
-	public BlockRenderLayer getBlockLayer() {
-		return BlockRenderLayer.CUTOUT_MIPPED;
+	public boolean hasItemForm() {
+		return !inverted;
 	}
 	
 	@Override
-	@SideOnly(Side.CLIENT)
-	public boolean hasBlockColors() {
-		return true;
+	int getBrightnessFromState(IBlockState state) {
+		return state.getValue(POWER);
 	}
 	
 	@Override
-	@SideOnly(Side.CLIENT)
-	public IBlockColor getBlockColors() {
-		return (state, worldIn, pos, tintIndex) -> {
-			if(tintIndex != 0) return -1;
-			
-			Block block = state.getBlock();
-			
-			int color = ((BlockAnalogLamp)block).color.getColorValue();
-			
-			int r = (color & 0xFF0000) >> 16;
-			int g = (color & 0x00FF00) >> 8;
-			int b = (color & 0x0000FF);
-			
-			//This is just a really lazy rgb lerp so it needs a little finaggling to look nice.
-			double lightness = 1 - (block.getLightValue(state) / 15d);
-			lightness = Math.pow(lightness, 1.7); //Oh god it's awful
-			lightness = MathHelper.clampedLerp(1, 5, lightness);
-			r /= lightness;
-			g /= lightness;
-			b /= lightness;
-			return (r << 16) | (g << 8) | b;
-		};
+	IBlockState setStateBrightness(IBlockState state, int powerLevel) {
+		return state.withProperty(POWER, powerLevel);
+	}
+	
+	@Override
+	IBlockState getInvertedState(IBlockState in) {
+		return inverseState.withProperty(POWER, in.getValue(POWER));
 	}
 	
 	//Inversion
@@ -89,42 +67,6 @@ public class BlockAnalogLamp extends BlockBase implements IDazzleStaticLight {
 	//Thus, this is implemented using two blocks.
 	public void setInverseBlockstate(IBlockState b) {
 		inverseState = b;
-	}
-	
-	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if(player.getHeldItem(hand).getItem() == Item.getItemFromBlock(Blocks.REDSTONE_TORCH)) {
-			world.setBlockState(pos, inverseState.withProperty(POWER, state.getValue(POWER)));
-			return true;
-		}
-		return false;
-	}
-	
-	@Override
-	public boolean hasItemForm() {
-		return !inverted;
-	}
-	
-	//Light level based on states
-	@Override
-	public int getLightValue(IBlockState state) {
-		return inverted ? 15 - state.getValue(POWER) : state.getValue(POWER);
-	}
-	
-	//Updating light level
-	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-		if(!world.isRemote) updateLevel(world, pos, world.isBlockIndirectlyGettingPowered(pos));
-	}
-	
-	@Override
-	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
-		if(!world.isRemote) updateLevel(world, pos, world.isBlockIndirectlyGettingPowered(pos));
-	}
-	
-	private void updateLevel(World world, BlockPos pos, int level) {
-		level = MathHelper.clamp(level, 0, 15); //sanity check
-		
-		world.setBlockState(pos, getDefaultState().withProperty(POWER, level));
 	}
 	
 	//Blockstate boilerplate

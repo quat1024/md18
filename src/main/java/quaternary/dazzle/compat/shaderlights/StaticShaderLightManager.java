@@ -49,4 +49,8 @@ public class StaticShaderLightManager {
 	public void put(BlockPos p, WrappedLight w) {
 		lights.put(p, w);
 	}
+	
+	public boolean has(BlockPos p) {
+		return lights.containsKey(p);
+	}
 }

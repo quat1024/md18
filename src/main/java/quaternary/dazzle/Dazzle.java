@@ -30,6 +30,8 @@ import quaternary.dazzle.tile.TileParticleLightSource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Mod(modid = Dazzle.MODID, name = Dazzle.NAME, version = Dazzle.VERSION)
 public class Dazzle {
@@ -118,6 +120,29 @@ public class Dazzle {
 			
 			for(Item i : ITEMS) {
 				reg.register(i);
+			}
+		}
+		
+		@SubscribeEvent
+		public static void missingMappings(RegistryEvent.MissingMappings<Block> e) {
+			for(RegistryEvent.MissingMappings.Mapping<Block> missing : e.getMappings()) {
+				ResourceLocation missingLocation = missing.key;
+				if(!missingLocation.getResourceDomain().equals(Dazzle.MODID)) continue;
+				
+				//"inverted_white_modern_analog_lamp" to "white_modern_analog_lamp_inverted"
+				Pattern analogPattern = Pattern.compile("inverted_(.*_.*_analog_lamp)");
+				Matcher analogMatcher = analogPattern.matcher(missingLocation.getResourcePath());
+				
+				if(analogMatcher.find()) {
+					String prefix = analogMatcher.group(1);
+					ResourceLocation newLocation = new ResourceLocation(MODID, prefix + "_inverted");
+					Block remappedBlock = Block.getBlockFromName(newLocation.toString());
+					if(remappedBlock == null) {
+						missing.ignore();
+					} else {
+						missing.remap(remappedBlock);
+					}
+				}
 			}
 		}
 	}

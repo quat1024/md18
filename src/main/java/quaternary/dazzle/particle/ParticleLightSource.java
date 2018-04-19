@@ -12,6 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import quaternary.dazzle.Dazzle;
+import quaternary.dazzle.etc.Util;
 
 public class ParticleLightSource extends Particle {
 	static final ResourceLocation particleRes = new ResourceLocation(Dazzle.MODID, "particle/light_source");
@@ -25,9 +26,9 @@ public class ParticleLightSource extends Particle {
 		particleScale = 0;
 		particleMaxAge = rand.nextInt(10) + 20;
 		
-		motionX = map(rand.nextFloat(), 0, 1, -0.01f, 0.01f);
-		motionY = map(rand.nextFloat(), 0, 1, 0.02f, 0.04f);
-		motionZ = map(rand.nextFloat(), 0, 1, -0.01f, 0.01f);;
+		motionX = Util.map(rand.nextFloat(), 0, 1, -0.01f, 0.01f);
+		motionY = Util.map(rand.nextFloat(), 0, 1, 0.02f, 0.04f);
+		motionZ = Util.map(rand.nextFloat(), 0, 1, -0.01f, 0.01f);;
 		
 		if(sprite == null) {
 			sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(particleRes.toString());
@@ -48,9 +49,9 @@ public class ParticleLightSource extends Particle {
 		
 		float s;
 		if(particleAge < particleMaxAge / 2) {
-			s = map(particleAge, 0, particleMaxAge / 2, 0, 2);
+			s = Util.map(particleAge, 0, particleMaxAge / 2, 0, 2);
 		} else {
-			s = map(particleAge, particleMaxAge / 2, particleMaxAge, 2, 0);
+			s = Util.map(particleAge, particleMaxAge / 2, particleMaxAge, 2, 0);
 		}
 		particleScale = s;
 		
@@ -74,23 +75,6 @@ public class ParticleLightSource extends Particle {
 	public int getBrightnessForRender(float p_189214_1_) {
 		//format the number 15 in the weird way that IBlockAccess#getCombinedLight does :shrug:
 		return (15 << 20) | (15 << 4);
-	}
-	
-	//Thanks to TheGreyGhost, adapted from Minecraft By Example.
-	private static float map(float x, float x1, float x2, float y1, float y2) {
-		if(x1 > x2) {
-			float temp = x1;
-			x1 = x2;
-			x2 = temp;
-			temp = y1;
-			y1 = y2;
-			y2 = temp;
-		}
-		
-		if(x <= x1) return y1;
-		if(x >= x2) return y2;
-		float xFraction = (x - x1) / (x2 - x1);
-		return y1 + xFraction * (y2 - y1);
 	}
 	
 	@Override
