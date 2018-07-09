@@ -9,14 +9,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import quaternary.dazzle.Dazzle;
-import quaternary.dazzle.DazzleConfig;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.List;
 
 public class ItemBlockLamp extends DzItemBlock {
 	public final EnumDyeColor color;

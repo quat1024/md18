@@ -1,27 +1,17 @@
 package quaternary.dazzle.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
-import net.minecraft.client.renderer.color.IBlockColor;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
+import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.Item;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import quaternary.dazzle.block.statemapper.RenamedIgnoringStatemapper;
-import quaternary.dazzle.compat.shaderlights.IDazzleStaticLight;
 import quaternary.dazzle.item.ItemBlockLamp;
 
-public class BlockAnalogLamp extends BlockLamp implements IDazzleStaticLight {
+public class BlockAnalogLamp extends BlockLamp {
 	public static final PropertyInteger POWER = PropertyInteger.create("power", 0, 15);
 	
 	private final boolean inverted;

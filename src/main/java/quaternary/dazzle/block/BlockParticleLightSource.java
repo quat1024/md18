@@ -17,7 +17,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import quaternary.dazzle.DazzleCreativeTab;
-import quaternary.dazzle.compat.shaderlights.ColoredLightingMods;
 import quaternary.dazzle.item.ItemParticleLight;
 import quaternary.dazzle.tile.TileParticleLightSource;
 
@@ -63,7 +62,7 @@ public class BlockParticleLightSource extends BlockBase {
 	@Nullable
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState state) {
-		return new TileParticleLightSource(state.getValue(COLOR));
+		return new TileParticleLightSource();
 	}
 	
 	//meta
@@ -97,10 +96,7 @@ public class BlockParticleLightSource extends BlockBase {
 	//Light level
 	@Override
 	public int getLightValue(IBlockState state) {
-		//Don't use the vanilla lighting system if Mirage support is enabled.
-		//This *will* cause weirdness with mods that display light level overlays, but idk
-		if(ColoredLightingMods.shouldUseShaderLights()) return 0;
-		else return 15;
+		return 15;
 	}
 	
 	//Make it invisible

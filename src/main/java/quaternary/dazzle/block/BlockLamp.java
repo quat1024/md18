@@ -18,7 +18,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import quaternary.dazzle.block.statemapper.RenamedIgnoringStatemapper;
-import quaternary.dazzle.compat.shaderlights.ColoredLightingMods;
 import quaternary.dazzle.etc.Util;
 
 public abstract class BlockLamp extends BlockBase {
@@ -42,7 +41,6 @@ public abstract class BlockLamp extends BlockBase {
 	//Lightiness
 	@Override
 	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
-		if(ColoredLightingMods.shouldUseShaderLights()) return 0;
 		return getBrightnessFromState(state);
 	}
 	

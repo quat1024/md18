@@ -9,14 +9,6 @@ public class ServerProxy {
 		; //no-op
 	}
 	
-	public boolean shouldUseShaderLights() {
-		return false;
-	}
-	
-	public Object createWrappedLight(BlockPos pos, int color, float intensity, float radius) {
-		return null;
-	}
-	
 	public void spawnLightSourceParticle(World w, BlockPos pos, EnumDyeColor color) {
 		//Noop
 	}
