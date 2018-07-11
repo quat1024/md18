@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import quaternary.dazzle.common.Dazzle;
 
-public class BlockLightPanel extends BlockBase {
+public class BlockLightPanel extends Block {
 	public static final PropertyDirection FACING = BlockDirectional.FACING;
 	
 	@GameRegistry.ObjectHolder(Dazzle.MODID + ":invisible_light_source")
@@ -37,7 +37,7 @@ public class BlockLightPanel extends BlockBase {
 	};
 	
 	public BlockLightPanel() {
-		super("panel", Material.IRON, MapColor.WHITE_STAINED_HARDENED_CLAY);
+		super(Material.IRON, MapColor.WHITE_STAINED_HARDENED_CLAY);
 		
 		setDefaultState(getDefaultState().withProperty(FACING, EnumFacing.UP));
 	}
@@ -114,6 +114,12 @@ public class BlockLightPanel extends BlockBase {
 				strength = 0;
 			}
 		}
+	}
+	
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing face) {
+		//TODO recheck this.
+		return face == state.getValue(FACING).getOpposite() ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 	
 	//Blockstate boilerplate

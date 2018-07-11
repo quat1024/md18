@@ -15,7 +15,7 @@ public class DazzleItems {
 	
 	public static void init(IForgeRegistry<Item> reg) {
 		for(BlockLamp lamp : DazzleBlocks.getLamps()) {
-			if(lamp.hasItemFormBlahBlahRenameWhenBlockBaseGoesAway()) {
+			if(lamp.hasItemForm()) {
 				ItemBlockLamp bleh = createItemBlock(new ItemBlockLamp(lamp));
 				LAMP_ITEMS.add(bleh);
 				reg.register(bleh);

@@ -1,5 +1,6 @@
 package quaternary.dazzle.common.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
@@ -14,13 +15,13 @@ import quaternary.dazzle.common.tile.TileLightSensor;
 
 import javax.annotation.Nullable;
 
-public class BlockLightSensor extends BlockBase {
+public class BlockLightSensor extends Block {
 	//the side it's facing: the "face"
 	//the opposite side: the area power is output
 	public static final PropertyDirection FACING = PropertyDirection.create("facing");
 	
 	public BlockLightSensor() {
-		super("light_sensor", Material.IRON);
+		super(Material.IRON);
 		
 		setDefaultState(getDefaultState().withProperty(FACING, EnumFacing.UP));
 	}

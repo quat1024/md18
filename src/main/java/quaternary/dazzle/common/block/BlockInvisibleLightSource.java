@@ -1,11 +1,12 @@
 package quaternary.dazzle.common.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.state.*;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -15,32 +16,15 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.Collections;
 
-public class BlockInvisibleLightSource extends BlockBase {
+public class BlockInvisibleLightSource extends Block {
 	
 	public static final PropertyInteger LIGHT_LEVEL = PropertyInteger.create("light_level", 0, 15);
 	
 	public BlockInvisibleLightSource() {
 		//                                vvv The closest thing to Material.AIR that isn't.
-		super("invisible_light_source", Material.STRUCTURE_VOID);
+		super(Material.STRUCTURE_VOID);
 		
 		setDefaultState(getDefaultState().withProperty(LIGHT_LEVEL, 15));
-	}
-	
-	//signals to BlockBase
-	@Override
-	public boolean hasItemForm() {
-		return false;
-	}
-	
-	@Override
-	public boolean hasCustomStatemapper() {
-		return true;
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IStateMapper getCustomStatemapper() {
-		return block -> Collections.emptyMap();
 	}
 	
 	//Light level based on states
@@ -103,8 +87,7 @@ public class BlockInvisibleLightSource extends BlockBase {
 	}
 	
 	//Make it non collideable
-	public boolean canCollideCheck(IBlockState state, boolean hitIfLiquid)
-	{
+	public boolean canCollideCheck(IBlockState state, boolean hitIfLiquid) {
 		return false;
 	}
 	
@@ -116,8 +99,12 @@ public class BlockInvisibleLightSource extends BlockBase {
 	
 	//Uhh
 	@Override
-	public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos)
-	{
+	public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
 		return true;
+	}
+	
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing face) {
+		return BlockFaceShape.UNDEFINED;
 	}
 }

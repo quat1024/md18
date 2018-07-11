@@ -4,7 +4,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -16,16 +15,15 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import quaternary.dazzle.common.block.statemapper.RenamedIgnoringStatemapper;
 import quaternary.dazzle.common.etc.EnumLampVariant;
 import quaternary.dazzle.common.etc.Util;
 
-public abstract class BlockLamp extends BlockBase {
+public abstract class BlockLamp extends Block {
 	final EnumDyeColor color;
 	final EnumLampVariant variant;
 	
-	public BlockLamp(String name, EnumDyeColor color, EnumLampVariant variant) {
-		super(color.getName() + "_" + variant + "_" + name, Material.REDSTONE_LIGHT);
+	public BlockLamp(EnumDyeColor color, EnumLampVariant variant) {
+		super(Material.REDSTONE_LIGHT);
 		
 		this.color = color;
 		this.variant = variant;
@@ -38,7 +36,7 @@ public abstract class BlockLamp extends BlockBase {
 	abstract IBlockState setStateBrightness(IBlockState state, int powerLevel);
 	abstract IBlockState getInvertedState(IBlockState in);
 	
-	public abstract boolean hasItemFormBlahBlahRenameWhenBlockBaseGoesAway();
+	public abstract boolean hasItemForm();
 	
 	public EnumDyeColor getColor() {
 		return color;
@@ -102,18 +100,5 @@ public abstract class BlockLamp extends BlockBase {
 		b /= divisor;
 		
 		return (r << 16) | (g << 8) | b;
-	}
-	
-	//Statemapper
-	@Override
-	@SideOnly(Side.CLIENT)
-	public boolean hasCustomStatemapper() {
-		return true;
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IStateMapper getCustomStatemapper() {
-		return new RenamedIgnoringStatemapper("lamp_" + variant);
 	}
 }
