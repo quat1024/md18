@@ -1,11 +1,21 @@
 package quaternary.dazzle.client;
 
-import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.StateMapperBase;
+import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.*;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import quaternary.dazzle.common.Dazzle;
 import quaternary.dazzle.common.block.BlockLamp;
 import quaternary.dazzle.common.block.DazzleBlocks;
 import quaternary.dazzle.common.item.DazzleItems;
 import quaternary.dazzle.common.item.ItemBlockLamp;
+import quaternary.dazzle.common.particle.ParticleLightSource;
+
+import java.util.Collections;
 
 public class ClientEvents {
 	@SubscribeEvent
@@ -20,5 +30,49 @@ public class ClientEvents {
 		for(ItemBlockLamp lamp : DazzleItems.getLampItems()) {
 			e.getItemColors().registerItemColorHandler((stack, tintIndex) -> lamp.color.getColorValue(), lamp);
 		}
+	}
+	
+	@SubscribeEvent
+	public static void models(ModelRegistryEvent e) {
+		for(ItemBlockLamp lamp : DazzleItems.getLampItems()) {
+			setFixedMRL(lamp, "lamp" + lamp.getStyle());
+		}
+		
+		setDefaultMRL(Item.getItemFromBlock(DazzleBlocks.LIGHT_SENSOR));
+		setDefaultMRL(Item.getItemFromBlock(DazzleBlocks.LIGHT_PANEL));
+		setDefaultMRL(Item.getItemFromBlock(DazzleBlocks.DIM_REDSTONE_TORCH));
+		
+		setItemColor16ColorsMRL(Item.getItemFromBlock(DazzleBlocks.PARTICLE_LIGHT));
+		
+		for(BlockLamp lamp : DazzleBlocks.getLamps()) {
+			ModelLoader.setCustomStateMapper(lamp, new StateMapperBase() {
+				@Override
+				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+					return new ModelResourceLocation(new ResourceLocation(Dazzle.MODID, "lamp_" + lamp.getVariant()), "normal");
+				}
+			});
+		}
+		
+		ModelLoader.setCustomStateMapper(DazzleBlocks.INVISIBLE_LIGHT, (state) -> Collections.emptyMap());
+		ModelLoader.setCustomStateMapper(DazzleBlocks.PARTICLE_LIGHT, (state) -> Collections.emptyMap());
+	}
+	
+	private static void setDefaultMRL(Item i) {
+		ModelLoader.setCustomModelResourceLocation(i, 0, new ModelResourceLocation(i.getRegistryName(), "inventory"));
+	}
+	
+	private static void setItemColor16ColorsMRL(Item i) {
+		for(int a = 0; a < 16; a++) {
+			ModelLoader.setCustomModelResourceLocation(i, a, new ModelResourceLocation(i.getRegistryName(), "inventory"));
+		}
+	}
+	
+	private static void setFixedMRL(Item i, String fixedName) {
+		ModelLoader.setCustomModelResourceLocation(i, 0, new ModelResourceLocation(new ResourceLocation(Dazzle.MODID, fixedName), "inventory"));
+	}
+	
+	@SubscribeEvent
+	public static void textureStitch(TextureStitchEvent.Pre e) {
+		ParticleLightSource.textureStitch(e);
 	}
 }

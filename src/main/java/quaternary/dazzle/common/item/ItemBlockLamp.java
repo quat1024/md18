@@ -41,9 +41,15 @@ public class ItemBlockLamp extends ItemBlock {
 		return I18n.translateToLocalFormatted(langKey, colorLocal, lampStyleLocal);
 	}
 	
-	public ResourceLocation getModelResourceHack() {
-		//The different lamp blocks all have different block IDs but point to the same model w/ a statemapper.
-		//Same thing going on here. I just point all 32 item models for a lamp at the same model.
-		return new ResourceLocation(Dazzle.MODID, "lamp_" + style);
+	public EnumDyeColor getColor() {
+		return color;
+	}
+	
+	public EnumLampVariant getStyle() {
+		return style;
+	}
+	
+	public String getLangKey() {
+		return langKey;
 	}
 }
