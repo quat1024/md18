@@ -9,6 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import quaternary.dazzle.block.statemapper.RenamedIgnoringStatemapper;
+import quaternary.dazzle.etc.EnumLampVariant;
 import quaternary.dazzle.item.ItemBlockLamp;
 
 public class BlockAnalogLamp extends BlockLamp {
@@ -17,10 +18,15 @@ public class BlockAnalogLamp extends BlockLamp {
 	private final boolean inverted;
 	private IBlockState inverseState;
 	
-	public BlockAnalogLamp(EnumDyeColor color, String variant, boolean inverted) {
+	public BlockAnalogLamp(EnumDyeColor color, EnumLampVariant variant, boolean inverted) {
 		super("analog_lamp" + (inverted ? "_inverted" : ""), color, variant);
 		
 		this.inverted = inverted;
+	}
+	
+	@Override
+	public boolean hasItemFormBlahBlahRenameWhenBlockBaseGoesAway() {
+		return !inverted;
 	}
 	
 	Item item;

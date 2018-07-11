@@ -9,16 +9,22 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import quaternary.dazzle.block.statemapper.RenamedIgnoringStatemapper;
+import quaternary.dazzle.etc.EnumLampVariant;
 import quaternary.dazzle.item.ItemBlockLamp;
 
 public class BlockDigitalLamp extends BlockLamp {
 	public static final PropertyBool LIT = PropertyBool.create("lit");
 	public static final PropertyBool INVERTED = PropertyBool.create("inverted");
 	
-	public BlockDigitalLamp(EnumDyeColor color, String variant) {
+	public BlockDigitalLamp(EnumDyeColor color, EnumLampVariant variant) {
 		super("digital_lamp", color, variant);
 		
 		setDefaultState(getDefaultState().withProperty(LIT, false).withProperty(INVERTED, false));
+	}
+	
+	@Override
+	public boolean hasItemFormBlahBlahRenameWhenBlockBaseGoesAway() {
+		return true;
 	}
 	
 	Item item;

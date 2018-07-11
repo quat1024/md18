@@ -1,10 +1,8 @@
 package quaternary.dazzle.item;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
@@ -12,20 +10,22 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import quaternary.dazzle.Dazzle;
+import quaternary.dazzle.block.BlockLamp;
+import quaternary.dazzle.etc.EnumLampVariant;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemBlockLamp extends DzItemBlock {
+public class ItemBlockLamp extends ItemBlock {
 	public final EnumDyeColor color;
-	final String style;
+	final EnumLampVariant style;
 	final String langKey;
 	
-	public ItemBlockLamp(Block b, EnumDyeColor color, String style, String langKey) {
+	public ItemBlockLamp(BlockLamp b) {
 		super(b);
-		this.color = color;
-		this.style = style;
-		this.langKey = langKey;
+		this.color = b.getColor();
+		this.style = b.getVariant();
+		this.langKey = b.getUnlocalizedName();
 	}
 	
 	@Override
@@ -48,10 +48,5 @@ public class ItemBlockLamp extends DzItemBlock {
 		//The different lamp blocks all have different block IDs but point to the same model w/ a statemapper.
 		//Same thing going on here. I just point all 32 item models for a lamp at the same model.
 		return new ResourceLocation(Dazzle.MODID, "lamp_" + style);
-	}
-	
-	@SideOnly(Side.CLIENT)
-	public IItemColor getItemColors() {
-		return (ItemStack stack, int tintIndex) -> color.getColorValue();
 	}
 }

@@ -18,13 +18,14 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import quaternary.dazzle.block.statemapper.RenamedIgnoringStatemapper;
+import quaternary.dazzle.etc.EnumLampVariant;
 import quaternary.dazzle.etc.Util;
 
 public abstract class BlockLamp extends BlockBase {
 	final EnumDyeColor color;
-	final String variant;
+	final EnumLampVariant variant;
 	
-	public BlockLamp(String name, EnumDyeColor color, String variant) {
+	public BlockLamp(String name, EnumDyeColor color, EnumLampVariant variant) {
 		super(color.getName() + "_" + variant + "_" + name, Material.REDSTONE_LIGHT);
 		
 		this.color = color;
@@ -37,6 +38,16 @@ public abstract class BlockLamp extends BlockBase {
 	abstract int getBrightnessFromState(IBlockState state);
 	abstract IBlockState setStateBrightness(IBlockState state, int powerLevel);
 	abstract IBlockState getInvertedState(IBlockState in);
+	
+	public abstract boolean hasItemFormBlahBlahRenameWhenBlockBaseGoesAway();
+	
+	public EnumDyeColor getColor() {
+		return color;
+	}
+	
+	public EnumLampVariant getVariant() {
+		return variant;
+	}
 	
 	//Lightiness
 	@Override
@@ -67,39 +78,31 @@ public abstract class BlockLamp extends BlockBase {
 		return false;
 	}
 	
-	//IBlockColor stuff
-	@Override
-	@SideOnly(Side.CLIENT)
-	public boolean hasBlockColors() {
-		return true;
-	}
-	
 	@Override
 	public BlockRenderLayer getBlockLayer() {
 		return BlockRenderLayer.CUTOUT_MIPPED;
 	}
 	
-	@Override
 	@SideOnly(Side.CLIENT)
-	public IBlockColor getBlockColors() {
-		return (state, worldIn, pos, tintIndex) -> {
-			Block block = state.getBlock();
-			
-			int color = ((BlockLamp)block).color.getColorValue();
-			
-			int r = (color & 0xFF0000) >> 16;
-			int g = (color & 0x00FF00) >> 8;
-			int b = (color & 0x0000FF);
-			
-			double divisor = Util.map(getBrightnessFromState(state), 0, 15, 5, 1);
-			
-			divisor = Math.pow(divisor, 1.7); //Oh god it's awful
-			divisor = MathHelper.clampedLerp(1, 5, divisor);
-			
-			r /= divisor; g /= divisor; b /= divisor;
-			
-			return (r << 16) | (g << 8) | b;
-		};
+	public int getBlockColor(IBlockState state, IBlockAccess world, BlockPos pos, int tintIndex) {
+		Block block = state.getBlock();
+		
+		int color = ((BlockLamp) block).color.getColorValue();
+		
+		int r = (color & 0xFF0000) >> 16;
+		int g = (color & 0x00FF00) >> 8;
+		int b = (color & 0x0000FF);
+		
+		double divisor = Util.map(getBrightnessFromState(state), 0, 15, 5, 1);
+		
+		divisor = Math.pow(divisor, 1.7); //Oh god it's awful
+		divisor = MathHelper.clampedLerp(1, 5, divisor);
+		
+		r /= divisor;
+		g /= divisor;
+		b /= divisor;
+		
+		return (r << 16) | (g << 8) | b;
 	}
 	
 	//Statemapper

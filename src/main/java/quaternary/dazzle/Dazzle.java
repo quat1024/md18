@@ -18,8 +18,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import quaternary.dazzle.block.*;
-import quaternary.dazzle.item.ItemBlockLamp;
-import quaternary.dazzle.item.ItemParticleLight;
+import quaternary.dazzle.item.*;
 import quaternary.dazzle.particle.ParticleLightSource;
 import quaternary.dazzle.proxy.ServerProxy;
 import quaternary.dazzle.tile.TileLightSensor;
@@ -95,11 +94,8 @@ public class Dazzle {
 	public static class CommonEvents {
 		@SubscribeEvent
 		public static void blocks(RegistryEvent.Register<Block> e) {
-			IForgeRegistry<Block> reg = e.getRegistry();
+			DazzleBlocks.init(e.getRegistry());
 			
-			for(Block b : BLOCKS) {
-				reg.register(b);
-			}
 			
 			GameRegistry.registerTileEntity(TileLightSensor.class, Dazzle.MODID + ":light_sensor");
 			GameRegistry.registerTileEntity(TileParticleLightSource.class, Dazzle.MODID + ":particle_light");
@@ -107,34 +103,7 @@ public class Dazzle {
 		
 		@SubscribeEvent
 		public static void items(RegistryEvent.Register<Item> e) {
-			IForgeRegistry<Item> reg = e.getRegistry();
-			
-			for(Item i : ITEMS) {
-				reg.register(i);
-			}
-		}
-		
-		@SubscribeEvent
-		public static void missingMappings(RegistryEvent.MissingMappings<Block> e) {
-			for(RegistryEvent.MissingMappings.Mapping<Block> missing : e.getMappings()) {
-				ResourceLocation missingLocation = missing.key;
-				if(!missingLocation.getResourceDomain().equals(Dazzle.MODID)) continue;
-				
-				//"inverted_white_modern_analog_lamp" to "white_modern_analog_lamp_inverted"
-				Pattern analogPattern = Pattern.compile("inverted_(.*_.*_analog_lamp)");
-				Matcher analogMatcher = analogPattern.matcher(missingLocation.getResourcePath());
-				
-				if(analogMatcher.find()) {
-					String prefix = analogMatcher.group(1);
-					ResourceLocation newLocation = new ResourceLocation(MODID, prefix + "_inverted");
-					Block remappedBlock = Block.getBlockFromName(newLocation.toString());
-					if(remappedBlock == null) {
-						missing.ignore();
-					} else {
-						missing.remap(remappedBlock);
-					}
-				}
-			}
+			DazzleItems.init(e.getRegistry());
 		}
 	}
 	

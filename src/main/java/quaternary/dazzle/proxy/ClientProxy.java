@@ -1,38 +1,33 @@
 package quaternary.dazzle.proxy;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import quaternary.dazzle.Dazzle;
-import quaternary.dazzle.block.BlockBase;
-import quaternary.dazzle.item.ItemBlockLamp;
-import quaternary.dazzle.item.ItemParticleLight;
+import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import quaternary.dazzle.block.*;
+import quaternary.dazzle.item.*;
 import quaternary.dazzle.particle.ParticleLightSource;
 
 public class ClientProxy extends ServerProxy {
 	@Override
-	public void init() {
-		for(Block b : Dazzle.BLOCKS) {
-			if(b instanceof BlockBase) {
-				BlockBase bbase = (BlockBase) b;
-				if(bbase.hasBlockColors()) {
-					Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(bbase.getBlockColors(), bbase);
-				}
-			}
+	public void preinit() {
+		MinecraftForge.EVENT_BUS.register(ClientProxy.class);
+	}
+	
+	@SubscribeEvent
+	public static void blockColors(ColorHandlerEvent.Block e) {
+		for(BlockLamp lamp : DazzleBlocks.getLamps()) {
+			e.getBlockColors().registerBlockColorHandler(lamp::getBlockColor, lamp);
 		}
-		
-		for(Item i : Dazzle.ITEMS) {
-			if(i instanceof ItemBlockLamp) {
-				ItemBlockLamp lampItem = (ItemBlockLamp) i;
-				Minecraft.getMinecraft().getItemColors().registerItemColorHandler(lampItem.getItemColors(), i);
-			} else if (i instanceof ItemParticleLight) {
-				Minecraft.getMinecraft().getItemColors().registerItemColorHandler((stack, tint) -> {
-					return (tint != 1) ? -1 : EnumDyeColor.values()[stack.getMetadata()].getColorValue();
-				}, i);
-			}
+	}
+	
+	@SubscribeEvent
+	public static void itemColors(ColorHandlerEvent.Item e) {
+		for(ItemBlockLamp lamp : DazzleItems.getLampItems()) {
+			e.getItemColors().registerItemColorHandler((stack, tintIndex) -> lamp.color.getColorValue(), lamp);
 		}
 	}
 	

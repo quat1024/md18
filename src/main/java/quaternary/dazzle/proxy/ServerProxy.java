@@ -5,7 +5,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class ServerProxy {
-	public void init() {
+	public void preinit() {
 		; //no-op
 	}
 	
