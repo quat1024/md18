@@ -22,6 +22,11 @@ public class BlockDigitalLamp extends BlockLamp {
 	}
 	
 	@Override
+	public String getLampTypeTranslationKey() {
+		return "tile.dazzle.digital_lamp.name";
+	}
+	
+	@Override
 	int getBrightnessFromState(IBlockState state) {
 		return (state.getValue(LIT) ^ state.getValue(INVERTED)) ? 15 : 0;
 	}

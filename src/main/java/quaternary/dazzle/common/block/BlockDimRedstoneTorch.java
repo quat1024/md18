@@ -25,21 +25,8 @@ public class BlockDimRedstoneTorch extends BlockTorch
 {
 	private static final Map<World, List<BlockDimRedstoneTorch.Toggle>> toggles = new java.util.WeakHashMap<>(); // FORGE - fix vanilla MC-101233
 	
-	//Dazzle: Use IProperty for litness because Forge gives a state sensitive version of getLightValue
+	//Dazzle: Use IProperty for litness because it's 2018
 	public static final PropertyBool LIT = PropertyBool.create("lit");
-	
-	//Dazzle: public constructor
-	public BlockDimRedstoneTorch()
-	{
-		//Why the fuck
-		//this.setTickRandomly(true);
-		
-		//Dazzle: set proper names
-		String name = "dim_redstone_torch";
-		setRegistryName(Dazzle.MODID, name);
-		setUnlocalizedName(Dazzle.MODID + "." + name);
-		setCreativeTab(DazzleCreativeTab.INST);
-	}
 	
 	//Dazzle: set light value here instead of when constructing
 	//also use blockstate
@@ -257,16 +244,6 @@ public class BlockDimRedstoneTorch extends BlockTorch
 	public ItemStack getItem(World world, BlockPos pos, IBlockState state)
 	{
 		return new ItemStack(this);
-	}
-	
-	//Dazzle: copy from BlockBase which I can't extend
-	Item item;
-	public Item itemForm() {
-		if(item == null) {
-			item = new ItemBlock(this);
-			item.setRegistryName(getRegistryName());
-		}
-		return item;
 	}
 	
 	/*

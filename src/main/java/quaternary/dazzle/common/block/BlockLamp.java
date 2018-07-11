@@ -37,6 +37,7 @@ public abstract class BlockLamp extends Block {
 	abstract IBlockState getInvertedState(IBlockState in);
 	
 	public abstract boolean hasItemForm();
+	public abstract String getLampTypeTranslationKey();
 	
 	public EnumDyeColor getColor() {
 		return color;
@@ -81,20 +82,18 @@ public abstract class BlockLamp extends Block {
 	}
 	
 	@SideOnly(Side.CLIENT)
-	public int getBlockColor(IBlockState state, IBlockAccess world, BlockPos pos, int tintIndex) {
-		Block block = state.getBlock();
-		
-		int color = ((BlockLamp) block).color.getColorValue();
+	public int getBlockColor(IBlockState state, IBlockAccess world, BlockPos pos, int tintIndex) {		
+		int color = getColor().getColorValue();
 		
 		int r = (color & 0xFF0000) >> 16;
 		int g = (color & 0x00FF00) >> 8;
 		int b = (color & 0x0000FF);
 		
 		double divisor = Util.map(getBrightnessFromState(state), 0, 15, 5, 1);
-		
+		/*
 		divisor = Math.pow(divisor, 1.7); //Oh god it's awful
 		divisor = MathHelper.clampedLerp(1, 5, divisor);
-		
+		*/
 		r /= divisor;
 		g /= divisor;
 		b /= divisor;

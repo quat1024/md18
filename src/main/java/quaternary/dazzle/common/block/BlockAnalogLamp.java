@@ -24,6 +24,11 @@ public class BlockAnalogLamp extends BlockLamp {
 	}
 	
 	@Override
+	public String getLampTypeTranslationKey() {
+		return "tile.dazzle.analog_lamp.name";
+	}
+	
+	@Override
 	int getBrightnessFromState(IBlockState state) {
 		if(inverted) return 15 - state.getValue(POWER);
 		else return state.getValue(POWER);

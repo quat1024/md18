@@ -35,7 +35,7 @@ public class ClientEvents {
 	@SubscribeEvent
 	public static void models(ModelRegistryEvent e) {
 		for(ItemBlockLamp lamp : DazzleItems.getLampItems()) {
-			setFixedMRL(lamp, "lamp" + lamp.getStyle());
+			setFixedMRL(lamp, "lamp_" + lamp.getStyle());
 		}
 		
 		setDefaultMRL(Item.getItemFromBlock(DazzleBlocks.LIGHT_SENSOR));

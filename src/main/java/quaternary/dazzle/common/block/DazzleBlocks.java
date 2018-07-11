@@ -68,10 +68,10 @@ public class DazzleBlocks {
 	private static void populateLamps() {
 		for(EnumDyeColor color : EnumDyeColor.values()) {
 			for(EnumLampVariant variant : EnumLampVariant.values()) {
-				String digitalName = String.format("%s_%s_digital_lamp", color, variant);
+				String digitalName = String.format("%s_%s_digital_lamp", color.getName(), variant);
 				LAMPS.add(createBlock(new BlockDigitalLamp(color, variant), digitalName));
 				
-				String analogName = String.format("%s_%s_analog_lamp", color, variant);
+				String analogName = String.format("%s_%s_analog_lamp", color.getName(), variant);
 				BlockAnalogLamp analogNormal = createBlock(new BlockAnalogLamp(color, variant, false), analogName);
 				BlockAnalogLamp analogInvert = createBlock(new BlockAnalogLamp(color, variant, true), "inverted_" + analogName);
 				

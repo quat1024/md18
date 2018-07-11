@@ -22,7 +22,7 @@ public class ItemBlockLamp extends ItemBlock {
 		super(b);
 		this.color = b.getColor();
 		this.style = b.getVariant();
-		this.langKey = b.getUnlocalizedName();
+		this.langKey = b.getLampTypeTranslationKey();
 	}
 	
 	@Override
