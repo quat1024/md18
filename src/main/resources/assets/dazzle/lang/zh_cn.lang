@@ -2,9 +2,6 @@ itemGroup.dazzle=Dazzle\炫彩灯光
 
 tile.dazzle.panel.name=发光板
 tile.dazzle.light_sensor.name=光学传感器
-tile.dazzle.stadium_base.name=体育场灯灯座
-tile.dazzle.stadium_pole.name=体育场灯灯杆
-tile.dazzle.stadium_top.name=体育场灯
 
 tile.dazzle.digital_lamp.name=%s%s
 tile.dazzle.analog_lamp.name=感应型%s%s
