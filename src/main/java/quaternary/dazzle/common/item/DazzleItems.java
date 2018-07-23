@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 import quaternary.dazzle.common.Dazzle;
 import quaternary.dazzle.common.DazzleCreativeTab;
-import quaternary.dazzle.common.block.BlockLamp;
+import quaternary.dazzle.common.block.AbstractBlockLamp;
 import quaternary.dazzle.common.block.DazzleBlocks;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class DazzleItems {
 	public static final ItemParticleLight PARTICLE_LIGHT = null;
 	
 	public static void init(IForgeRegistry<Item> reg) {
-		for(BlockLamp lamp : DazzleBlocks.getLamps()) {
+		for(AbstractBlockLamp lamp : DazzleBlocks.getLamps()) {
 			if(lamp.hasItemForm()) {
 				ItemBlockLamp bleh = createItemBlock(new ItemBlockLamp(lamp));
 				LAMP_ITEMS.add(bleh);

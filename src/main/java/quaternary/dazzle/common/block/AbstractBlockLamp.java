@@ -18,11 +18,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import quaternary.dazzle.common.etc.EnumLampVariant;
 import quaternary.dazzle.common.etc.Util;
 
-public abstract class BlockLamp extends Block {
+public abstract class AbstractBlockLamp extends Block {
 	final EnumDyeColor color;
 	final EnumLampVariant variant;
 	
-	public BlockLamp(EnumDyeColor color, EnumLampVariant variant) {
+	public AbstractBlockLamp(EnumDyeColor color, EnumLampVariant variant) {
 		super(Material.REDSTONE_LIGHT);
 		
 		this.color = color;
@@ -32,9 +32,9 @@ public abstract class BlockLamp extends Block {
 		setSoundType(SoundType.GLASS);
 	}
 	
-	abstract int getBrightnessFromState(IBlockState state);
-	abstract IBlockState setStateBrightness(IBlockState state, int powerLevel);
-	abstract IBlockState getInvertedState(IBlockState in);
+	protected abstract int getBrightnessFromState(IBlockState state);
+	protected abstract IBlockState setStateBrightness(IBlockState state, int powerLevel);
+	protected abstract IBlockState getInvertedState(IBlockState in);
 	
 	public abstract boolean hasItemForm();
 	public abstract String getLampTypeTranslationKey();

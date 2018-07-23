@@ -23,7 +23,7 @@ public class ClientEvents {
 	public static void blockColors(ColorHandlerEvent.Block e) {
 		BlockColors colors = e.getBlockColors();
 		
-		for(BlockLamp lamp : DazzleBlocks.getLamps()) {
+		for(AbstractBlockLamp lamp : DazzleBlocks.getLamps()) {
 			colors.registerBlockColorHandler(lamp::getBlockColor, lamp);
 		}
 		
@@ -55,7 +55,7 @@ public class ClientEvents {
 		
 		setItemColor16ColorsMRL(Item.getItemFromBlock(DazzleBlocks.PARTICLE_LIGHT));
 		
-		for(BlockLamp lamp : DazzleBlocks.getLamps()) {
+		for(AbstractBlockLamp lamp : DazzleBlocks.getLamps()) {
 			ModelLoader.setCustomStateMapper(lamp, new IgnoreAllStateMapper("lamp_" + lamp.getVariant()));
 		}
 		

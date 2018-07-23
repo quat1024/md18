@@ -2,12 +2,10 @@ package quaternary.dazzle.common.item;
 
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.*;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-import quaternary.dazzle.common.Dazzle;
-import quaternary.dazzle.common.block.BlockLamp;
+import quaternary.dazzle.common.block.AbstractBlockLamp;
 import quaternary.dazzle.common.etc.EnumLampVariant;
 
 import javax.annotation.Nullable;
@@ -18,7 +16,7 @@ public class ItemBlockLamp extends ItemBlock {
 	final EnumLampVariant style;
 	final String langKey;
 	
-	public ItemBlockLamp(BlockLamp b) {
+	public ItemBlockLamp(AbstractBlockLamp b) {
 		super(b);
 		this.color = b.getColor();
 		this.style = b.getVariant();

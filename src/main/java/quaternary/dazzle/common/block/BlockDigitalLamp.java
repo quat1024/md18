@@ -6,7 +6,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.EnumDyeColor;
 import quaternary.dazzle.common.etc.EnumLampVariant;
 
-public class BlockDigitalLamp extends BlockLamp {
+public class BlockDigitalLamp extends AbstractBlockLamp {
 	public static final PropertyBool LIT = PropertyBool.create("lit");
 	public static final PropertyBool INVERTED = PropertyBool.create("inverted");
 	
@@ -27,17 +27,17 @@ public class BlockDigitalLamp extends BlockLamp {
 	}
 	
 	@Override
-	int getBrightnessFromState(IBlockState state) {
+	protected int getBrightnessFromState(IBlockState state) {
 		return (state.getValue(LIT) ^ state.getValue(INVERTED)) ? 15 : 0;
 	}
 	
 	@Override
-	IBlockState setStateBrightness(IBlockState state, int powerLevel) {
+	protected IBlockState setStateBrightness(IBlockState state, int powerLevel) {
 		return state.withProperty(LIT, powerLevel != 0);
 	}
 	
 	@Override
-	IBlockState getInvertedState(IBlockState in) {
+	protected IBlockState getInvertedState(IBlockState in) {
 		return in.withProperty(INVERTED, !in.getValue(INVERTED));
 	}
 	

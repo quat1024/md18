@@ -1,12 +1,18 @@
 package quaternary.dazzle.common.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.World;
 import quaternary.dazzle.common.etc.EnumLampVariant;
 
-public class BlockAnalogLamp extends BlockLamp {
+public class BlockAnalogLamp extends AbstractBlockLamp {
 	public static final PropertyInteger POWER = PropertyInteger.create("power", 0, 15);
 	
 	private final boolean inverted;
@@ -29,18 +35,18 @@ public class BlockAnalogLamp extends BlockLamp {
 	}
 	
 	@Override
-	int getBrightnessFromState(IBlockState state) {
+	protected int getBrightnessFromState(IBlockState state) {
 		if(inverted) return 15 - state.getValue(POWER);
 		else return state.getValue(POWER);
 	}
 	
 	@Override
-	IBlockState setStateBrightness(IBlockState state, int powerLevel) {
+	protected IBlockState setStateBrightness(IBlockState state, int powerLevel) {
 		return state.withProperty(POWER, powerLevel);
 	}
 	
 	@Override
-	IBlockState getInvertedState(IBlockState in) {
+	protected IBlockState getInvertedState(IBlockState in) {
 		return inverseState.withProperty(POWER, in.getValue(POWER));
 	}
 	
@@ -49,6 +55,17 @@ public class BlockAnalogLamp extends BlockLamp {
 	//Thus, this is implemented using two blocks.
 	public void setInverseBlockstate(IBlockState b) {
 		inverseState = b;
+	}
+	
+	@Override
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+		//Since inverted analog lamps are a separate block for "running-out-of-data-values" reasons
+		//getPickBlock becomes broken on inverted lamps.
+		//1.13, please save us all.
+		if(inverted) {
+			Block invertedBlock = getInvertedState(state).getBlock();
+			return invertedBlock.getPickBlock(state, target, world, pos, player);
+		} else return super.getPickBlock(state, target, world, pos, player);
 	}
 	
 	//Blockstate boilerplate

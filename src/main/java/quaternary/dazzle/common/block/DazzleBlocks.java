@@ -14,7 +14,7 @@ import java.util.List;
 
 @GameRegistry.ObjectHolder(Dazzle.MODID)
 public class DazzleBlocks {
-	private static final List<BlockLamp> LAMPS = new ArrayList<>();
+	private static final List<AbstractBlockLamp> LAMPS = new ArrayList<>();
 	
 	public static class Names {
 		public static final String LIGHT_SENSOR = "light_sensor";
@@ -84,7 +84,7 @@ public class DazzleBlocks {
 		}
 	}
 	
-	public static List<BlockLamp> getLamps() {
+	public static List<AbstractBlockLamp> getLamps() {
 		return LAMPS;
 	}
 }
