@@ -1,5 +1,7 @@
 package quaternary.dazzle.common.etc;
 
+import java.util.Locale;
+
 public enum EnumLampVariant {
 	CLASSIC,
 	MODERN,
@@ -9,6 +11,6 @@ public enum EnumLampVariant {
 	
 	@Override
 	public String toString() {
-		return name().toLowerCase();
+		return name().toLowerCase(Locale.ROOT);
 	}
 }
