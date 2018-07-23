@@ -3,15 +3,18 @@ package quaternary.dazzle.client;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
-import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.Item;
+import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import quaternary.dazzle.client.statemapper.IgnoreAllStateMapper;
 import quaternary.dazzle.common.Dazzle;
 import quaternary.dazzle.common.block.*;
+import quaternary.dazzle.common.etc.IUnfinished;
 import quaternary.dazzle.common.item.DazzleItems;
 import quaternary.dazzle.common.item.ItemBlockLamp;
 import quaternary.dazzle.client.particle.ParticleLightSource;
@@ -81,5 +84,26 @@ public class ClientEvents {
 	@SubscribeEvent
 	public static void textureStitch(TextureStitchEvent.Pre e) {
 		ParticleLightSource.textureStitch(e);
+	}
+	
+	@SubscribeEvent
+	public static void tooltip(ItemTooltipEvent e) {
+		ItemStack stack = e.getItemStack();
+		boolean isUnfinished = false;
+		
+		if(stack.getItem() instanceof IUnfinished) {
+			isUnfinished = true;
+		}
+		
+		if(stack.getItem() instanceof ItemBlock) {
+			ItemBlock ib = (ItemBlock) stack.getItem();
+			if(ib.getBlock() instanceof IUnfinished) {
+				isUnfinished = true;
+			}
+		}
+		
+		if(isUnfinished) {
+			e.getToolTip().add(TextFormatting.RED + I18n.translateToLocal("dazzle.wip"));
+		}
 	}
 }

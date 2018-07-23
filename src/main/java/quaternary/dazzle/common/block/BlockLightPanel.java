@@ -17,8 +17,9 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import quaternary.dazzle.common.Dazzle;
+import quaternary.dazzle.common.etc.IUnfinished;
 
-public class BlockLightPanel extends Block {
+public class BlockLightPanel extends Block implements IUnfinished {
 	public static final PropertyDirection FACING = BlockDirectional.FACING;
 	
 	@GameRegistry.ObjectHolder(Dazzle.MODID + ":invisible_light_source")
