@@ -1,4 +1,4 @@
-package quaternary.dazzle.common.particle;
+package quaternary.dazzle.client.particle;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
@@ -28,7 +28,7 @@ public class ParticleLightSource extends Particle {
 		
 		motionX = Util.map(rand.nextFloat(), 0, 1, -0.01f, 0.01f);
 		motionY = Util.map(rand.nextFloat(), 0, 1, 0.02f, 0.04f);
-		motionZ = Util.map(rand.nextFloat(), 0, 1, -0.01f, 0.01f);;
+		motionZ = Util.map(rand.nextFloat(), 0, 1, -0.01f, 0.01f);
 		
 		if(sprite == null) {
 			sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(particleRes.toString());
@@ -47,14 +47,6 @@ public class ParticleLightSource extends Particle {
 		prevPosY = posY;
 		prevPosZ = posZ;
 		
-		float s;
-		if(particleAge < particleMaxAge / 2) {
-			s = Util.map(particleAge, 0, particleMaxAge / 2, 0, 2);
-		} else {
-			s = Util.map(particleAge, particleMaxAge / 2, particleMaxAge, 2, 0);
-		}
-		particleScale = s;
-		
 		if(particleAge > particleMaxAge) {
 			setExpired(); return;
 		}
@@ -65,10 +57,16 @@ public class ParticleLightSource extends Particle {
 	}
 	
 	@Override
-	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-		GlStateManager.depthMask(false);
-		super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
-		GlStateManager.depthMask(true);
+	public void renderParticle(BufferBuilder buffer, Entity entity, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
+		if(particleAge < particleMaxAge / 2) {
+			particleScale = Util.map(particleAge + partialTicks, 0, particleMaxAge / 2, 0, 2);
+		} else {
+			particleScale = Util.map(particleAge + partialTicks, particleMaxAge / 2, particleMaxAge, 2, 0);
+		}
+		
+		if(particleScale < 0) particleScale = 0;
+		
+		super.renderParticle(buffer, entity, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
 	}
 	
 	@Override

@@ -1,31 +1,20 @@
 package quaternary.dazzle.common;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.*;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import quaternary.dazzle.common.block.*;
 import quaternary.dazzle.common.item.*;
-import quaternary.dazzle.common.particle.ParticleLightSource;
 import quaternary.dazzle.common.proxy.ServerProxy;
 import quaternary.dazzle.common.tile.TileLightSensor;
 import quaternary.dazzle.common.tile.TileParticleLightSource;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static quaternary.dazzle.common.Dazzle.MODID;
 

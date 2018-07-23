@@ -6,10 +6,10 @@ import net.minecraft.world.World;
 
 public class ServerProxy {
 	public void preinit() {
-		; //no-op
+		//no-op
 	}
 	
 	public void spawnLightSourceParticle(World w, BlockPos pos, EnumDyeColor color) {
-		//Noop
+		//no-op
 	}
 }
