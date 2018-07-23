@@ -34,10 +34,11 @@ public class BlockParticleLightSource extends Block {
 		setDefaultState(getDefaultState().withProperty(COLOR, EnumDyeColor.WHITE));
 	}
 	
+	/*
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> items) {
 		//TODO
-	}
+	}*/
 	
 	//tile
 	@Override
@@ -124,8 +125,7 @@ public class BlockParticleLightSource extends Block {
 	
 	//Uhh
 	@Override
-	public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos)
-	{
+	public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
 		return true;
 	}
 	

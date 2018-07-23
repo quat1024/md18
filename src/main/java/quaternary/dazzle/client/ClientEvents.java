@@ -3,6 +3,8 @@ package quaternary.dazzle.client;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
+import net.minecraft.client.renderer.color.ItemColors;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.*;
@@ -27,9 +29,13 @@ public class ClientEvents {
 	
 	@SubscribeEvent
 	public static void itemColors(ColorHandlerEvent.Item e) {
+		ItemColors colors = e.getItemColors();
+		
 		for(ItemBlockLamp lamp : DazzleItems.getLampItems()) {
-			e.getItemColors().registerItemColorHandler((stack, tintIndex) -> lamp.color.getColorValue(), lamp);
+			colors.registerItemColorHandler((stack, tintIndex) -> lamp.color.getColorValue(), lamp);
 		}
+		
+		colors.registerItemColorHandler((stack, tintIndex) -> EnumDyeColor.byMetadata(stack.getMetadata()).getColorValue(), DazzleItems.PARTICLE_LIGHT);
 	}
 	
 	@SubscribeEvent

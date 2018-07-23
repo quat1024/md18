@@ -2,7 +2,9 @@ package quaternary.dazzle.common.item;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
+import quaternary.dazzle.common.Dazzle;
 import quaternary.dazzle.common.DazzleCreativeTab;
 import quaternary.dazzle.common.block.BlockLamp;
 import quaternary.dazzle.common.block.DazzleBlocks;
@@ -10,8 +12,12 @@ import quaternary.dazzle.common.block.DazzleBlocks;
 import java.util.ArrayList;
 import java.util.List;
 
+@GameRegistry.ObjectHolder(Dazzle.MODID)
 public class DazzleItems {
 	private static final List<ItemBlockLamp> LAMP_ITEMS = new ArrayList<>();
+	
+	@GameRegistry.ObjectHolder(DazzleBlocks.Names.PARTICLE_LIGHT)
+	public static final ItemParticleLight PARTICLE_LIGHT = null;
 	
 	public static void init(IForgeRegistry<Item> reg) {
 		for(BlockLamp lamp : DazzleBlocks.getLamps()) {
