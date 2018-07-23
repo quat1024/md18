@@ -3,6 +3,7 @@ package quaternary.dazzle.client;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
+import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
@@ -10,9 +11,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import quaternary.dazzle.client.statemapper.IgnoreAllStateMapper;
 import quaternary.dazzle.common.Dazzle;
-import quaternary.dazzle.common.block.BlockLamp;
-import quaternary.dazzle.common.block.DazzleBlocks;
+import quaternary.dazzle.common.block.*;
 import quaternary.dazzle.common.item.DazzleItems;
 import quaternary.dazzle.common.item.ItemBlockLamp;
 import quaternary.dazzle.common.particle.ParticleLightSource;
@@ -22,9 +23,15 @@ import java.util.Collections;
 public class ClientEvents {
 	@SubscribeEvent
 	public static void blockColors(ColorHandlerEvent.Block e) {
+		BlockColors colors = e.getBlockColors();
+		
 		for(BlockLamp lamp : DazzleBlocks.getLamps()) {
-			e.getBlockColors().registerBlockColorHandler(lamp::getBlockColor, lamp);
+			colors.registerBlockColorHandler(lamp::getBlockColor, lamp);
 		}
+		
+		//Despite this block having no model, registering a blockcolor for it applies colors to the breaking particles
+		//Looks pretty spiffy.
+		colors.registerBlockColorHandler(((state, worldIn, pos, tintIndex) -> state.getValue(BlockParticleLightSource.COLOR).getColorValue()), DazzleBlocks.PARTICLE_LIGHT);
 	}
 	
 	@SubscribeEvent
@@ -51,16 +58,12 @@ public class ClientEvents {
 		setItemColor16ColorsMRL(Item.getItemFromBlock(DazzleBlocks.PARTICLE_LIGHT));
 		
 		for(BlockLamp lamp : DazzleBlocks.getLamps()) {
-			ModelLoader.setCustomStateMapper(lamp, new StateMapperBase() {
-				@Override
-				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-					return new ModelResourceLocation(new ResourceLocation(Dazzle.MODID, "lamp_" + lamp.getVariant()), "normal");
-				}
-			});
+			ModelLoader.setCustomStateMapper(lamp, new IgnoreAllStateMapper("lamp_" + lamp.getVariant()));
 		}
 		
+		ModelLoader.setCustomStateMapper(DazzleBlocks.PARTICLE_LIGHT, new IgnoreAllStateMapper("particle_light_dummy"));
+		
 		ModelLoader.setCustomStateMapper(DazzleBlocks.INVISIBLE_LIGHT, (state) -> Collections.emptyMap());
-		ModelLoader.setCustomStateMapper(DazzleBlocks.PARTICLE_LIGHT, (state) -> Collections.emptyMap());
 	}
 	
 	private static void setDefaultMRL(Item i) {

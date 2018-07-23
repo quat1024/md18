@@ -22,10 +22,9 @@ import quaternary.dazzle.common.tile.TileParticleLightSource;
 import javax.annotation.Nullable;
 import java.util.Collections;
 
-//based on copypasta of BlockInvisibleLightSource
-//TODO make it not copypasta
 public class BlockParticleLightSource extends Block {
 	public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.create("color", EnumDyeColor.class);
+	public static final AxisAlignedBB AABB = new AxisAlignedBB(4/16d, 4/16d, 4/16d, 12/16d, 12/16d, 12/16d);
 	
 	public BlockParticleLightSource() {
 		//The closest thing to Material.AIR that isn't.
@@ -34,11 +33,17 @@ public class BlockParticleLightSource extends Block {
 		setDefaultState(getDefaultState().withProperty(COLOR, EnumDyeColor.WHITE));
 	}
 	
-	/*
+	//selection box
 	@Override
-	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> items) {
-		//TODO
-	}*/
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		return AABB;
+	}
+	
+	//metadata memes
+	@Override
+	public int damageDropped(IBlockState state) {
+		return state.getValue(COLOR).getMetadata();
+	}
 	
 	//tile
 	@Override
@@ -79,13 +84,6 @@ public class BlockParticleLightSource extends Block {
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.INVISIBLE;
 	}
-	
-	//Make it invisible super for real
-	@Override
-	public boolean isFullBlock(IBlockState state) {
-		return false;
-	}
-	
 	@Override
 	public boolean isFullCube(IBlockState state) {
 		return false;
@@ -96,39 +94,13 @@ public class BlockParticleLightSource extends Block {
 		return false;
 	}
 	
-	@Override
-	public boolean isNormalCube(IBlockState state, IBlockAccess world, BlockPos pos) {
-		return false;
-	}
-	
-	@Override
-	public boolean isAir(IBlockState state, IBlockAccess world, BlockPos pos) {
-		return true;
-	}
-	
-	@Override //VERY GOOD MOJANGLE
-	public boolean isBlockNormalCube(IBlockState state) {
-		return false;
-	}
-	
-	//Make it non collideable
-	public boolean canCollideCheck(IBlockState state, boolean hitIfLiquid)
-	{
-		return false;
-	}
-	
 	@Nullable
 	@Override
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return NULL_AABB;
 	}
 	
-	//Uhh
-	@Override
-	public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
-		return true;
-	}
-	
+	//Yeet
 	@Override
 	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing face) {
 		return BlockFaceShape.UNDEFINED;

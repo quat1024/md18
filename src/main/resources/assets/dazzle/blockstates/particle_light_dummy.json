@@ -1,0 +1,7 @@
+{
+	"variants": {
+		"normal": {
+			"model": "dazzle:particle_light_dummy"
+		}
+	}
+}
