@@ -9,6 +9,8 @@ public enum EnumLampVariant {
 	LANTERN,
 	;
 	
+	public boolean isEnabled = true;
+	
 	@Override
 	public String toString() {
 		return name().toLowerCase(Locale.ROOT);

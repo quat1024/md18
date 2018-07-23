@@ -18,7 +18,7 @@ import quaternary.dazzle.common.tile.TileParticleLightSource;
 
 import static quaternary.dazzle.common.Dazzle.MODID;
 
-@Mod(modid = MODID, name = Dazzle.NAME, version = Dazzle.VERSION)
+@Mod(modid = MODID, name = Dazzle.NAME, version = Dazzle.VERSION, guiFactory = "quaternary.dazzle.client.config.DazzleGuiFactory")
 @Mod.EventBusSubscriber(modid = MODID)
 public class Dazzle {
 	public static final String MODID = "dazzle";
@@ -32,6 +32,8 @@ public class Dazzle {
 	
 	@Mod.EventHandler
 	public static void preinit(FMLPreInitializationEvent e) {
+		DazzleConfig.preinit(e);
+		
 		PROXY.preinit();
 	}
 	

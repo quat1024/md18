@@ -68,6 +68,8 @@ public class DazzleBlocks {
 	private static void populateLamps() {
 		for(EnumDyeColor color : EnumDyeColor.values()) {
 			for(EnumLampVariant variant : EnumLampVariant.values()) {
+				if(!variant.isEnabled) continue;
+				
 				String digitalName = String.format("%s_%s_digital_lamp", color.getName(), variant);
 				LAMPS.add(createBlock(new BlockDigitalLamp(color, variant), digitalName));
 				
