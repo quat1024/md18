@@ -1,8 +1,5 @@
 itemGroup.dazzle=Dazzle
 
-tile.dazzle.panel.name=Light Panel
-tile.dazzle.light_sensor.name=Light Sensor
-
 # Note to translators:
 # The following two keys are used to translate the name of the lamp items.
 #
@@ -44,5 +41,6 @@ tile.dazzle.invisible_light_source.name=Invisible Light Source (how are you read
 tile.dazzle.dim_redstone_torch.name=Dim Redstone Torch
 tile.dazzle.particle_light_source.name=%s Dust Light
 tile.dazzle.light_sensor.name=Light Sensor
+tile.dazzle.panel.name=Light Panel
 
 dazzle.wip=WARNING: Unfinished!

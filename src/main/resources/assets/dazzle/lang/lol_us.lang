@@ -1,8 +1,5 @@
 itemGroup.dazzle=DAZLOL
 
-tile.dazzle.panel.name=Lite Panul
-tile.dazzle.light_sensor.name=Lite Censor
-
 tile.dazzle.digital_lamp.name=Digutal $COLOR $STYLE
 tile.dazzle.analog_lamp.name=Anilog $COLOR $STYLE
 
@@ -37,5 +34,6 @@ tile.dazzle.invisible_light_source.name=Invisbel Lapm (OMG HAX?!)
 tile.dazzle.dim_redstone_torch.name=Not As Glowy Redstone Stik
 tile.dazzle.particle_light_source.name=%s litter box liht
 tile.dazzle.light_sensor.name=light eater 2
+tile.dazzle.panel.name=Lite Panul
 
 dazzle.wip=NOOOOOO SCARY DO NO USE

@@ -1,8 +1,5 @@
 itemGroup.dazzle=Dazzle\炫彩灯光
 
-tile.dazzle.panel.name=发光板
-tile.dazzle.light_sensor.name=光学传感器
-
 tile.dazzle.digital_lamp.name=$COLOR$STYLE
 tile.dazzle.analog_lamp.name=感应型$COLOR$STYLE
 
@@ -33,3 +30,4 @@ tile.dazzle.invisible_light_source.name=隐形光源（你怎么看这个？）
 tile.dazzle.dim_redstone_torch.name=昏暗的红石火把
 tile.dazzle.particle_light_source.name=%s闪光尘
 tile.dazzle.light_sensor.name=光学传感器
+tile.dazzle.panel.name=发光板
