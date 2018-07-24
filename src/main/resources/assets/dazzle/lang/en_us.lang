@@ -3,8 +3,17 @@ itemGroup.dazzle=Dazzle
 tile.dazzle.panel.name=Light Panel
 tile.dazzle.light_sensor.name=Light Sensor
 
-tile.dazzle.digital_lamp.name=%s %s
-tile.dazzle.analog_lamp.name=Analog %s %s
+# Note to translators:
+# The following two keys are used to translate the name of the lamp items.
+#
+# "$COLOR" is replaced with the color (translated from the "dazzle.color" keys)
+# "$STYLE" is replaced with the lamp style (translated from the "dazzle.lamp_style" keys)
+#
+# Switching their positions might be required in order to make it work better in your language.
+# Let me know if you need more control!
+
+tile.dazzle.digital_lamp.name=$COLOR $STYLE
+tile.dazzle.analog_lamp.name=Analog $COLOR $STYLE
 
 dazzle.lamp_style.classic=Classic Lamp
 dazzle.lamp_style.modern=Modern Lamp

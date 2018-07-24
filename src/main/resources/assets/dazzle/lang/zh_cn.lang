@@ -3,8 +3,8 @@ itemGroup.dazzle=Dazzle\炫彩灯光
 tile.dazzle.panel.name=发光板
 tile.dazzle.light_sensor.name=光学传感器
 
-tile.dazzle.digital_lamp.name=%s%s
-tile.dazzle.analog_lamp.name=感应型%s%s
+tile.dazzle.digital_lamp.name=$COLOR$STYLE
+tile.dazzle.analog_lamp.name=感应型$COLOR$STYLE
 
 dazzle.lamp_style.classic=经典灯
 dazzle.lamp_style.modern=霓虹灯

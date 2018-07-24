@@ -36,7 +36,11 @@ public class ItemBlockLamp extends ItemBlock {
 	public String getItemStackDisplayName(ItemStack stack) {
 		String lampStyleLocal = I18n.translateToLocal("dazzle.lamp_style." + style);
 		String colorLocal = I18n.translateToLocal("dazzle.color." + color.getUnlocalizedName());
-		return I18n.translateToLocalFormatted(langKey, colorLocal, lampStyleLocal);
+		String templateLocal = I18n.translateToLocal(langKey);
+		
+		return templateLocal.replace("$STYLE", lampStyleLocal).replace("$COLOR", colorLocal);
+		
+		//return I18n.translateToLocalFormatted(langKey, colorLocal, lampStyleLocal);
 	}
 	
 	public EnumDyeColor getColor() {
