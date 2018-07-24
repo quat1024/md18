@@ -17,6 +17,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import quaternary.dazzle.common.etc.EnumLampVariant;
 import quaternary.dazzle.common.etc.Util;
+import quaternary.dazzle.common.item.DazzleItems;
 
 public abstract class AbstractBlockLamp extends Block {
 	final EnumDyeColor color;
@@ -69,7 +70,9 @@ public abstract class AbstractBlockLamp extends Block {
 	//Interactions
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if(player.getHeldItem(hand).getItem() == Item.getItemFromBlock(Blocks.REDSTONE_TORCH)) {
+		Item heldItem = player.getHeldItem(hand).getItem();
+		
+		if(heldItem == Item.getItemFromBlock(Blocks.REDSTONE_TORCH) || heldItem == DazzleItems.DIM_REDSTONE_TORCH) {
 			world.setBlockState(pos, getInvertedState(state));
 			return true;
 		}

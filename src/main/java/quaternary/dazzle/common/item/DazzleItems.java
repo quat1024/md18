@@ -19,6 +19,9 @@ public class DazzleItems {
 	@GameRegistry.ObjectHolder(DazzleBlocks.Names.PARTICLE_LIGHT)
 	public static final ItemParticleLight PARTICLE_LIGHT = null;
 	
+	@GameRegistry.ObjectHolder(DazzleBlocks.Names.DIM_REDSTONE_TORCH)
+	public static final ItemBlock DIM_REDSTONE_TORCH = null;
+	
 	public static void init(IForgeRegistry<Item> reg) {
 		for(AbstractBlockLamp lamp : DazzleBlocks.getLamps()) {
 			if(lamp.hasItemForm()) {
