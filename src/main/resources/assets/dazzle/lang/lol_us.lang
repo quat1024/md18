@@ -1,0 +1,41 @@
+itemGroup.dazzle=DAZLOL
+
+tile.dazzle.panel.name=Lite Panul
+tile.dazzle.light_sensor.name=Lite Censor
+
+tile.dazzle.digital_lamp.name=Digutal $COLOR $STYLE
+tile.dazzle.analog_lamp.name=Anilog $COLOR $STYLE
+
+dazzle.lamp_style.classic=Old Tyme Lapm
+dazzle.lamp_style.modern=Fancy Lapm
+dazzle.lamp_style.pulsating=Mespurrizing Lapm
+dazzle.lamp_style.lantern=AAAAAAA WATER LANTURN!!!!!!!
+
+#taken from the "teracottah" translations
+
+dazzle.color.black=Blak
+dazzle.color.blue=Bloo
+dazzle.color.brown=Brownish
+dazzle.color.cyan=Nyan
+dazzle.color.gray=Greyh
+dazzle.color.green=Gren
+dazzle.color.lightBlue=Lite Blu
+dazzle.color.lime=Laym
+dazzle.color.magenta=Majenta
+dazzle.color.namenedly
+dazzle.color.orange=Orang
+dazzle.color.pink=Pinky
+dazzle.color.purple=Parpal
+dazzle.color.red=Reddish
+dazzle.color.silver=Lite Greyh
+dazzle.color.white=Waite
+dazzle.color.yellow=Yello
+
+dazzle.tooltip.lamp=Use a Glowy Redstone Stik to inpurrrrt
+
+tile.dazzle.invisible_light_source.name=Invisbel Lapm (OMG HAX?!)
+tile.dazzle.dim_redstone_torch.name=Not As Glowy Redstone Stik
+tile.dazzle.particle_light_source.name=%s litter box liht
+tile.dazzle.light_sensor.name=light eater 2
+
+dazzle.wip=NOOOOOO SCARY DO NO USE
