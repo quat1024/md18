@@ -23,7 +23,7 @@ import static quaternary.dazzle.common.Dazzle.MODID;
 public class Dazzle {
 	public static final String MODID = "dazzle";
 	public static final String NAME = "Dazzle";
-	public static final String VERSION = "1.1.0";
+	public static final String VERSION = "2.0.0";
 	
 	public static final Logger LOGGER = LogManager.getLogger(NAME);
 	
@@ -48,5 +48,32 @@ public class Dazzle {
 	@SubscribeEvent
 	public static void items(RegistryEvent.Register<Item> e) {
 		DazzleItems.init(e.getRegistry());
+	}
+	
+	@SubscribeEvent
+	public static void missingBlockMappings(RegistryEvent.MissingMappings<Block> e) {
+		for(RegistryEvent.MissingMappings.Mapping<Block> mapping : e.getMappings()) {
+			switch(mapping.key.getResourcePath()) {
+				case "stadium_base":
+				case "stadium_base_structure":
+				case "stadium_pole":
+				case "stadium_top":
+					mapping.ignore();
+					break;
+			}
+		}
+	}
+	
+	@SubscribeEvent
+	public static void missingItemMappings(RegistryEvent.MissingMappings<Item> e) {
+		for(RegistryEvent.MissingMappings.Mapping<Item> mapping : e.getMappings()) {
+			switch(mapping.key.getResourcePath()) {
+				case "stadium_base":
+				case "stadium_pole":
+				case "stadium_top":
+					mapping.ignore();
+					break;
+			}
+		}
 	}
 }
